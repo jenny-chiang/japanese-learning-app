@@ -1,0 +1,494 @@
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
+import { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
+import { useAppStore } from '../src/store/useAppStore';
+import { correctDiaryWithGemini } from '../src/services/diaryApi';
+import { DiaryEntry } from '../src/types';
+import { Colors } from '../src/constants/colors';
+
+export default function DiaryScreen() {
+  const [diaryText, setDiaryText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+  const [useMockData, setUseMockData] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
+  const [selectedDiary, setSelectedDiary] = useState<any>(null);
+
+  const { addDiaryEntry, todayDiary, diaryEntries, settings } = useAppStore();
+
+  const handleSubmit = async () => {
+    if (!diaryText.trim()) return;
+
+    setLoading(true);
+
+    try {
+      let result;
+
+      // 檢查是否有 Gemini API Key
+      const hasGeminiKey =
+        process.env.EXPO_PUBLIC_GEMINI_API_KEY &&
+        process.env.EXPO_PUBLIC_GEMINI_API_KEY !== '';
+
+      if (hasGeminiKey && !useMockData) {
+        result = await correctDiaryWithGemini(diaryText, settings.mainLevel);
+        // 使用 Gemini
+      } else {
+        // 使用 Mock 資料
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        result = {
+          corrected:
+            diaryText +
+            '\n\n(這是 Mock 資料。若要使用真實 AI,請在 .env 檔案中設定 API Key)',
+          explanations: [
+            '💡 目前使用測試模式',
+            '✅ 若要啟用真實 AI 批改:',
+            '1. 取得 Gemini API Key (免費!)',
+            '2. 在專案根目錄的 .env 檔案中填入',
+            '3. 重新啟動 App',
+          ],
+          grammarPoints: ['測試模式'],
+        };
+      }
+
+      addDiaryEntry({
+        original: diaryText,
+        corrected: result.corrected,
+        explanations: result.explanations,
+        vocabIds: result.vocabIds || [],
+        grammarPoints: result.grammarPoints,
+      });
+
+      setLoading(false);
+      setShowResult(true);
+    } catch (error) {
+      setLoading(false);
+      Alert.alert(
+        '批改失敗',
+        error instanceof Error ? error.message : '發生未知錯誤,請稍後再試',
+        [
+          {
+            text: '使用測試資料',
+            onPress: () => {
+              setUseMockData(true);
+              handleSubmit();
+            },
+          },
+          { text: '取消', style: 'cancel' },
+        ]
+      );
+    }
+  };
+  const handleNewDiary = () => {
+    setDiaryText('');
+    setShowResult(false);
+    setSelectedDiary(null);
+  };
+
+  const viewDiary = (diary: any) => {
+    setSelectedDiary(diary);
+    setShowResult(true);
+  };
+
+  // 顯示歷史記錄
+  if (showHistory) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.headerRow}>
+            <TouchableOpacity
+              onPress={() => setShowHistory(false)}
+              style={styles.backButton}
+            >
+              <Ionicons name='arrow-back' size={24} color='#111827' />
+            </TouchableOpacity>
+            <Text style={styles.title}>日記歷史</Text>
+          </View>
+        </View>
+        <ScrollView>
+          {diaryEntries.length === 0 ? (
+            <View style={styles.emptyState}>
+              <Ionicons
+                name='document-text-outline'
+                size={64}
+                color='#9CA3AF'
+              />
+              <Text style={styles.emptyText}>還沒有日記喔</Text>
+            </View>
+          ) : (
+            diaryEntries
+              .slice()
+              .reverse()
+              .map((entry: DiaryEntry) => (
+                <TouchableOpacity
+                  key={entry.id}
+                  style={styles.historyItem}
+                  onPress={() => {
+                    viewDiary(entry);
+                    setShowHistory(false);
+                  }}
+                >
+                  <View style={styles.historyHeader}>
+                    <Text style={styles.historyDate}>
+                      {new Date(entry.createdAt).toLocaleDateString('zh-TW', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </Text>
+                    <Ionicons
+                      name='chevron-forward'
+                      size={20}
+                      color='#9CA3AF'
+                    />
+                  </View>
+                  <Text style={styles.historyPreview} numberOfLines={2}>
+                    {entry.original}
+                  </Text>
+                </TouchableOpacity>
+              ))
+          )}
+        </ScrollView>
+      </View>
+    );
+  }
+
+  if (showResult && (todayDiary || selectedDiary)) {
+    const diary = selectedDiary || todayDiary;
+    return (
+      <ScrollView style={styles.container}>
+        <View style={styles.resultHeader}>
+          <TouchableOpacity onPress={handleNewDiary} style={styles.backButton}>
+            <Ionicons name='arrow-back' size={24} color='#111827' />
+          </TouchableOpacity>
+          <View style={styles.resultHeaderContent}>
+            <Ionicons name='checkmark-circle' size={48} color='#10B981' />
+            <Text style={styles.resultTitle}>日文老師已批改!</Text>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionLabel}>你寫的</Text>
+          <View style={styles.textBox}>
+            <Text style={styles.originalText}>{diary.original}</Text>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionLabel}>修正版</Text>
+          <View style={[styles.textBox, styles.correctedBox]}>
+            <Text style={styles.correctedText}>{diary.corrected}</Text>
+          </View>
+        </View>
+
+        {diary.explanations && diary.explanations.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionLabel}>老師的話</Text>
+            {diary.explanations.map((explanation: string, index: number) => (
+              <View key={index} style={styles.explanationItem}>
+                <Ionicons name='bulb' size={16} color='#F59E0B' />
+                <Text style={styles.explanationText}>{explanation}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {diary.grammarPoints && diary.grammarPoints.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionLabel}>文法重點</Text>
+            <View style={styles.tagsContainer}>
+              {diary.grammarPoints.map((point: string, index: number) => (
+                <View key={index} style={styles.tag}>
+                  <Text style={styles.tagText}>{point}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
+
+        <TouchableOpacity
+          style={styles.newDiaryButton}
+          onPress={handleNewDiary}
+        >
+          <Ionicons name='add-circle' size={24} color='#fff' />
+          <Text style={styles.newDiaryButtonText}>再寫一篇</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.headerRow}>
+          <View>
+            <Text style={styles.title}>今天想分享什麼?</Text>
+            <Text style={styles.subtitle}>用日文寫下你的一天吧 ✍️</Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => setShowHistory(true)}
+            style={styles.historyButton}
+          >
+            <Ionicons name='time-outline' size={24} color={Colors.primary} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          multiline
+          placeholder='今日は...'
+          placeholderTextColor='#9CA3AF'
+          value={diaryText}
+          onChangeText={setDiaryText}
+          textAlignVertical='top'
+        />
+      </View>
+
+      <View style={styles.tipBox}>
+        <Ionicons name='information-circle' size={20} color={Colors.primary} />
+        <Text style={styles.tipText}>不用擔心寫錯,老師會幫你修正!</Text>
+      </View>
+
+      <TouchableOpacity
+        style={[styles.submitButton, loading && styles.disabledButton]}
+        onPress={handleSubmit}
+        disabled={loading || !diaryText.trim()}
+      >
+        {loading ? (
+          <ActivityIndicator color='#fff' />
+        ) : (
+          <>
+            <Ionicons name='send' size={24} color='#fff' />
+            <Text style={styles.submitButtonText}>送給老師看</Text>
+          </>
+        )}
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F9FAFB',
+  },
+  header: {
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  backButton: {
+    padding: 8,
+    marginRight: 12,
+  },
+  historyButton: {
+    padding: 8,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#111827',
+    marginBottom: 4,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#6B7280',
+  },
+  inputContainer: {
+    margin: 16,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  input: {
+    minHeight: 200,
+    padding: 16,
+    fontSize: 16,
+    color: '#111827',
+    lineHeight: 24,
+  },
+  tipBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 16,
+    marginBottom: 16,
+    padding: 12,
+    backgroundColor: '#EEF2FF',
+    borderRadius: 8,
+  },
+  tipText: {
+    fontSize: 14,
+    color: '#4338CA',
+    marginLeft: 8,
+    flex: 1,
+  },
+  submitButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.primary,
+    margin: 16,
+    padding: 16,
+    borderRadius: 12,
+  },
+  disabledButton: {
+    opacity: 0.6,
+  },
+  submitButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+    marginLeft: 8,
+  },
+  resultHeader: {
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+    paddingTop: 20,
+  },
+  resultHeaderContent: {
+    alignItems: 'center',
+    padding: 24,
+  },
+  resultTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#111827',
+    marginTop: 12,
+  },
+  section: {
+    margin: 16,
+  },
+  sectionLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#374151',
+    marginBottom: 8,
+  },
+  textBox: {
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  correctedBox: {
+    backgroundColor: '#ECFDF5',
+    borderWidth: 1,
+    borderColor: '#10B981',
+  },
+  originalText: {
+    fontSize: 16,
+    color: '#374151',
+    lineHeight: 24,
+  },
+  correctedText: {
+    fontSize: 16,
+    color: '#065F46',
+    lineHeight: 24,
+  },
+  explanationItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    backgroundColor: '#FFFBEB',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  explanationText: {
+    fontSize: 14,
+    color: '#92400E',
+    marginLeft: 8,
+    flex: 1,
+  },
+  tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  tag: {
+    backgroundColor: '#EEF2FF',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+  },
+  tagText: {
+    fontSize: 14,
+    color: '#4338CA',
+    fontWeight: '500',
+  },
+  newDiaryButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.primary,
+    margin: 16,
+    padding: 16,
+    borderRadius: 12,
+  },
+  newDiaryButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '600',
+    marginLeft: 8,
+  },
+  emptyState: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 48,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#9CA3AF',
+    marginTop: 16,
+  },
+  historyItem: {
+    backgroundColor: '#fff',
+    padding: 16,
+    marginHorizontal: 16,
+    marginBottom: 8,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  historyHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  historyDate: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: Colors.primary,
+  },
+  historyPreview: {
+    fontSize: 14,
+    color: '#6B7280',
+    lineHeight: 20,
+  },
+});
