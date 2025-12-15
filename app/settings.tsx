@@ -1,11 +1,48 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Switch,
+  Alert,
+  Platform,
+} from 'react-native';
+import { useState, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { useAppStore } from '../src/store/useAppStore';
 import { JLPTLevel } from '../src/types';
 import { Colors } from '../src/constants/colors';
+import { useTranslation } from 'react-i18next';
+import {
+  requestNotificationPermissions,
+  scheduleDailyNotification,
+  cancelAllNotifications,
+} from '../src/services/notificationService';
 
 export default function SettingsScreen() {
-  const { settings, updateSettings, resetAllData } = useAppStore();
+  const { settings, updateSettings, resetAllData, stats, achievements } = useAppStore();
+  const { t, i18n } = useTranslation();
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [tempTime, setTempTime] = useState(new Date());
+  const [tempDate, setTempDate] = useState(new Date());
+
+  useEffect(() => {
+    // 初始化時間選擇器的預設值
+    if (settings.reminderTime) {
+      const [hour, minute] = settings.reminderTime.split(':').map(Number);
+      const date = new Date();
+      date.setHours(hour, minute);
+      setTempTime(date);
+    }
+
+    // 初始化日期選擇器的預設值
+    if (settings.examDate) {
+      setTempDate(new Date(settings.examDate));
+    }
+  }, [settings.reminderTime, settings.examDate]);
 
   const handleLevelChange = (level: JLPTLevel) => {
     updateSettings({ mainLevel: level });
@@ -16,26 +53,101 @@ export default function SettingsScreen() {
     updateSettings({ wordsPerDay: newValue });
   };
 
-  const handleNotificationToggle = (value: boolean) => {
-    updateSettings({ notificationsEnabled: value });
+  const handleNotificationToggle = async (value: boolean) => {
+    if (value) {
+      // 開啟通知 - 請求權限
+      const hasPermission = await requestNotificationPermissions();
+
+      if (!hasPermission) {
+        Alert.alert(
+          t('needNotificationPermission'),
+          t('notificationPermissionMessage'),
+          [{ text: t('ok') }]
+        );
+        return;
+      }
+
+      // 排程通知
+      const [hour, minute] = (settings.reminderTime || '21:30')
+        .split(':')
+        .map(Number);
+      const notificationId = await scheduleDailyNotification(hour, minute);
+
+      if (notificationId) {
+        updateSettings({ notificationsEnabled: true });
+        Alert.alert(
+          t('reminderEnabled_alert'),
+          t('reminderEnabledMessage', { time: settings.reminderTime || '21:30' })
+        );
+      } else {
+        Alert.alert(t('reminderFailed'), t('reminderFailedMessage'));
+      }
+    } else {
+      // 關閉通知
+      await cancelAllNotifications();
+      updateSettings({ notificationsEnabled: false });
+    }
+  };
+
+  const handleTimeChange = async (event: any, selectedDate?: Date) => {
+    if (Platform.OS === 'android') {
+      setShowTimePicker(false);
+    }
+
+    if (selectedDate && event.type !== 'dismissed') {
+      setTempTime(selectedDate);
+
+      const hour = selectedDate.getHours();
+      const minute = selectedDate.getMinutes();
+      const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+
+      updateSettings({ reminderTime: timeString });
+
+      // 如果通知已開啟,重新排程
+      if (settings.notificationsEnabled) {
+        await cancelAllNotifications();
+        await scheduleDailyNotification(hour, minute);
+        Alert.alert(t('timeUpdated'), t('timeUpdatedMessage', { time: timeString }));
+      }
+    }
+
+    if (Platform.OS === 'ios') {
+      setShowTimePicker(false);
+    }
+  };
+
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    if (Platform.OS === 'android') {
+      setShowDatePicker(false);
+    }
+
+    if (selectedDate && event.type !== 'dismissed') {
+      setTempDate(selectedDate);
+
+      // 格式化日期為 YYYY-MM-DD
+      const dateString = selectedDate.toISOString().split('T')[0];
+      updateSettings({ examDate: dateString });
+
+      Alert.alert(t('dateSet'), t('dateSetMessage', { date: dateString }));
+    }
+
+    if (Platform.OS === 'ios') {
+      setShowDatePicker(false);
+    }
   };
 
   const handleReset = () => {
-    Alert.alert(
-      '確認重置',
-      '這會清除所有學習記錄,確定要繼續嗎?',
-      [
-        { text: '取消', style: 'cancel' },
-        {
-          text: '確定',
-          style: 'destructive',
-          onPress: () => {
-            resetAllData();
-            Alert.alert('已重置', '所有學習記錄已清除');
-          }
-        }
-      ]
-    );
+    Alert.alert(t('confirmReset'), t('confirmResetMessage'), [
+      { text: t('cancel'), style: 'cancel' },
+      {
+        text: t('confirm'),
+        style: 'destructive',
+        onPress: () => {
+          resetAllData();
+          Alert.alert(t('resetComplete'), t('resetCompleteMessage'));
+        },
+      },
+    ]);
   };
 
   const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
@@ -43,8 +155,8 @@ export default function SettingsScreen() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>JLPT 主戰等級</Text>
-        <Text style={styles.sectionDescription}>選擇你目前主力準備的等級</Text>
+        <Text style={styles.sectionTitle}>{t('jlptLevel')}</Text>
+        <Text style={styles.sectionDescription}>{t('jlptLevelDesc')}</Text>
 
         <View style={styles.levelContainer}>
           {levels.map((level) => (
@@ -52,14 +164,16 @@ export default function SettingsScreen() {
               key={level}
               style={[
                 styles.levelButton,
-                settings.mainLevel === level && styles.levelButtonActive
+                settings.mainLevel === level && styles.levelButtonActive,
               ]}
               onPress={() => handleLevelChange(level)}
             >
-              <Text style={[
-                styles.levelButtonText,
-                settings.mainLevel === level && styles.levelButtonTextActive
-              ]}>
+              <Text
+                style={[
+                  styles.levelButtonText,
+                  settings.mainLevel === level && styles.levelButtonTextActive,
+                ]}
+              >
                 {level}
               </Text>
             </TouchableOpacity>
@@ -68,71 +182,200 @@ export default function SettingsScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>每日單字數</Text>
-        <Text style={styles.sectionDescription}>設定每天想背的單字數量</Text>
+        <Text style={styles.sectionTitle}>{t('wordsPerDay')}</Text>
+        <Text style={styles.sectionDescription}>{t('wordsPerDayDesc')}</Text>
 
         <View style={styles.counterContainer}>
           <TouchableOpacity
             style={styles.counterButton}
             onPress={() => handleWordsPerDayChange(-5)}
           >
-            <Ionicons name="remove" size={24} color={Colors.primary} />
+            <Ionicons name='remove' size={24} color={Colors.primary} />
           </TouchableOpacity>
 
           <View style={styles.counterValue}>
             <Text style={styles.counterNumber}>{settings.wordsPerDay}</Text>
-            <Text style={styles.counterLabel}>個/天</Text>
+            <Text style={styles.counterLabel}>{t('perDay')}</Text>
           </View>
 
           <TouchableOpacity
             style={styles.counterButton}
             onPress={() => handleWordsPerDayChange(5)}
           >
-            <Ionicons name="add" size={24} color={Colors.primary} />
+            <Ionicons name='add' size={24} color={Colors.primary} />
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.section}>
+        <Text style={styles.sectionTitle}>{t('examDate')}</Text>
+        <Text style={styles.sectionDescription}>{t('examDateDesc')}</Text>
+
+        <TouchableOpacity
+          style={styles.datePickerButton}
+          onPress={() => setShowDatePicker(true)}
+        >
+          <Ionicons name='calendar-outline' size={24} color={Colors.primary} />
+          <Text style={styles.datePickerText}>
+            {settings.examDate || t('clickToSetDate')}
+          </Text>
+          <Ionicons name='chevron-forward' size={20} color='#9CA3AF' />
+        </TouchableOpacity>
+
+        {showDatePicker && (
+          <DateTimePicker
+            value={tempDate}
+            mode='date'
+            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+            onChange={handleDateChange}
+            minimumDate={new Date()}
+          />
+        )}
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>{t('dailyReminder')}</Text>
+        <Text style={styles.sectionDescription}>{t('dailyReminderDesc')}</Text>
+
         <View style={styles.settingRow}>
           <View style={styles.settingInfo}>
-            <Text style={styles.settingTitle}>每日提醒</Text>
+            <Text style={styles.settingTitle}>{t('enableReminder')}</Text>
             <Text style={styles.settingDescription}>
               {settings.notificationsEnabled
-                ? settings.reminderTime || '21:30'
-                : '已關閉'}
+                ? t('reminderEnabled', { time: settings.reminderTime || '21:30' })
+                : t('reminderDisabled')}
             </Text>
           </View>
           <Switch
             value={settings.notificationsEnabled}
             onValueChange={handleNotificationToggle}
             trackColor={{ false: '#D1D5DB', true: '#C7D2FE' }}
-            thumbColor={settings.notificationsEnabled ? Colors.primary : '#F3F4F6'}
+            thumbColor={
+              settings.notificationsEnabled ? Colors.primary : '#F3F4F6'
+            }
           />
+        </View>
+
+        {settings.notificationsEnabled && (
+          <TouchableOpacity
+            style={styles.timePickerButton}
+            onPress={() => setShowTimePicker(true)}
+          >
+            <Ionicons name='time-outline' size={24} color={Colors.primary} />
+            <Text style={styles.timePickerText}>
+              {settings.reminderTime || '21:30'}
+            </Text>
+            <Ionicons name='chevron-forward' size={20} color='#9CA3AF' />
+          </TouchableOpacity>
+        )}
+
+        {showTimePicker && (
+          <DateTimePicker
+            value={tempTime}
+            mode='time'
+            is24Hour={true}
+            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+            onChange={handleTimeChange}
+          />
+        )}
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>{t('language')}</Text>
+        <Text style={styles.sectionDescription}>{t('languageDesc')}</Text>
+
+        <View style={styles.languageContainer}>
+          <TouchableOpacity
+            style={[
+              styles.languageButton,
+              i18n.language === 'zh' && styles.languageButtonActive,
+            ]}
+            onPress={() => i18n.changeLanguage('zh')}
+          >
+            <Text
+              style={[
+                styles.languageButtonText,
+                i18n.language === 'zh' && styles.languageButtonTextActive,
+              ]}
+            >
+              🇹🇼 繁體中文
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.languageButton,
+              i18n.language === 'en' && styles.languageButtonActive,
+            ]}
+            onPress={() => i18n.changeLanguage('en')}
+          >
+            <Text
+              style={[
+                styles.languageButtonText,
+                i18n.language === 'en' && styles.languageButtonTextActive,
+              ]}
+            >
+              🇬🇧 English
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>關於</Text>
+        <Text style={styles.sectionTitle}>{t('achievementTitle')}</Text>
+        <Text style={styles.sectionDescription}>
+          {t('achievementDesc', { days: stats.currentStreak })}
+        </Text>
+
+        <View style={styles.achievementsGrid}>
+          {achievements.map((achievement) => {
+            const titleKey = achievement.id.replace('streak-', 'streak');
+            const achievementTitleKey = titleKey === 'streak3' ? 'beginner' :
+                                       titleKey === 'streak7' ? 'persistent' :
+                                       titleKey === 'streak14' ? 'determined' : 'master';
+            return (
+              <View
+                key={achievement.id}
+                style={[
+                  styles.achievementItem,
+                  achievement.unlockedAt && styles.achievementUnlocked,
+                ]}
+              >
+                <Text style={styles.achievementIcon}>{achievement.icon}</Text>
+                <Text style={styles.achievementTitle}>
+                  {t(achievementTitleKey)}
+                </Text>
+                <Text style={styles.achievementDesc}>
+                  {t(titleKey)}
+                </Text>
+                {achievement.unlockedAt && (
+                  <Text style={styles.achievementUnlockedText}>
+                    {t('achievementUnlocked')}
+                  </Text>
+                )}
+              </View>
+            );
+          })}
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>{t('about')}</Text>
 
         <View style={styles.infoCard}>
           <View style={styles.infoRow}>
-            <Text style={styles.infoLabel}>版本</Text>
+            <Text style={styles.infoLabel}>{t('version')}</Text>
             <Text style={styles.infoValue}>1.0.0</Text>
           </View>
         </View>
       </View>
 
-      <TouchableOpacity
-        style={styles.resetButton}
-        onPress={handleReset}
-      >
-        <Ionicons name="trash" size={20} color="#EF4444" />
-        <Text style={styles.resetButtonText}>清除所有學習記錄</Text>
+      <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
+        <Ionicons name='trash' size={20} color='#EF4444' />
+        <Text style={styles.resetButtonText}>{t('resetData')}</Text>
       </TouchableOpacity>
 
       <View style={styles.footer}>
-        <Text style={styles.footerText}>慢慢來,考試也等你 🐌</Text>
+        <Text style={styles.footerText}>{t('footerText')}</Text>
       </View>
     </ScrollView>
   );
@@ -233,6 +476,24 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#6B7280',
   },
+  timePickerButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#F9FAFB',
+    padding: 16,
+    borderRadius: 12,
+    marginTop: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  timePickerText: {
+    flex: 1,
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.primary,
+    marginLeft: 12,
+  },
   infoCard: {
     gap: 12,
   },
@@ -266,6 +527,88 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#EF4444',
     marginLeft: 8,
+  },
+  datePickerButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#F9FAFB',
+    padding: 16,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  datePickerText: {
+    flex: 1,
+    fontSize: 16,
+    color: '#111827',
+    marginLeft: 12,
+  },
+  achievementsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  achievementItem: {
+    width: '47%',
+    backgroundColor: '#F9FAFB',
+    padding: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#E5E7EB',
+    opacity: 0.5,
+  },
+  achievementUnlocked: {
+    backgroundColor: '#FEF3C7',
+    borderColor: '#FCD34D',
+    opacity: 1,
+  },
+  achievementIcon: {
+    fontSize: 40,
+    marginBottom: 8,
+  },
+  achievementTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#111827',
+    marginBottom: 4,
+  },
+  achievementDesc: {
+    fontSize: 12,
+    color: '#6B7280',
+    textAlign: 'center',
+  },
+  achievementUnlockedText: {
+    fontSize: 11,
+    color: '#D97706',
+    fontWeight: '600',
+    marginTop: 4,
+  },
+  languageContainer: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  languageButton: {
+    flex: 1,
+    paddingVertical: 16,
+    alignItems: 'center',
+    backgroundColor: '#F3F4F6',
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: 'transparent',
+  },
+  languageButtonActive: {
+    backgroundColor: '#EEF2FF',
+    borderColor: Colors.primary,
+  },
+  languageButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#6B7280',
+  },
+  languageButtonTextActive: {
+    color: Colors.primary,
   },
   footer: {
     alignItems: 'center',

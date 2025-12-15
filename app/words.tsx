@@ -1,17 +1,19 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
 import { Word } from '../src/types';
 import { Colors } from '../src/constants/colors';
 
 export default function WordsScreen() {
-  const [selectedTab, setSelectedTab] = useState<'today' | 'all' | 'flagged'>('today');
+  const { t } = useTranslation();
+  const [selectedTab, setSelectedTab] = useState<'today' | 'all' | 'flagged' | 'wrong'>('today');
   const [practiceMode, setPracticeMode] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [showMeaning, setShowMeaning] = useState(false);
 
-  const { words, todayWords, updateWordFamiliarity, flagWord } = useAppStore();
+  const { words, todayWords, wrongWords, updateWordFamiliarity, flagWord } = useAppStore();
 
   const getDisplayWords = () => {
     switch (selectedTab) {
@@ -19,6 +21,8 @@ export default function WordsScreen() {
         return todayWords;
       case 'flagged':
         return words.filter((w: Word) => w.flagged);
+      case 'wrong':
+        return wrongWords;
       case 'all':
       default:
         return words;
@@ -47,7 +51,7 @@ export default function WordsScreen() {
       <View style={styles.wordContent}>
         <Text style={styles.wordKanji}>{item.kanji}</Text>
         <Text style={styles.wordKana}>{item.kana}</Text>
-        <Text style={styles.wordMeaning}>{item.meaningZh}</Text>
+        <Text style={styles.wordMeaning}>{item.meaning}</Text>
       </View>
       <View style={styles.wordItemRight}>
         <View style={styles.familiarityBadge}>
@@ -75,7 +79,7 @@ export default function WordsScreen() {
           onPress={() => setSelectedTab('today')}
         >
           <Text style={[styles.tabText, selectedTab === 'today' && styles.activeTabText]}>
-            今日
+            {t('todayTab')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -83,7 +87,15 @@ export default function WordsScreen() {
           onPress={() => setSelectedTab('all')}
         >
           <Text style={[styles.tabText, selectedTab === 'all' && styles.activeTabText]}>
-            全部
+            {t('allTab')}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tab, selectedTab === 'wrong' && styles.activeTab]}
+          onPress={() => setSelectedTab('wrong')}
+        >
+          <Text style={[styles.tabText, selectedTab === 'wrong' && styles.activeTabText]}>
+            {t('wrongTab')}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -91,7 +103,7 @@ export default function WordsScreen() {
           onPress={() => setSelectedTab('flagged')}
         >
           <Text style={[styles.tabText, selectedTab === 'flagged' && styles.activeTabText]}>
-            收藏
+            {t('flaggedTab')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -106,7 +118,7 @@ export default function WordsScreen() {
           }}
         >
           <Ionicons name="play-circle" size={24} color="#fff" />
-          <Text style={styles.practiceButtonText}>開始練習</Text>
+          <Text style={styles.practiceButtonText}>{t('startPractice')}</Text>
         </TouchableOpacity>
       )}
 
@@ -167,11 +179,11 @@ export default function WordsScreen() {
 
                 {showMeaning ? (
                   <View style={styles.meaningDisplay}>
-                    <Text style={styles.practiceMeaning}>{currentWord.meaningZh}</Text>
+                    <Text style={styles.practiceMeaning}>{currentWord.meaning}</Text>
                     {currentWord.exampleJa && (
                       <>
                         <Text style={styles.exampleJa}>{currentWord.exampleJa}</Text>
-                        <Text style={styles.exampleZh}>{currentWord.exampleZh}</Text>
+                        <Text style={styles.exampleTranslation}>{currentWord.exampleTranslation}</Text>
                       </>
                     )}
                   </View>
@@ -180,7 +192,7 @@ export default function WordsScreen() {
                     style={styles.showButton}
                     onPress={() => setShowMeaning(true)}
                   >
-                    <Text style={styles.showButtonText}>顯示意思</Text>
+                    <Text style={styles.showButtonText}>{t('showMeaning')}</Text>
                   </TouchableOpacity>
                 )}
 
@@ -190,25 +202,25 @@ export default function WordsScreen() {
                       style={[styles.familiarityButton, styles.lowButton]}
                       onPress={() => handleFamiliarityUpdate(0)}
                     >
-                      <Text style={styles.buttonText}>😵 不會</Text>
+                      <Text style={styles.buttonText}>{t('dontKnow')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={[styles.familiarityButton, styles.mediumLowButton]}
                       onPress={() => handleFamiliarityUpdate(1)}
                     >
-                      <Text style={styles.buttonText}>🤔 不熟</Text>
+                      <Text style={styles.buttonText}>{t('soSo')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={[styles.familiarityButton, styles.mediumButton]}
                       onPress={() => handleFamiliarityUpdate(2)}
                     >
-                      <Text style={styles.buttonText}>👌 還行</Text>
+                      <Text style={styles.buttonText}>{t('know')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={[styles.familiarityButton, styles.highButton]}
                       onPress={() => handleFamiliarityUpdate(3)}
                     >
-                      <Text style={styles.buttonText}>💯 很熟</Text>
+                      <Text style={styles.buttonText}>{t('know')}</Text>
                     </TouchableOpacity>
                   </View>
                 )}
@@ -397,7 +409,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     textAlign: 'center',
   },
-  exampleZh: {
+  exampleTranslation: {
     fontSize: 14,
     color: '#6B7280',
     textAlign: 'center',

@@ -1,30 +1,56 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
 import { Colors } from '../src/constants/colors';
 
 export default function TodayScreen() {
   const router = useRouter();
-  const { todayProgress, words, todayDiaryDone } = useAppStore();
+  const { t } = useTranslation();
+  const { todayProgress, stats, getDaysUntilExam, achievements } = useAppStore();
 
   const todayWordCount = todayProgress.todayWordCount;
   const doneWordCount = todayProgress.doneWordCount;
-  const diaryDone = todayDiaryDone;
+  const diaryDone = todayProgress.diaryDone;
+  const daysUntilExam = getDaysUntilExam();
+  const unlockedAchievements = achievements.filter((a) => a.unlockedAt);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>今天的小任務</Text>
-        <Text style={styles.subtitle}>慢慢來,考試也等你 🐌</Text>
+        <Text style={styles.title}>{t('todayTitle')}</Text>
+        {daysUntilExam !== null && daysUntilExam > 0 && (
+          <Text style={styles.examCountdown}>
+            📅 {t('daysUntilExam', { days: daysUntilExam })}
+          </Text>
+        )}
+      </View>
+
+      {/* 連續打卡 & 成就 */}
+      <View style={styles.statsRow}>
+        <View style={styles.streakCard}>
+          <Text style={styles.streakEmoji}>🔥</Text>
+          <Text style={styles.streakNumber}>{stats.currentStreak}</Text>
+          <Text style={styles.streakLabel}>{t('currentStreak')}</Text>
+        </View>
+        <View style={styles.achievementCard}>
+          <Text style={styles.achievementEmoji}>
+            {unlockedAchievements.length > 0
+              ? unlockedAchievements[unlockedAchievements.length - 1].icon
+              : '🏆'}
+          </Text>
+          <Text style={styles.achievementNumber}>{unlockedAchievements.length}</Text>
+          <Text style={styles.achievementLabel}>{t('achievements')}</Text>
+        </View>
       </View>
 
       <View style={styles.progressCard}>
-        <Text style={styles.progressTitle}>今日進度</Text>
+        <Text style={styles.progressTitle}>{t('todayProgress')}</Text>
         <View style={styles.progressStats}>
           <View style={styles.statItem}>
             <Text style={styles.statNumber}>{doneWordCount}/{todayWordCount}</Text>
-            <Text style={styles.statLabel}>單字</Text>
+            <Text style={styles.statLabel}>{t('wordsLabel')}</Text>
           </View>
           <View style={styles.statItem}>
             <Ionicons
@@ -32,7 +58,7 @@ export default function TodayScreen() {
               size={32}
               color={diaryDone ? "#10B981" : "#D1D5DB"}
             />
-            <Text style={styles.statLabel}>日記</Text>
+            <Text style={styles.statLabel}>{t('diaryLabel')}</Text>
           </View>
         </View>
       </View>
@@ -45,9 +71,9 @@ export default function TodayScreen() {
           <Ionicons name="book" size={24} color={Colors.primary} />
         </View>
         <View style={styles.taskContent}>
-          <Text style={styles.taskTitle}>背單字</Text>
+          <Text style={styles.taskTitle}>{t('studyWords')}</Text>
           <Text style={styles.taskSubtitle}>
-            今天剩下 {todayWordCount - doneWordCount} 個
+            {t('wordsRemaining', { count: todayWordCount - doneWordCount })}
           </Text>
         </View>
         <Ionicons name="chevron-forward" size={24} color="#9CA3AF" />
@@ -61,9 +87,9 @@ export default function TodayScreen() {
           <Ionicons name="create" size={24} color={Colors.primary} />
         </View>
         <View style={styles.taskContent}>
-          <Text style={styles.taskTitle}>寫日記</Text>
+          <Text style={styles.taskTitle}>{t('writeDiary')}</Text>
           <Text style={styles.taskSubtitle}>
-            {diaryDone ? '今天已寫完 👏' : '還沒跟日文老師打招呼～'}
+            {diaryDone ? t('diaryDone') : t('diaryNotDone')}
           </Text>
         </View>
         <Ionicons name="chevron-forward" size={24} color="#9CA3AF" />
@@ -86,6 +112,64 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#111827',
     marginBottom: 4,
+  },
+  examCountdown: {
+    fontSize: 14,
+    color: Colors.primary,
+    fontWeight: '600',
+    marginTop: 4,
+  },
+  statsRow: {
+    flexDirection: 'row',
+    marginHorizontal: 16,
+    marginBottom: 16,
+    gap: 12,
+  },
+  streakCard: {
+    flex: 1,
+    backgroundColor: '#FFF7ED',
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#FDBA74',
+  },
+  streakEmoji: {
+    fontSize: 32,
+    marginBottom: 4,
+  },
+  streakNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#EA580C',
+  },
+  streakLabel: {
+    fontSize: 12,
+    color: '#9A3412',
+    marginTop: 2,
+  },
+  achievementCard: {
+    flex: 1,
+    backgroundColor: '#FEF3C7',
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#FCD34D',
+  },
+  achievementEmoji: {
+    fontSize: 32,
+    marginBottom: 4,
+  },
+  achievementNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#D97706',
+  },
+  achievementLabel: {
+    fontSize: 12,
+    color: '#92400E',
+    marginTop: 2,
   },
   subtitle: {
     fontSize: 16,

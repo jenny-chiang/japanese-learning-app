@@ -4,9 +4,9 @@
     "level": "N3",
     "kanji": "約束",
     "kana": "やくそく",
-    "meaningZh": "約定、承諾",
+    "meaning": "約定、承諾",
     "exampleJa": "友達と約束をした。",
-    "exampleZh": "和朋友約好了。",
+    "exampleTranslation": "和朋友約好了。",
     "familiarity": 0
   },
   {
@@ -14,9 +14,9 @@
     "level": "N3",
     "kanji": "感動",
     "kana": "かんどう",
-    "meaningZh": "感動",
+    "meaning": "感動",
     "exampleJa": "映画に感動した。",
-    "exampleZh": "被電影感動了。",
+    "exampleTranslation": "被電影感動了。",
     "familiarity": 0
   },
   {
@@ -24,9 +24,9 @@
     "level": "N3",
     "kanji": "都合",
     "kana": "つごう",
-    "meaningZh": "方便、情況",
+    "meaning": "方便、情況",
     "exampleJa": "都合がいい時間を教えてください。",
-    "exampleZh": "請告訴我方便的時間。",
+    "exampleTranslation": "請告訴我方便的時間。",
     "familiarity": 0
   },
   {
@@ -34,9 +34,9 @@
     "level": "N3",
     "kanji": "材料",
     "kana": "ざいりょう",
-    "meaningZh": "材料",
+    "meaning": "材料",
     "exampleJa": "料理の材料を買いに行く。",
-    "exampleZh": "去買料理的材料。",
+    "exampleTranslation": "去買料理的材料。",
     "familiarity": 0
   },
   {
@@ -44,9 +44,9 @@
     "level": "N3",
     "kanji": "経験",
     "kana": "けいけん",
-    "meaningZh": "經驗",
+    "meaning": "經驗",
     "exampleJa": "貴重な経験をしました。",
-    "exampleZh": "有了寶貴的經驗。",
+    "exampleTranslation": "有了寶貴的經驗。",
     "familiarity": 0
   },
   {
@@ -54,9 +54,9 @@
     "level": "N3",
     "kanji": "失敗",
     "kana": "しっぱい",
-    "meaningZh": "失敗",
+    "meaning": "失敗",
     "exampleJa": "試験に失敗した。",
-    "exampleZh": "考試失敗了。",
+    "exampleTranslation": "考試失敗了。",
     "familiarity": 0
   },
   {
@@ -64,9 +64,9 @@
     "level": "N3",
     "kanji": "成功",
     "kana": "せいこう",
-    "meaningZh": "成功",
+    "meaning": "成功",
     "exampleJa": "プロジェクトは成功した。",
-    "exampleZh": "專案成功了。",
+    "exampleTranslation": "專案成功了。",
     "familiarity": 0
   },
   {
@@ -74,9 +74,9 @@
     "level": "N3",
     "kanji": "調査",
     "kana": "ちょうさ",
-    "meaningZh": "調查",
+    "meaning": "調查",
     "exampleJa": "アンケート調査を行う。",
-    "exampleZh": "進行問卷調查。",
+    "exampleTranslation": "進行問卷調查。",
     "familiarity": 0
   },
   {
@@ -84,9 +84,9 @@
     "level": "N3",
     "kanji": "連絡",
     "kana": "れんらく",
-    "meaningZh": "聯絡",
+    "meaning": "聯絡",
     "exampleJa": "後で連絡します。",
-    "exampleZh": "待會聯絡。",
+    "exampleTranslation": "待會聯絡。",
     "familiarity": 0
   },
   {
@@ -94,9 +94,9 @@
     "level": "N3",
     "kanji": "遠慮",
     "kana": "えんりょ",
-    "meaningZh": "客氣、顧慮",
+    "meaning": "客氣、顧慮",
     "exampleJa": "遠慮しないで食べてください。",
-    "exampleZh": "不要客氣請吃吧。",
+    "exampleTranslation": "不要客氣請吃吧。",
     "familiarity": 0
   },
   {
@@ -104,9 +104,9 @@
     "level": "N3",
     "kanji": "正直",
     "kana": "しょうじき",
-    "meaningZh": "老實、誠實",
+    "meaning": "老實、誠實",
     "exampleJa": "正直に言ってください。",
-    "exampleZh": "請老實說。",
+    "exampleTranslation": "請老實說。",
     "familiarity": 0
   },
   {
@@ -114,9 +114,9 @@
     "level": "N3",
     "kanji": "賛成",
     "kana": "さんせい",
-    "meaningZh": "贊成",
+    "meaning": "贊成",
     "exampleJa": "その意見に賛成です。",
-    "exampleZh": "贊成那個意見。",
+    "exampleTranslation": "贊成那個意見。",
     "familiarity": 0
   },
   {
@@ -124,9 +124,9 @@
     "level": "N3",
     "kanji": "反対",
     "kana": "はんたい",
-    "meaningZh": "反對",
+    "meaning": "反對",
     "exampleJa": "計画に反対する。",
-    "exampleZh": "反對計畫。",
+    "exampleTranslation": "反對計畫。",
     "familiarity": 0
   },
   {
@@ -134,9 +134,9 @@
     "level": "N3",
     "kanji": "比較",
     "kana": "ひかく",
-    "meaningZh": "比較",
+    "meaning": "比較",
     "exampleJa": "価格を比較する。",
-    "exampleZh": "比較價格。",
+    "exampleTranslation": "比較價格。",
     "familiarity": 0
   },
   {
@@ -144,9 +144,9 @@
     "level": "N3",
     "kanji": "無理",
     "kana": "むり",
-    "meaningZh": "勉強、不可能",
+    "meaning": "勉強、不可能",
     "exampleJa": "それは無理だと思う。",
-    "exampleZh": "我覺得那不可能。",
+    "exampleTranslation": "我覺得那不可能。",
     "familiarity": 0
   }
 ]

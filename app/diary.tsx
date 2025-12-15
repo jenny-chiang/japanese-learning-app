@@ -10,20 +10,22 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
-import { correctDiaryWithGemini } from '../src/services/diaryApi';
+import { correctDiaryWithGemini, extractWordsFromDiary } from '../src/services/diaryApi';
 import { DiaryEntry } from '../src/types';
 import { Colors } from '../src/constants/colors';
 
 export default function DiaryScreen() {
+  const { t, i18n } = useTranslation();
   const [diaryText, setDiaryText] = useState('');
   const [loading, setLoading] = useState(false);
   const [showResult, setShowResult] = useState(false);
-  const [useMockData, setUseMockData] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [selectedDiary, setSelectedDiary] = useState<any>(null);
+  const [extractingWords, setExtractingWords] = useState(false);
 
-  const { addDiaryEntry, todayDiary, diaryEntries, settings } = useAppStore();
+  const { addDiaryEntry, todayDiary, diaryEntries, settings, addWordsToLibrary } = useAppStore();
 
   const handleSubmit = async () => {
     if (!diaryText.trim()) return;
@@ -31,33 +33,9 @@ export default function DiaryScreen() {
     setLoading(true);
 
     try {
-      let result;
-
-      // 檢查是否有 Gemini API Key
-      const hasGeminiKey =
-        process.env.EXPO_PUBLIC_GEMINI_API_KEY &&
-        process.env.EXPO_PUBLIC_GEMINI_API_KEY !== '';
-
-      if (hasGeminiKey && !useMockData) {
-        result = await correctDiaryWithGemini(diaryText, settings.mainLevel);
-        // 使用 Gemini
-      } else {
-        // 使用 Mock 資料
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        result = {
-          corrected:
-            diaryText +
-            '\n\n(這是 Mock 資料。若要使用真實 AI,請在 .env 檔案中設定 API Key)',
-          explanations: [
-            '💡 目前使用測試模式',
-            '✅ 若要啟用真實 AI 批改:',
-            '1. 取得 Gemini API Key (免費!)',
-            '2. 在專案根目錄的 .env 檔案中填入',
-            '3. 重新啟動 App',
-          ],
-          grammarPoints: ['測試模式'],
-        };
-      }
+      // 使用 Gemini API
+      const currentLanguage = i18n.language as 'zh' | 'en';
+      const result = await correctDiaryWithGemini(diaryText, settings.mainLevel, currentLanguage);
 
       addDiaryEntry({
         original: diaryText,
@@ -72,21 +50,21 @@ export default function DiaryScreen() {
     } catch (error) {
       setLoading(false);
       Alert.alert(
-        '批改失敗',
-        error instanceof Error ? error.message : '發生未知錯誤,請稍後再試',
+        t('submitting'),
+        error instanceof Error ? error.message : t('noDiaryContent'),
         [
           {
-            text: '使用測試資料',
+            text: t('ok'),
             onPress: () => {
-              setUseMockData(true);
               handleSubmit();
             },
           },
-          { text: '取消', style: 'cancel' },
+          { text: t('cancel'), style: 'cancel' },
         ]
       );
     }
   };
+
   const handleNewDiary = () => {
     setDiaryText('');
     setShowResult(false);
@@ -96,6 +74,43 @@ export default function DiaryScreen() {
   const viewDiary = (diary: any) => {
     setSelectedDiary(diary);
     setShowResult(true);
+  };
+
+  const handleExtractWords = async () => {
+    const textToExtract = selectedDiary?.original || diaryText;
+
+    if (!textToExtract.trim()) {
+      Alert.alert(t('noNewWords'), t('noDiaryContent'));
+      return;
+    }
+
+    setExtractingWords(true);
+
+    try {
+      const currentLanguage = i18n.language as 'zh' | 'en';
+      const words = await extractWordsFromDiary(textToExtract, settings.mainLevel, currentLanguage);
+
+      if (words.length === 0) {
+        Alert.alert(t('noNewWords'), t('noNewWordsMessage'));
+        setExtractingWords(false);
+        return;
+      }
+
+      addWordsToLibrary(words);
+
+      Alert.alert(
+        t('wordsAdded'),
+        t('wordsAddedMessage', {
+          count: words.length,
+          words: words.map(w => `• ${w.kanji} (${w.kana})`).join('\n')
+        }),
+        [{ text: t('great') }]
+      );
+    } catch (error) {
+      Alert.alert(t('extractFailed'), t('extractFailedMessage'));
+    } finally {
+      setExtractingWords(false);
+    }
   };
 
   // 顯示歷史記錄
@@ -110,7 +125,7 @@ export default function DiaryScreen() {
             >
               <Ionicons name='arrow-back' size={24} color='#111827' />
             </TouchableOpacity>
-            <Text style={styles.title}>日記歷史</Text>
+            <Text style={styles.title}>{t('diaryHistory')}</Text>
           </View>
         </View>
         <ScrollView>
@@ -121,7 +136,7 @@ export default function DiaryScreen() {
                 size={64}
                 color='#9CA3AF'
               />
-              <Text style={styles.emptyText}>還沒有日記喔</Text>
+              <Text style={styles.emptyText}>{t('noDiaryYet')}</Text>
             </View>
           ) : (
             diaryEntries
@@ -171,19 +186,19 @@ export default function DiaryScreen() {
           </TouchableOpacity>
           <View style={styles.resultHeaderContent}>
             <Ionicons name='checkmark-circle' size={48} color='#10B981' />
-            <Text style={styles.resultTitle}>日文老師已批改!</Text>
+            <Text style={styles.resultTitle}>{t('teacherComments')}</Text>
           </View>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>你寫的</Text>
+          <Text style={styles.sectionLabel}>{t('original')}</Text>
           <View style={styles.textBox}>
             <Text style={styles.originalText}>{diary.original}</Text>
           </View>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>修正版</Text>
+          <Text style={styles.sectionLabel}>{t('corrected')}</Text>
           <View style={[styles.textBox, styles.correctedBox]}>
             <Text style={styles.correctedText}>{diary.corrected}</Text>
           </View>
@@ -191,7 +206,7 @@ export default function DiaryScreen() {
 
         {diary.explanations && diary.explanations.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionLabel}>老師的話</Text>
+            <Text style={styles.sectionLabel}>{t('teacherComments')}</Text>
             {diary.explanations.map((explanation: string, index: number) => (
               <View key={index} style={styles.explanationItem}>
                 <Ionicons name='bulb' size={16} color='#F59E0B' />
@@ -203,7 +218,7 @@ export default function DiaryScreen() {
 
         {diary.grammarPoints && diary.grammarPoints.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionLabel}>文法重點</Text>
+            <Text style={styles.sectionLabel}>{t('grammarPoints')}</Text>
             <View style={styles.tagsContainer}>
               {diary.grammarPoints.map((point: string, index: number) => (
                 <View key={index} style={styles.tag}>
@@ -215,11 +230,26 @@ export default function DiaryScreen() {
         )}
 
         <TouchableOpacity
+          style={styles.extractWordsButton}
+          onPress={handleExtractWords}
+          disabled={extractingWords}
+        >
+          {extractingWords ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <>
+              <Ionicons name='book' size={20} color='#fff' />
+              <Text style={styles.extractWordsButtonText}>{t('extractWords')}</Text>
+            </>
+          )}
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={styles.newDiaryButton}
           onPress={handleNewDiary}
         >
           <Ionicons name='add-circle' size={24} color='#fff' />
-          <Text style={styles.newDiaryButtonText}>再寫一篇</Text>
+          <Text style={styles.newDiaryButtonText}>{t('writeAnother')}</Text>
         </TouchableOpacity>
       </ScrollView>
     );
@@ -230,8 +260,8 @@ export default function DiaryScreen() {
       <View style={styles.header}>
         <View style={styles.headerRow}>
           <View>
-            <Text style={styles.title}>今天想分享什麼?</Text>
-            <Text style={styles.subtitle}>用日文寫下你的一天吧 ✍️</Text>
+            <Text style={styles.title}>{t('diaryTitle')}</Text>
+            <Text style={styles.subtitle}>{t('writeDiaryPlaceholder')}</Text>
           </View>
           <TouchableOpacity
             onPress={() => setShowHistory(true)}
@@ -246,7 +276,7 @@ export default function DiaryScreen() {
         <TextInput
           style={styles.input}
           multiline
-          placeholder='今日は...'
+          placeholder={t('writeDiaryPlaceholder')}
           placeholderTextColor='#9CA3AF'
           value={diaryText}
           onChangeText={setDiaryText}
@@ -256,7 +286,7 @@ export default function DiaryScreen() {
 
       <View style={styles.tipBox}>
         <Ionicons name='information-circle' size={20} color={Colors.primary} />
-        <Text style={styles.tipText}>不用擔心寫錯,老師會幫你修正!</Text>
+        <Text style={styles.tipText}>{t('writeDiaryPlaceholder')}</Text>
       </View>
 
       <TouchableOpacity
@@ -269,7 +299,7 @@ export default function DiaryScreen() {
         ) : (
           <>
             <Ionicons name='send' size={24} color='#fff' />
-            <Text style={styles.submitButtonText}>送給老師看</Text>
+            <Text style={styles.submitButtonText}>{t('submitDiary')}</Text>
           </>
         )}
       </TouchableOpacity>
@@ -437,6 +467,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#4338CA',
     fontWeight: '500',
+  },
+  extractWordsButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#10B981',
+    marginHorizontal: 16,
+    marginTop: 12,
+    padding: 16,
+    borderRadius: 12,
+    gap: 8,
+  },
+  extractWordsButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
   newDiaryButton: {
     flexDirection: 'row',

@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
 import { Colors } from '../src/constants/colors';
 
 export default function TabLayout() {
   const { loadData } = useAppStore();
+  const { t } = useTranslation();
 
   useEffect(() => {
     loadData();
@@ -30,7 +32,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: '今天',
+          title: t('today'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="today" size={size} color={color} />
           ),
@@ -39,7 +41,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="words"
         options={{
-          title: '單字',
+          title: t('words'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="book" size={size} color={color} />
           ),
@@ -48,7 +50,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="diary"
         options={{
-          title: '日記',
+          title: t('diary'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="create" size={size} color={color} />
           ),
@@ -57,7 +59,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="settings"
         options={{
-          title: '設定',
+          title: t('settings'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="settings" size={size} color={color} />
           ),
