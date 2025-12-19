@@ -7,6 +7,7 @@ import {
   TodayProgress,
   Achievement,
   LearningStats,
+  DailyStats,
 } from '../types';
 import wordsN3Data from '../../assets/data/words-n3.json';
 
@@ -56,6 +57,10 @@ interface AppState {
   updateDailyStats: () => void; // 更新每日統計
   calculateStreak: () => void; // 計算連續天數
   checkAchievements: () => void; // 檢查成就
+  recordStudyTime: (minutes: number) => void; // 記錄學習時長
+  getWeeklyStudyTrend: () => { date: string; duration: number; words: number }[]; // 獲取週學習趨勢
+  getMonthlyStudyTrend: () => { date: string; duration: number; words: number }[]; // 獲取月學習趨勢
+  getWordsFamiliarityDistribution: () => { level: number; count: number }[]; // 獲取單字熟悉度分布
 
   // 其他
   resetAllData: () => void;
@@ -129,7 +134,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   // 載入資料
   loadData: async () => {
     try {
-      // 載入單字 (先從假資料,之後從 AsyncStorage)
+      // 載入單字
       const storedWords = await AsyncStorage.getItem('words');
       let words: Word[] = [];
 
@@ -466,7 +471,15 @@ export const useAppStore = create<AppState>((set, get) => ({
 
     // 更新每日歷史
     const newDailyHistory = { ...stats.dailyHistory };
+    const existingDay = newDailyHistory[today] || {
+      wordsLearned: 0,
+      diaryWritten: false,
+      completed: false,
+      studyDuration: 0,
+    };
+
     newDailyHistory[today] = {
+      ...existingDay,
       wordsLearned: todayProgress.doneWordCount,
       diaryWritten: todayProgress.diaryDone,
       completed,
@@ -575,6 +588,105 @@ export const useAppStore = create<AppState>((set, get) => ({
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     return diffDays;
+  },
+
+  // 記錄學習時長
+  recordStudyTime: (minutes: number) => {
+    const { stats } = get();
+    const today = new Date().toISOString().split('T')[0];
+
+    const newDailyHistory = { ...stats.dailyHistory };
+    const existingDay = newDailyHistory[today] || {
+      wordsLearned: 0,
+      diaryWritten: false,
+      completed: false,
+      studyDuration: 0,
+    };
+
+    newDailyHistory[today] = {
+      ...existingDay,
+      studyDuration: existingDay.studyDuration + minutes,
+    };
+
+    set((state) => ({
+      stats: {
+        ...state.stats,
+        dailyHistory: newDailyHistory,
+      },
+    }));
+
+    get().saveData();
+  },
+
+  // 獲取週學習趨勢（當週 - 週一到週日）
+  getWeeklyStudyTrend: () => {
+    const { stats } = get();
+    const today = new Date();
+    const trend: { date: string; duration: number; words: number }[] = [];
+
+    // 獲取當週週一（0 = 週日, 1 = 週一, ..., 6 = 週六）
+    const dayOfWeek = today.getDay();
+    const mondayOffset = dayOfWeek === 0 ? -6 : -(dayOfWeek - 1); // 週日特殊處理
+
+    // 從週一開始
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setDate(date.getDate() + mondayOffset + i);
+      const dateStr = date.toISOString().split('T')[0];
+      const dayData = stats.dailyHistory[dateStr];
+
+      trend.push({
+        date: dateStr,
+        duration: dayData?.studyDuration || 0,
+        words: dayData?.wordsLearned || 0,
+      });
+    }
+
+    return trend;
+  },
+
+  // 獲取月學習趨勢（當月 - 1 號到月底）
+  getMonthlyStudyTrend: () => {
+    const { stats } = get();
+    const today = new Date();
+    const trend: { date: string; duration: number; words: number }[] = [];
+
+    // 獲取當月的第一天
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    // 獲取當月有多少天
+    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+    for (let i = 0; i < lastDayOfMonth; i++) {
+      const date = new Date(firstDayOfMonth);
+      date.setDate(firstDayOfMonth.getDate() + i);
+      const dateStr = date.toISOString().split('T')[0];
+      const dayData = stats.dailyHistory[dateStr];
+
+      trend.push({
+        date: dateStr,
+        duration: dayData?.studyDuration || 0,
+        words: dayData?.wordsLearned || 0,
+      });
+    }
+
+    return trend;
+  },
+
+  // 獲取單字熟悉度分布
+  getWordsFamiliarityDistribution: () => {
+    const { words } = get();
+    const distribution = [
+      { level: 0, count: 0 },
+      { level: 1, count: 0 },
+      { level: 2, count: 0 },
+      { level: 3, count: 0 },
+    ];
+
+    words.forEach((word) => {
+      distribution[word.familiarity].count++;
+    });
+
+    return distribution;
   },
 }));
 

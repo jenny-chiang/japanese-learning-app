@@ -71,7 +71,7 @@ export async function correctDiaryWithGemini(
 
     // 使用 API
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       contents: prompt,
     });
 
@@ -180,7 +180,7 @@ export async function extractWordsFromDiary(
     const prompt = prompts[language];
 
     const response = await ai.models.generateContent({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       contents: prompt,
     });
 

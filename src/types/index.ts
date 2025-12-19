@@ -48,16 +48,19 @@ export type Achievement = {
   requirement: number;
 };
 
+export type DailyStats = {
+  wordsLearned: number;
+  diaryWritten: boolean;
+  completed: boolean;
+  studyDuration: number; // 學習時長（分鐘）
+};
+
 export type LearningStats = {
   currentStreak: number;
   longestStreak: number;
   totalDays: number;
   lastActiveDate?: string;
   dailyHistory: {
-    [date: string]: {
-      wordsLearned: number;
-      diaryWritten: boolean;
-      completed: boolean;
-    };
+    [date: string]: DailyStats;
   };
 };

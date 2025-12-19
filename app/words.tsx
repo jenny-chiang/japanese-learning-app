@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, FlatList } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
@@ -12,8 +12,29 @@ export default function WordsScreen() {
   const [practiceMode, setPracticeMode] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [showMeaning, setShowMeaning] = useState(false);
+  const startTimeRef = useRef<number | null>(null);
 
-  const { words, todayWords, wrongWords, updateWordFamiliarity, flagWord } = useAppStore();
+  const { words, todayWords, wrongWords, updateWordFamiliarity, flagWord, recordStudyTime } = useAppStore();
+
+  // 開始練習時記錄時間
+  useEffect(() => {
+    if (practiceMode && !startTimeRef.current) {
+      startTimeRef.current = Date.now();
+    }
+  }, [practiceMode]);
+
+  // 結束練習時記錄學習時長
+  const endPractice = () => {
+    if (startTimeRef.current) {
+      const duration = Math.round((Date.now() - startTimeRef.current) / 1000 / 60); // 分鐘
+      if (duration > 0) {
+        recordStudyTime(duration);
+      }
+      startTimeRef.current = null;
+    }
+    setPracticeMode(false);
+    setCurrentWordIndex(0);
+  };
 
   const getDisplayWords = () => {
     switch (selectedTab) {
@@ -40,8 +61,7 @@ export default function WordsScreen() {
       if (currentWordIndex < displayWords.length - 1) {
         setCurrentWordIndex(currentWordIndex + 1);
       } else {
-        setPracticeMode(false);
-        setCurrentWordIndex(0);
+        endPractice();
       }
     }
   };

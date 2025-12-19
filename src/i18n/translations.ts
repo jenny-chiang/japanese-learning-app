@@ -6,6 +6,7 @@ export const translations = {
     today: '今天',
     words: '單字',
     diary: '日記',
+    stats: '統計',
     settings: '設定',
 
     // Today Screen
@@ -115,12 +116,29 @@ export const translations = {
     extractFailedMessage: '無法提取單字,請稍後再試',
     great: '太棒了!',
     ok: '知道了',
+
+    // Stats Screen
+    overallStats: '整體統計',
+    totalDays: '總學習天數',
+    totalMinutes: '總學習分鐘',
+    avgDailyTime: '平均每日分鐘',
+    studyDurationTrend: '學習時長趨勢',
+    wordsLearnedTrend: '單字學習趨勢',
+    familiarityDistribution: '單字熟悉度分布',
+    week: '週',
+    month: '月',
+    familiarity0: '完全不熟',
+    familiarity1: '不太熟',
+    familiarity2: '還可以',
+    familiarity3: '很熟',
+    noWordsYet: '還沒有單字資料',
   },
   en: {
     // Tab Navigation
     today: 'Today',
     words: 'Words',
     diary: 'Diary',
+    stats: 'Stats',
     settings: 'Settings',
 
     // Today Screen
@@ -230,6 +248,22 @@ export const translations = {
     extractFailedMessage: 'Unable to extract words, please try again later',
     great: 'Great!',
     ok: 'OK',
+
+    // Stats Screen
+    overallStats: 'Overall Statistics',
+    totalDays: 'Total Days',
+    totalMinutes: 'Total Minutes',
+    avgDailyTime: 'Avg Daily Minutes',
+    studyDurationTrend: 'Study Duration Trend',
+    wordsLearnedTrend: 'Words Learned Trend',
+    familiarityDistribution: 'Word Familiarity Distribution',
+    week: 'Week',
+    month: 'Month',
+    familiarity0: "Don't Know",
+    familiarity1: 'Not Familiar',
+    familiarity2: 'Familiar',
+    familiarity3: 'Very Familiar',
+    noWordsYet: 'No word data yet',
   },
 };
 
