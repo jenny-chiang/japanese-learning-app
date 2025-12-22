@@ -21,14 +21,39 @@ export type Word = {
   flagged?: boolean;
 };
 
+export type KeyWord = {
+  word: string;
+  meaning: string;
+};
+
+export type AdvancedWord = {
+  word: string;
+  level: string;
+  meaning: string;
+  example: string;
+  exampleTranslation: string;
+};
+
+export type GrammarPoint = {
+  pattern: string;
+  meaning: string;
+  example: string;
+  exampleTranslation: string;
+};
+
 export type DiaryEntry = {
   id: string;
   createdAt: string;
   original: string;
   corrected?: string;
+  chineseSummary?: string; // 中文重述
   explanations?: string[];
   vocabIds?: string[];
-  grammarPoints?: string[];
+  keyWords?: KeyWord[]; // 關鍵單字
+  grammarPoints?: GrammarPoint[]; // 文法點（含例句）
+  advancedWords?: AdvancedWord[]; // JLPT+1 進階單字
+  advancedGrammar?: GrammarPoint[]; // JLPT+1 進階文法
+  upgradedVersion?: string; // JLPT+1 升級版
 };
 
 export type UserSettings = {
@@ -38,6 +63,7 @@ export type UserSettings = {
   notificationsEnabled: boolean;
   examDate?: string;
   language: Language;
+  geminiApiKey?: string; // 用戶自己的 Gemini API Key
 };
 
 export type TodayProgress = {

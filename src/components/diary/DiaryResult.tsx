@@ -31,23 +31,36 @@ export default function DiaryResult({
         </View>
       </View>
 
+      {/* 原文 */}
       <View style={styles.section}>
-        <Text style={styles.sectionLabel}>{t('original')}</Text>
+        <Text style={styles.sectionLabel}>📝 {t('original')}</Text>
         <View style={styles.textBox}>
           <Text style={styles.originalText}>{diary.original}</Text>
         </View>
       </View>
 
+      {/* 中文重述 */}
+      {diary.chineseSummary && (
+        <View style={styles.section}>
+          <Text style={styles.sectionLabel}>🌏 中文重述</Text>
+          <View style={[styles.textBox, styles.summaryBox]}>
+            <Text style={styles.summaryText}>{diary.chineseSummary}</Text>
+          </View>
+        </View>
+      )}
+
+      {/* 修正後的日文 */}
       <View style={styles.section}>
-        <Text style={styles.sectionLabel}>{t('corrected')}</Text>
+        <Text style={styles.sectionLabel}>✅ {t('corrected')}</Text>
         <View style={[styles.textBox, styles.correctedBox]}>
           <Text style={styles.correctedText}>{diary.corrected}</Text>
         </View>
       </View>
 
+      {/* 老師的說明 */}
       {diary.explanations && diary.explanations.length > 0 && (
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>{t('teacherComments')}</Text>
+          <Text style={styles.sectionLabel}>💡 {t('teacherComments')}</Text>
           {diary.explanations.map((explanation: string, index: number) => (
             <View key={index} style={styles.explanationItem}>
               <Ionicons name='bulb' size={16} color='#F59E0B' />
@@ -57,16 +70,87 @@ export default function DiaryResult({
         </View>
       )}
 
-      {diary.grammarPoints && diary.grammarPoints.length > 0 && (
+      {/* 關鍵單字 */}
+      {diary.keyWords && diary.keyWords.length > 0 && (
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>{t('grammarPoints')}</Text>
-          <View style={styles.tagsContainer}>
-            {diary.grammarPoints.map((point: string, index: number) => (
-              <View key={index} style={styles.tag}>
-                <Text style={styles.tagText}>{point}</Text>
+          <Text style={styles.sectionLabel}>📚 關鍵單字</Text>
+          <View style={styles.keyWordsContainer}>
+            {diary.keyWords.map((item, index) => (
+              <View key={index} style={styles.keyWordItem}>
+                <Text style={styles.keyWordText}>{item.word}</Text>
+                <Text style={styles.keyWordMeaning}>{item.meaning}</Text>
               </View>
             ))}
           </View>
+        </View>
+      )}
+
+      {/* 文法整理 */}
+      {diary.grammarPoints && diary.grammarPoints.length > 0 && (
+        <View style={styles.section}>
+          <Text style={styles.sectionLabel}>📖 文法整理</Text>
+          {diary.grammarPoints.map((point, index) => (
+            <View key={index} style={styles.grammarItem}>
+              <Text style={styles.grammarPattern}>{point.pattern}</Text>
+              <Text style={styles.grammarMeaning}>{point.meaning}</Text>
+              <View style={styles.exampleBox}>
+                <Text style={styles.exampleJa}>{point.example}</Text>
+                <Text style={styles.exampleTranslation}>{point.exampleTranslation}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {/* 進階單字（JLPT+1） */}
+      {diary.advancedWords && diary.advancedWords.length > 0 && (
+        <View style={styles.section}>
+          <Text style={styles.sectionLabel}>⭐ 進階單字（挑戰更高級別）</Text>
+          {diary.advancedWords.map((word, index) => (
+            <View key={index} style={styles.advancedWordItem}>
+              <View style={styles.advancedWordHeader}>
+                <Text style={styles.advancedWord}>{word.word}</Text>
+                <View style={styles.levelBadge}>
+                  <Text style={styles.levelBadgeText}>{word.level}</Text>
+                </View>
+              </View>
+              <Text style={styles.advancedWordMeaning}>{word.meaning}</Text>
+              <View style={styles.exampleBox}>
+                <Text style={styles.exampleJa}>{word.example}</Text>
+                <Text style={styles.exampleTranslation}>{word.exampleTranslation}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {/* 進階文法（JLPT+1） */}
+      {diary.advancedGrammar && diary.advancedGrammar.length > 0 && (
+        <View style={styles.section}>
+          <Text style={styles.sectionLabel}>🚀 進階文法（挑戰更高級別）</Text>
+          {diary.advancedGrammar.map((grammar, index) => (
+            <View key={index} style={styles.advancedGrammarItem}>
+              <Text style={styles.grammarPattern}>{grammar.pattern}</Text>
+              <Text style={styles.grammarMeaning}>{grammar.meaning}</Text>
+              <View style={styles.exampleBox}>
+                <Text style={styles.exampleJa}>{grammar.example}</Text>
+                <Text style={styles.exampleTranslation}>{grammar.exampleTranslation}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {/* JLPT+1 升級版 */}
+      {diary.upgradedVersion && (
+        <View style={styles.section}>
+          <Text style={styles.sectionLabel}>🎯 JLPT+1 升級版</Text>
+          <View style={[styles.textBox, styles.upgradedBox]}>
+            <Text style={styles.upgradedText}>{diary.upgradedVersion}</Text>
+          </View>
+          <Text style={styles.upgradedHint}>
+            💡 這是用更進階的詞彙和表現方式改寫的版本，可以作為學習目標
+          </Text>
         </View>
       )}
 
@@ -92,6 +176,8 @@ export default function DiaryResult({
         <Ionicons name='add-circle' size={24} color='#fff' />
         <Text style={styles.newDiaryButtonText}>{t('writeAnother')}</Text>
       </TouchableOpacity>
+
+      <View style={{ height: 32 }} />
     </ScrollView>
   );
 }
@@ -215,5 +301,131 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 8,
+  },
+  summaryBox: {
+    backgroundColor: '#EFF6FF',
+    borderWidth: 1,
+    borderColor: '#3B82F6',
+  },
+  summaryText: {
+    fontSize: 15,
+    color: '#1E40AF',
+    lineHeight: 24,
+  },
+  keyWordsContainer: {
+    gap: 8,
+  },
+  keyWordItem: {
+    backgroundColor: '#FEF3C7',
+    padding: 12,
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  keyWordText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#92400E',
+  },
+  keyWordMeaning: {
+    fontSize: 14,
+    color: '#78350F',
+  },
+  grammarItem: {
+    backgroundColor: '#F0F9FF',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#BAE6FD',
+  },
+  grammarPattern: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#0C4A6E',
+    marginBottom: 6,
+  },
+  grammarMeaning: {
+    fontSize: 14,
+    color: '#075985',
+    marginBottom: 8,
+  },
+  exampleBox: {
+    backgroundColor: '#FFF',
+    padding: 10,
+    borderRadius: 8,
+    borderLeftWidth: 3,
+    borderLeftColor: '#3B82F6',
+  },
+  exampleJa: {
+    fontSize: 14,
+    color: '#1F2937',
+    marginBottom: 4,
+  },
+  exampleTranslation: {
+    fontSize: 13,
+    color: '#6B7280',
+    fontStyle: 'italic',
+  },
+  advancedWordItem: {
+    backgroundColor: '#FDF4FF',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#F0ABFC',
+  },
+  advancedWordHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  advancedWord: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#701A75',
+  },
+  levelBadge: {
+    backgroundColor: '#A855F7',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  levelBadgeText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#FFF',
+  },
+  advancedWordMeaning: {
+    fontSize: 14,
+    color: '#86198F',
+    marginBottom: 8,
+  },
+  advancedGrammarItem: {
+    backgroundColor: '#FFF7ED',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#FED7AA',
+  },
+  upgradedBox: {
+    backgroundColor: '#F0FDF4',
+    borderWidth: 2,
+    borderColor: '#4ADE80',
+  },
+  upgradedText: {
+    fontSize: 16,
+    color: '#166534',
+    lineHeight: 24,
+    fontWeight: '500',
+  },
+  upgradedHint: {
+    fontSize: 13,
+    color: '#16A34A',
+    marginTop: 8,
+    fontStyle: 'italic',
   },
 });

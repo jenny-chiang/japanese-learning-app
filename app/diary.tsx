@@ -42,16 +42,26 @@ export default function DiaryScreen() {
         startTimeRef.current = null;
       }
 
-      // 使用 Gemini API
+      // 使用 Gemini API（優先使用用戶的 API Key）
       const currentLanguage = i18n.language as 'zh' | 'en';
-      const result = await correctDiaryWithGemini(diaryText, settings.mainLevel, currentLanguage);
+      const result = await correctDiaryWithGemini(
+        diaryText,
+        settings.mainLevel,
+        currentLanguage,
+        settings.geminiApiKey
+      );
 
       addDiaryEntry({
         original: diaryText,
         corrected: result.corrected,
+        chineseSummary: result.chineseSummary,
         explanations: result.explanations,
         vocabIds: result.vocabIds || [],
+        keyWords: result.keyWords,
         grammarPoints: result.grammarPoints,
+        advancedWords: result.advancedWords,
+        advancedGrammar: result.advancedGrammar,
+        upgradedVersion: result.upgradedVersion,
       });
 
       setLoading(false);
@@ -100,7 +110,12 @@ export default function DiaryScreen() {
 
     try {
       const currentLanguage = i18n.language as 'zh' | 'en';
-      const words = await extractWordsFromDiary(textToExtract, settings.mainLevel, currentLanguage);
+      const words = await extractWordsFromDiary(
+        textToExtract,
+        settings.mainLevel,
+        currentLanguage,
+        settings.geminiApiKey
+      );
 
       if (words.length === 0) {
         Alert.alert(t('noNewWords'), t('noNewWordsMessage'));

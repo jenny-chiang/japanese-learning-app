@@ -7,6 +7,8 @@ import {
   Switch,
   Alert,
   Platform,
+  TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import { useState, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,6 +22,7 @@ import {
   scheduleDailyNotification,
   cancelAllNotifications,
 } from '../src/services/notificationService';
+import { verifyGeminiApiKey } from '../src/services/diaryApi';
 
 export default function SettingsScreen() {
   const { settings, updateSettings, resetAllData, stats, achievements } = useAppStore();
@@ -28,6 +31,9 @@ export default function SettingsScreen() {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [tempTime, setTempTime] = useState(new Date());
   const [tempDate, setTempDate] = useState(new Date());
+  const [apiKey, setApiKey] = useState(settings.geminiApiKey || '');
+  const [verifyingKey, setVerifyingKey] = useState(false);
+  const [showApiKey, setShowApiKey] = useState(false);
 
   useEffect(() => {
     // 初始化時間選擇器的預設值
@@ -150,6 +156,59 @@ export default function SettingsScreen() {
     ]);
   };
 
+  const handleVerifyApiKey = async () => {
+    if (!apiKey.trim()) {
+      Alert.alert(t('error') || '錯誤', '請輸入 API Key');
+      return;
+    }
+
+    setVerifyingKey(true);
+
+    try {
+      const isValid = await verifyGeminiApiKey(apiKey.trim());
+
+      if (isValid) {
+        updateSettings({ geminiApiKey: apiKey.trim() });
+        Alert.alert(
+          t('success') || '成功',
+          '✅ API Key 驗證成功！\n\n您現在可以使用自己的 API 配額來批改日記了。',
+          [{ text: t('ok') || '確定' }]
+        );
+      } else {
+        Alert.alert(
+          t('error') || '錯誤',
+          '❌ API Key 無效\n\n請確認您輸入的 API Key 是否正確。\n\n您可以在 Google AI Studio 取得免費的 API Key：\nhttps://aistudio.google.com/apikey'
+        );
+      }
+    } catch (error) {
+      Alert.alert(
+        t('error') || '錯誤',
+        '驗證失敗，請檢查網路連線後重試'
+      );
+    } finally {
+      setVerifyingKey(false);
+    }
+  };
+
+  const handleRemoveApiKey = () => {
+    Alert.alert(
+      '移除 API Key',
+      '確定要移除您的 API Key 嗎？',
+      [
+        { text: t('cancel') || '取消', style: 'cancel' },
+        {
+          text: t('confirm') || '確定',
+          style: 'destructive',
+          onPress: () => {
+            setApiKey('');
+            updateSettings({ geminiApiKey: undefined });
+            Alert.alert(t('success') || '成功', 'API Key 已移除');
+          },
+        },
+      ]
+    );
+  };
+
   const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
 
   return (
@@ -204,6 +263,85 @@ export default function SettingsScreen() {
           >
             <Ionicons name='add' size={24} color={Colors.primary} />
           </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>🔑 Gemini API Key</Text>
+        <Text style={styles.sectionDescription}>
+          使用您自己的 Google Gemini API Key，避免共用配額限制。
+          {'\n'}免費取得：https://aistudio.google.com/apikey
+        </Text>
+
+        {settings.geminiApiKey ? (
+          <View style={styles.apiKeyContainer}>
+            <View style={styles.apiKeyStatus}>
+              <Ionicons name='checkmark-circle' size={24} color='#10B981' />
+              <View style={styles.apiKeyStatusText}>
+                <Text style={styles.apiKeyStatusTitle}>✅ 已設定 API Key</Text>
+                <Text style={styles.apiKeyStatusDesc}>
+                  使用您自己的配額
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              style={styles.removeKeyButton}
+              onPress={handleRemoveApiKey}
+            >
+              <Ionicons name='trash-outline' size={20} color='#EF4444' />
+              <Text style={styles.removeKeyButtonText}>移除</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={styles.apiKeyInputContainer}>
+            <View style={styles.inputWrapper}>
+              <TextInput
+                style={styles.apiKeyInput}
+                placeholder='輸入您的 Gemini API Key'
+                placeholderTextColor='#9CA3AF'
+                value={apiKey}
+                onChangeText={setApiKey}
+                autoCapitalize='none'
+                autoCorrect={false}
+                secureTextEntry={!showApiKey}
+              />
+              <TouchableOpacity
+                style={styles.eyeButton}
+                onPress={() => setShowApiKey(!showApiKey)}
+              >
+                <Ionicons
+                  name={showApiKey ? 'eye-off-outline' : 'eye-outline'}
+                  size={20}
+                  color='#6B7280'
+                />
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              style={[
+                styles.verifyButton,
+                verifyingKey && styles.verifyButtonDisabled,
+              ]}
+              onPress={handleVerifyApiKey}
+              disabled={verifyingKey || !apiKey.trim()}
+            >
+              {verifyingKey ? (
+                <ActivityIndicator color='#fff' size='small' />
+              ) : (
+                <>
+                  <Ionicons name='checkmark-circle-outline' size={20} color='#fff' />
+                  <Text style={styles.verifyButtonText}>驗證並儲存</Text>
+                </>
+              )}
+            </TouchableOpacity>
+          </View>
+        )}
+
+        <View style={styles.infoBox}>
+          <Ionicons name='information-circle-outline' size={20} color={Colors.primary} />
+          <Text style={styles.infoBoxText}>
+            💡 設定您自己的 API Key 後，日記批改將使用您的配額，不會消耗應用程式的共用配額。
+            Google 提供每日免費額度。
+          </Text>
         </View>
       </View>
 
@@ -617,5 +755,96 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 14,
     color: '#9CA3AF',
+  },
+  apiKeyContainer: {
+    gap: 12,
+  },
+  apiKeyStatus: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F0FDF4',
+    padding: 16,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#BBF7D0',
+    gap: 12,
+  },
+  apiKeyStatusText: {
+    flex: 1,
+  },
+  apiKeyStatusTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#15803D',
+    marginBottom: 2,
+  },
+  apiKeyStatusDesc: {
+    fontSize: 14,
+    color: '#16A34A',
+  },
+  removeKeyButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FEE2E2',
+    padding: 12,
+    borderRadius: 8,
+    gap: 6,
+  },
+  removeKeyButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#EF4444',
+  },
+  apiKeyInputContainer: {
+    gap: 12,
+  },
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F9FAFB',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  apiKeyInput: {
+    flex: 1,
+    padding: 16,
+    fontSize: 14,
+    color: '#111827',
+  },
+  eyeButton: {
+    padding: 16,
+  },
+  verifyButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.primary,
+    padding: 16,
+    borderRadius: 12,
+    gap: 8,
+  },
+  verifyButtonDisabled: {
+    opacity: 0.5,
+  },
+  verifyButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  infoBox: {
+    flexDirection: 'row',
+    backgroundColor: '#EEF2FF',
+    padding: 12,
+    borderRadius: 8,
+    gap: 8,
+    marginTop: 12,
+  },
+  infoBoxText: {
+    flex: 1,
+    fontSize: 13,
+    color: '#4338CA',
+    lineHeight: 18,
   },
 });
