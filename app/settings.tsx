@@ -11,10 +11,10 @@ import {
 import { useState, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
 import { JLPTLevel } from '../src/types';
 import { Colors } from '../src/constants/colors';
-import { useTranslation } from 'react-i18next';
 import {
   requestNotificationPermissions,
   scheduleDailyNotification,

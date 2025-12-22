@@ -39,7 +39,7 @@ interface AppState {
   saveData: () => Promise<void>;
 
   // 單字相關
-  updateWordFamiliarity: (wordId: string, familiarity: 0 | 1 | 2 | 3) => void;
+  updateWordFamiliarity: (wordId: string, familiarity: FamiliarityLevel) => void;
   flagWord: (wordId: string, flagged: boolean) => void;
   calculateTodayWords: () => void;
   addWordsToLibrary: (words: Word[]) => void; // 新增單字到單字庫
@@ -222,7 +222,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   // 更新單字熟悉度
-  updateWordFamiliarity: (wordId: string, familiarity: 0 | 1 | 2 | 3) => {
+  updateWordFamiliarity: (wordId: string, familiarity: FamiliarityLevel) => {
     set((state) => ({
       words: state.words.map((word) =>
         word.id === wordId
@@ -235,10 +235,10 @@ export const useAppStore = create<AppState>((set, get) => ({
       ),
     }));
 
-    // 如果選擇「完全不熟」(0),加入錯題本
-    if (familiarity === 0) {
+    // 如果選擇「完全不熟」,加入錯題本
+    if (familiarity === FamiliarityLevel.DontKnow) {
       get().addToWrongWords(wordId);
-    } else if (familiarity >= 2) {
+    } else if (familiarity >= FamiliarityLevel.Know) {
       // 如果掌握了 (熟悉度 >= 2),從錯題本移除
       get().removeFromWrongWords(wordId);
     }
@@ -269,12 +269,12 @@ export const useAppStore = create<AppState>((set, get) => ({
 
     // SRS 間隔重複演算法
     // 根據熟悉度決定下次複習間隔 (天數)
-    const getReviewInterval = (familiarity: number): number => {
+    const getReviewInterval = (familiarity: FamiliarityLevel): number => {
       switch (familiarity) {
-        case 0: return 0;  // 完全不會 - 馬上複習
-        case 1: return 1;  // 不熟 - 1天後
-        case 2: return 3;  // 還行 - 3天後
-        case 3: return 7;  // 很熟 - 7天後
+        case FamiliarityLevel.DontKnow: return 0;  // 完全不會 - 馬上複習
+        case FamiliarityLevel.SoSo: return 1;  // 不熟 - 1天後
+        case FamiliarityLevel.Know: return 3;  // 還行 - 3天後
+        case FamiliarityLevel.VeryFamiliar: return 7;  // 很熟 - 7天後
         default: return 0;
       }
     };
@@ -422,7 +422,7 @@ export const useAppStore = create<AppState>((set, get) => ({
     const doneWordCount = todayWords.filter((word) => {
       if (!word.lastReviewedAt) return false;
       const reviewedToday = word.lastReviewedAt.startsWith(today);
-      return reviewedToday && word.familiarity >= 1;
+      return reviewedToday && word.familiarity >= FamiliarityLevel.SoSo;
     }).length;
 
     set({

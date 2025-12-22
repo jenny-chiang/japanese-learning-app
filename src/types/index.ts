@@ -1,6 +1,13 @@
 export type JLPTLevel = 'N5' | 'N4' | 'N3' | 'N2' | 'N1';
 export type Language = 'zh' | 'en';
 
+export enum FamiliarityLevel {
+  DontKnow = 0,
+  SoSo = 1,
+  Know = 2,
+  VeryFamiliar = 3
+}
+
 export type Word = {
   id: string;
   level: JLPTLevel;
@@ -9,7 +16,7 @@ export type Word = {
   meaning: string;
   exampleJa?: string;
   exampleTranslation?: string;
-  familiarity: 0 | 1 | 2 | 3;
+  familiarity: FamiliarityLevel;
   lastReviewedAt?: string;
   flagged?: boolean;
 };
@@ -52,7 +59,7 @@ export type DailyStats = {
   wordsLearned: number;
   diaryWritten: boolean;
   completed: boolean;
-  studyDuration: number; // 學習時長（分鐘）
+  studyDuration: number;
 };
 
 export type LearningStats = {
