@@ -156,7 +156,8 @@ japanese-learning-app/
 │   │   └── colors.ts        # 顏色常數定義
 │   ├── services/
 │   │   ├── diaryApi.ts      # AI 日記批改服務
-│   │   └── notificationService.ts  # 推播通知服務
+│   │   ├── notificationService.ts  # 推播通知服務
+│   │   └── secureStorage.ts # 安全儲存服務 (敏感資料)
 │   ├── i18n/
 │   │   ├── translations.ts  # 翻譯資源
 │   │   └── i18n.config.ts   # i18next 配置
@@ -176,6 +177,7 @@ japanese-learning-app/
 - **Navigation**: Expo Router (File-based routing)
 - **狀態管理**: Zustand + AsyncStorage 持久化
 - **本機儲存**: @react-native-async-storage/async-storage
+- **安全儲存**: expo-secure-store (用於敏感資料如 API Key)
 - **國際化**: i18next + react-i18next
 - **AI 服務**: Google Generative AI (@google/generative-ai)
 - **圖表**: react-native-gifted-charts
@@ -251,7 +253,8 @@ type GrammarPoint = {
   notificationsEnabled: boolean;
   examDate?: string;
   language: 'zh' | 'en';
-  geminiApiKey?: string;  // 用戶自己的 Gemini API Key
+  // 注意：geminiApiKey 已改用 expo-secure-store 安全儲存
+  // 不再存放在 AsyncStorage 中，而是使用設備的 Keychain/Keystore
 }
 ```
 
@@ -383,17 +386,19 @@ export type LearningStats = {
 EXPO_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-### 方式二：用戶自訂 API Key（推薦）
+### 方式二：用戶自訂 API Key（推薦）⭐
 1. 前往 [Google AI Studio](https://aistudio.google.com/apikey) 取得免費 API Key
 2. 在 App 的「設定」頁面輸入 API Key
 3. 點擊「驗證並儲存」
-4. 驗證成功後即可使用自己的配額
+4. 驗證成功後，API Key 會被安全加密儲存到設備的 Keychain (iOS) 或 Keystore (Android)
 
 **優點：**
 - ✅ 避免共用配額限制
 - ✅ Google 提供每日免費額度
 - ✅ 更穩定的服務品質
 - ✅ 適合 App 上架後使用
+- 🔒 **使用設備原生加密儲存，安全性極高**
+- 🔒 **API Key 不會存在 AsyncStorage，而是使用 expo-secure-store**
 
 ## 📝 開發筆記
 
@@ -434,6 +439,15 @@ EXPO_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
   - 用戶可在「設定」頁面輸入自己的 API Key
 
 ## ⭐ 主要更新記錄
+
+### v4.1 - 安全性強化 (2025-12-26)
+- 🔒 API Key 改用 expo-secure-store 安全儲存
+  - 使用設備的 Keychain (iOS) 和 Keystore (Android)
+  - 原生級別的加密保護
+  - 不再使用 AsyncStorage 儲存敏感資料
+- 🛡️ 新增 SecureStorage 服務模組
+  - 統一管理敏感資料儲存
+  - 提供安全的讀取、儲存、刪除 API
 
 ### v4.0 - 進階學習系統 (2025-12-22)
 - 🔑 支援用戶使用自己的 Gemini API Key

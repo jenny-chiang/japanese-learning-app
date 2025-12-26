@@ -23,6 +23,7 @@ import {
   cancelAllNotifications,
 } from '../src/services/notificationService';
 import { verifyGeminiApiKey } from '../src/services/diaryApi';
+import { SecureStorage } from '../src/services/secureStorage';
 
 export default function SettingsScreen() {
   const { settings, updateSettings, resetAllData, stats, achievements } = useAppStore();
@@ -31,9 +32,27 @@ export default function SettingsScreen() {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [tempTime, setTempTime] = useState(new Date());
   const [tempDate, setTempDate] = useState(new Date());
-  const [apiKey, setApiKey] = useState(settings.geminiApiKey || '');
+  const [apiKey, setApiKey] = useState('');
+  const [hasApiKey, setHasApiKey] = useState(false);
   const [verifyingKey, setVerifyingKey] = useState(false);
   const [showApiKey, setShowApiKey] = useState(false);
+  const [loadingApiKey, setLoadingApiKey] = useState(true);
+
+  // 載入 API Key 狀態
+  useEffect(() => {
+    const checkApiKey = async () => {
+      try {
+        const exists = await SecureStorage.hasGeminiApiKey();
+        setHasApiKey(exists);
+      } catch (error) {
+        console.error('檢查 API Key 失敗:', error);
+      } finally {
+        setLoadingApiKey(false);
+      }
+    };
+
+    checkApiKey();
+  }, []);
 
   useEffect(() => {
     // 初始化時間選擇器的預設值
@@ -168,10 +187,13 @@ export default function SettingsScreen() {
       const isValid = await verifyGeminiApiKey(apiKey.trim());
 
       if (isValid) {
-        updateSettings({ geminiApiKey: apiKey.trim() });
+        // 使用安全儲存儲存 API Key
+        await SecureStorage.saveGeminiApiKey(apiKey.trim());
+        setHasApiKey(true);
+        setApiKey(''); // 清空輸入框
         Alert.alert(
           t('success') || '成功',
-          '✅ API Key 驗證成功！\n\n您現在可以使用自己的 API 配額來批改日記了。',
+          '✅ API Key 驗證成功！\n\n已安全儲存到設備的加密儲存區。您現在可以使用自己的 API 配額來批改日記了。',
           [{ text: t('ok') || '確定' }]
         );
       } else {
@@ -193,16 +215,21 @@ export default function SettingsScreen() {
   const handleRemoveApiKey = () => {
     Alert.alert(
       '移除 API Key',
-      '確定要移除您的 API Key 嗎？',
+      '確定要移除您的 API Key 嗎？\n\n此操作將從設備的安全儲存區中刪除 API Key。',
       [
         { text: t('cancel') || '取消', style: 'cancel' },
         {
           text: t('confirm') || '確定',
           style: 'destructive',
-          onPress: () => {
-            setApiKey('');
-            updateSettings({ geminiApiKey: undefined });
-            Alert.alert(t('success') || '成功', 'API Key 已移除');
+          onPress: async () => {
+            try {
+              await SecureStorage.deleteGeminiApiKey();
+              setApiKey('');
+              setHasApiKey(false);
+              Alert.alert(t('success') || '成功', 'API Key 已安全移除');
+            } catch (error) {
+              Alert.alert(t('error') || '錯誤', '移除 API Key 失敗');
+            }
           },
         },
       ]
@@ -273,14 +300,14 @@ export default function SettingsScreen() {
           {'\n'}免費取得：https://aistudio.google.com/apikey
         </Text>
 
-        {settings.geminiApiKey ? (
+        {hasApiKey ? (
           <View style={styles.apiKeyContainer}>
             <View style={styles.apiKeyStatus}>
               <Ionicons name='checkmark-circle' size={24} color='#10B981' />
               <View style={styles.apiKeyStatusText}>
                 <Text style={styles.apiKeyStatusTitle}>✅ 已設定 API Key</Text>
                 <Text style={styles.apiKeyStatusDesc}>
-                  使用您自己的配額
+                  已安全儲存到設備加密區
                 </Text>
               </View>
             </View>

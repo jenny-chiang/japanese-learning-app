@@ -63,7 +63,7 @@ export type UserSettings = {
   notificationsEnabled: boolean;
   examDate?: string;
   language: Language;
-  geminiApiKey?: string; // 用戶自己的 Gemini API Key
+  // 注意：geminiApiKey 已移至安全儲存（expo-secure-store），不再存在 AsyncStorage 中
 };
 
 export type TodayProgress = {
