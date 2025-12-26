@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
 import { correctDiaryWithGemini, extractWordsFromDiary } from '../src/services/diaryApi';
+import { SecureStorage } from '../src/services/secureStorage';
 import { DiaryEntry } from '../src/types';
 import DiaryEditor from '../src/components/diary/DiaryEditor';
 import DiaryResult from '../src/components/diary/DiaryResult';
@@ -42,13 +43,14 @@ export default function DiaryScreen() {
         startTimeRef.current = null;
       }
 
-      // 使用 Gemini API（優先使用用戶的 API Key）
+      // 使用 Gemini API（從安全儲存讀取用戶的 API Key）
       const currentLanguage = i18n.language as 'zh' | 'en';
+      const userApiKey = await SecureStorage.getGeminiApiKey();
       const result = await correctDiaryWithGemini(
         diaryText,
         settings.mainLevel,
         currentLanguage,
-        settings.geminiApiKey
+        userApiKey || undefined
       );
 
       addDiaryEntry({
@@ -110,11 +112,12 @@ export default function DiaryScreen() {
 
     try {
       const currentLanguage = i18n.language as 'zh' | 'en';
+      const userApiKey = await SecureStorage.getGeminiApiKey();
       const words = await extractWordsFromDiary(
         textToExtract,
         settings.mainLevel,
         currentLanguage,
-        settings.geminiApiKey
+        userApiKey || undefined
       );
 
       if (words.length === 0) {

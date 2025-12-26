@@ -7,7 +7,7 @@ import {
   TodayProgress,
   Achievement,
   LearningStats,
-  DailyStats,
+  FamiliarityLevel,
 } from '../types';
 import wordsN3Data from '../../assets/data/words-n3.json';
 
