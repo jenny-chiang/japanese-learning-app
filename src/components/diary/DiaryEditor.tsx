@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { Colors } from '../../constants/colors';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface DiaryEditorProps {
   diaryText: string;
@@ -19,6 +19,8 @@ export default function DiaryEditor({
   loading,
 }: DiaryEditorProps) {
   const { t } = useTranslation();
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
 
   return (
     <View style={styles.container}>
@@ -32,7 +34,7 @@ export default function DiaryEditor({
             onPress={onShowHistory}
             style={styles.historyButton}
           >
-            <Ionicons name='time-outline' size={24} color={Colors.primary} />
+            <Ionicons name='time-outline' size={24} color={colors.primary} />
           </TouchableOpacity>
         </View>
       </View>
@@ -42,7 +44,7 @@ export default function DiaryEditor({
           style={styles.input}
           multiline
           placeholder={t('writeDiaryPlaceholder')}
-          placeholderTextColor='#9CA3AF'
+          placeholderTextColor={colors.textTertiary}
           value={diaryText}
           onChangeText={onTextChange}
           textAlignVertical='top'
@@ -50,7 +52,7 @@ export default function DiaryEditor({
       </View>
 
       <View style={styles.tipBox}>
-        <Ionicons name='information-circle' size={20} color={Colors.primary} />
+        <Ionicons name='information-circle' size={20} color={colors.primary} />
         <Text style={styles.tipText}>{t('writeDiaryPlaceholder')}</Text>
       </View>
 
@@ -60,10 +62,10 @@ export default function DiaryEditor({
         disabled={loading || !diaryText.trim()}
       >
         {loading ? (
-          <ActivityIndicator color='#fff' />
+          <ActivityIndicator color={colors.white} />
         ) : (
           <>
-            <Ionicons name='send' size={24} color='#fff' />
+            <Ionicons name='send' size={24} color={colors.white} />
             <Text style={styles.submitButtonText}>{t('submitDiary')}</Text>
           </>
         )}
@@ -72,14 +74,14 @@ export default function DiaryEditor({
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ReturnType<typeof import('../../constants/colors').getTheme>) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
   },
   header: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
   },
   headerRow: {
     flexDirection: 'row',
@@ -92,18 +94,18 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 4,
   },
   subtitle: {
     fontSize: 16,
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   inputContainer: {
     margin: 16,
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 4,
@@ -113,7 +115,7 @@ const styles = StyleSheet.create({
     minHeight: 200,
     padding: 16,
     fontSize: 16,
-    color: '#111827',
+    color: colors.textPrimary,
     lineHeight: 24,
   },
   tipBox: {
@@ -122,12 +124,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 16,
     padding: 12,
-    backgroundColor: '#EEF2FF',
+    backgroundColor: colors.border,
     borderRadius: 8,
   },
   tipText: {
     fontSize: 14,
-    color: '#4338CA',
+    color: colors.primary,
     marginLeft: 8,
     flex: 1,
   },
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primary,
+    backgroundColor: colors.primary,
     margin: 16,
     padding: 16,
     borderRadius: 12,
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   submitButtonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 8,

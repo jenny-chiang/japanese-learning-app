@@ -3,18 +3,21 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
-import { Colors } from '../src/constants/colors';
+import { useTheme } from '../src/contexts/ThemeContext';
 
 export default function TodayScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const { todayProgress, stats, getDaysUntilExam, achievements } = useAppStore();
+  const { colors } = useTheme();
 
   const todayWordCount = todayProgress.todayWordCount;
   const doneWordCount = todayProgress.doneWordCount;
   const diaryDone = todayProgress.diaryDone;
   const daysUntilExam = getDaysUntilExam();
   const unlockedAchievements = achievements.filter((a) => a.unlockedAt);
+
+  const styles = createStyles(colors);
 
   return (
     <ScrollView style={styles.container}>
@@ -56,7 +59,7 @@ export default function TodayScreen() {
             <Ionicons
               name={diaryDone ? "checkmark-circle" : "ellipse-outline"}
               size={32}
-              color={diaryDone ? "#10B981" : "#D1D5DB"}
+              color={diaryDone ? colors.success : colors.textTertiary}
             />
             <Text style={styles.statLabel}>{t('diaryLabel')}</Text>
           </View>
@@ -68,7 +71,7 @@ export default function TodayScreen() {
         onPress={() => router.push('/words')}
       >
         <View style={styles.taskIcon}>
-          <Ionicons name="book" size={24} color={Colors.primary} />
+          <Ionicons name="book" size={24} color={colors.primary} />
         </View>
         <View style={styles.taskContent}>
           <Text style={styles.taskTitle}>{t('studyWords')}</Text>
@@ -76,7 +79,7 @@ export default function TodayScreen() {
             {t('wordsRemaining', { count: todayWordCount - doneWordCount })}
           </Text>
         </View>
-        <Ionicons name="chevron-forward" size={24} color="#9CA3AF" />
+        <Ionicons name="chevron-forward" size={24} color={colors.textTertiary} />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -84,7 +87,7 @@ export default function TodayScreen() {
         onPress={() => router.push('/diary')}
       >
         <View style={styles.taskIcon}>
-          <Ionicons name="create" size={24} color={Colors.primary} />
+          <Ionicons name="create" size={24} color={colors.primary} />
         </View>
         <View style={styles.taskContent}>
           <Text style={styles.taskTitle}>{t('writeDiary')}</Text>
@@ -92,30 +95,31 @@ export default function TodayScreen() {
             {diaryDone ? t('diaryDone') : t('diaryNotDone')}
           </Text>
         </View>
-        <Ionicons name="chevron-forward" size={24} color="#9CA3AF" />
+        <Ionicons name="chevron-forward" size={24} color={colors.textTertiary} />
       </TouchableOpacity>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
+
+const createStyles = (colors: ReturnType<typeof import('../src/constants/colors').getTheme>) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
   },
   header: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: colors.backgroundWhite,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 4,
   },
   examCountdown: {
     fontSize: 14,
-    color: Colors.primary,
+    color: colors.primary,
     fontWeight: '600',
     marginTop: 4,
   },
@@ -127,12 +131,12 @@ const styles = StyleSheet.create({
   },
   streakCard: {
     flex: 1,
-    backgroundColor: '#FFF7ED',
+    backgroundColor: colors.warningLight,
     borderRadius: 12,
     padding: 16,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#FDBA74',
+    borderColor: colors.warning,
   },
   streakEmoji: {
     fontSize: 32,
@@ -141,21 +145,22 @@ const styles = StyleSheet.create({
   streakNumber: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#EA580C',
+    color: colors.warning,
   },
   streakLabel: {
     fontSize: 12,
-    color: '#9A3412',
+    color: colors.textPrimary,
     marginTop: 2,
+    fontWeight: '600',
   },
   achievementCard: {
     flex: 1,
-    backgroundColor: '#FEF3C7',
+    backgroundColor: colors.warningLight,
     borderRadius: 12,
     padding: 16,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#FCD34D',
+    borderColor: colors.warning,
   },
   achievementEmoji: {
     fontSize: 32,
@@ -164,23 +169,24 @@ const styles = StyleSheet.create({
   achievementNumber: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#D97706',
+    color: colors.warning,
   },
   achievementLabel: {
     fontSize: 12,
-    color: '#92400E',
+    color: colors.textPrimary,
     marginTop: 2,
+    fontWeight: '600',
   },
   subtitle: {
     fontSize: 16,
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   progressCard: {
     margin: 16,
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
     shadowRadius: 4,
@@ -189,7 +195,7 @@ const styles = StyleSheet.create({
   progressTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 16,
   },
   progressStats: {
@@ -202,12 +208,12 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: Colors.primary,
+    color: colors.primary,
     marginBottom: 4,
   },
   statLabel: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   taskCard: {
     flexDirection: 'row',
@@ -215,9 +221,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 12,
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
@@ -227,7 +233,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#EEF2FF',
+    backgroundColor: colors.primaryLight,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 12,
@@ -238,23 +244,23 @@ const styles = StyleSheet.create({
   taskTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 2,
   },
   taskSubtitle: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   motivationPanel: {
     margin: 16,
     padding: 16,
-    backgroundColor: '#FEF3C7',
+    backgroundColor: colors.warningLight,
     borderRadius: 12,
     alignItems: 'center',
   },
   motivationText: {
     fontSize: 16,
-    color: '#92400E',
+    color: colors.warningDark,
     textAlign: 'center',
   },
 });

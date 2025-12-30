@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { DiaryEntry } from '../../types';
-import { Colors } from '../../constants/colors';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface DiaryResultProps {
   diary: DiaryEntry;
@@ -18,15 +18,17 @@ export default function DiaryResult({
   extractingWords,
 }: DiaryResultProps) {
   const { t } = useTranslation();
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.resultHeader}>
         <TouchableOpacity onPress={onBack} style={styles.backButton}>
-          <Ionicons name='arrow-back' size={24} color='#111827' />
+          <Ionicons name='arrow-back' size={24} color={colors.textPrimary} />
         </TouchableOpacity>
         <View style={styles.resultHeaderContent}>
-          <Ionicons name='checkmark-circle' size={48} color='#10B981' />
+          <Ionicons name='checkmark-circle' size={48} color={colors.success} />
           <Text style={styles.resultTitle}>{t('teacherComments')}</Text>
         </View>
       </View>
@@ -160,10 +162,10 @@ export default function DiaryResult({
         disabled={extractingWords}
       >
         {extractingWords ? (
-          <ActivityIndicator color="#fff" />
+          <ActivityIndicator color={colors.white} />
         ) : (
           <>
-            <Ionicons name='book' size={20} color='#fff' />
+            <Ionicons name='book' size={20} color={colors.white} />
             <Text style={styles.extractWordsButtonText}>{t('extractWords')}</Text>
           </>
         )}
@@ -173,7 +175,7 @@ export default function DiaryResult({
         style={styles.newDiaryButton}
         onPress={onBack}
       >
-        <Ionicons name='add-circle' size={24} color='#fff' />
+        <Ionicons name='add-circle' size={24} color={colors.white} />
         <Text style={styles.newDiaryButtonText}>{t('writeAnother')}</Text>
       </TouchableOpacity>
 
@@ -182,15 +184,15 @@ export default function DiaryResult({
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ReturnType<typeof import('../../constants/colors').getTheme>) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
   },
   resultHeader: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: colors.border,
     paddingTop: 20,
   },
   backButton: {
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
   resultTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.textPrimary,
     marginTop: 12,
   },
   section: {
@@ -213,45 +215,47 @@ const styles = StyleSheet.create({
   sectionLabel: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#374151',
+    color: colors.textPrimary,
     marginBottom: 8,
   },
   textBox: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     padding: 16,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 1,
   },
   correctedBox: {
-    backgroundColor: '#ECFDF5',
+    backgroundColor: colors.cardBackground,
     borderWidth: 1,
-    borderColor: '#10B981',
+    borderColor: colors.success,
   },
   originalText: {
     fontSize: 16,
-    color: '#374151',
+    color: colors.textPrimary,
     lineHeight: 24,
   },
   correctedText: {
     fontSize: 16,
-    color: '#065F46',
+    color: colors.success,
     lineHeight: 24,
   },
   explanationItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    backgroundColor: '#FFFBEB',
+    backgroundColor: colors.cardBackground,
     padding: 12,
     borderRadius: 8,
     marginBottom: 8,
+    borderWidth: 1,
+    borderColor: colors.warning,
   },
   explanationText: {
     fontSize: 14,
-    color: '#92400E',
+    color: colors.textPrimary,
     marginLeft: 8,
     flex: 1,
   },
@@ -261,21 +265,21 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   tag: {
-    backgroundColor: '#EEF2FF',
+    backgroundColor: colors.border,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 16,
   },
   tagText: {
     fontSize: 14,
-    color: '#4338CA',
+    color: colors.primary,
     fontWeight: '500',
   },
   extractWordsButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#10B981',
+    backgroundColor: colors.success,
     marginHorizontal: 16,
     marginTop: 12,
     padding: 16,
@@ -283,7 +287,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   extractWordsButtonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -291,90 +295,92 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primary,
+    backgroundColor: colors.primary,
     margin: 16,
     padding: 16,
     borderRadius: 12,
   },
   newDiaryButtonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 8,
   },
   summaryBox: {
-    backgroundColor: '#EFF6FF',
+    backgroundColor: colors.cardBackground,
     borderWidth: 1,
-    borderColor: '#3B82F6',
+    borderColor: colors.primary,
   },
   summaryText: {
     fontSize: 15,
-    color: '#1E40AF',
+    color: colors.primary,
     lineHeight: 24,
   },
   keyWordsContainer: {
     gap: 8,
   },
   keyWordItem: {
-    backgroundColor: '#FEF3C7',
+    backgroundColor: colors.cardBackground,
     padding: 12,
     borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.warning,
   },
   keyWordText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#92400E',
+    color: colors.textPrimary,
   },
   keyWordMeaning: {
     fontSize: 14,
-    color: '#78350F',
+    color: colors.textSecondary,
   },
   grammarItem: {
-    backgroundColor: '#F0F9FF',
+    backgroundColor: colors.cardBackground,
     padding: 16,
     borderRadius: 12,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#BAE6FD',
+    borderColor: colors.primary,
   },
   grammarPattern: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#0C4A6E',
+    color: colors.primary,
     marginBottom: 6,
   },
   grammarMeaning: {
     fontSize: 14,
-    color: '#075985',
+    color: colors.textPrimary,
     marginBottom: 8,
   },
   exampleBox: {
-    backgroundColor: '#FFF',
+    backgroundColor: colors.background,
     padding: 10,
     borderRadius: 8,
     borderLeftWidth: 3,
-    borderLeftColor: '#3B82F6',
+    borderLeftColor: colors.primary,
   },
   exampleJa: {
     fontSize: 14,
-    color: '#1F2937',
+    color: colors.textPrimary,
     marginBottom: 4,
   },
   exampleTranslation: {
     fontSize: 13,
-    color: '#6B7280',
+    color: colors.textSecondary,
     fontStyle: 'italic',
   },
   advancedWordItem: {
-    backgroundColor: '#FDF4FF',
+    backgroundColor: colors.cardBackground,
     padding: 16,
     borderRadius: 12,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#F0ABFC',
+    borderColor: colors.primary,
   },
   advancedWordHeader: {
     flexDirection: 'row',
@@ -385,10 +391,10 @@ const styles = StyleSheet.create({
   advancedWord: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#701A75',
+    color: colors.primary,
   },
   levelBadge: {
-    backgroundColor: '#A855F7',
+    backgroundColor: colors.primary,
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 12,
@@ -396,35 +402,35 @@ const styles = StyleSheet.create({
   levelBadgeText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#FFF',
+    color: colors.white,
   },
   advancedWordMeaning: {
     fontSize: 14,
-    color: '#86198F',
+    color: colors.textSecondary,
     marginBottom: 8,
   },
   advancedGrammarItem: {
-    backgroundColor: '#FFF7ED',
+    backgroundColor: colors.cardBackground,
     padding: 16,
     borderRadius: 12,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#FED7AA',
+    borderColor: colors.warning,
   },
   upgradedBox: {
-    backgroundColor: '#F0FDF4',
+    backgroundColor: colors.cardBackground,
     borderWidth: 2,
-    borderColor: '#4ADE80',
+    borderColor: colors.success,
   },
   upgradedText: {
     fontSize: 16,
-    color: '#166534',
+    color: colors.success,
     lineHeight: 24,
     fontWeight: '500',
   },
   upgradedHint: {
     fontSize: 13,
-    color: '#16A34A',
+    color: colors.success,
     marginTop: 8,
     fontStyle: 'italic',
   },

@@ -16,7 +16,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
 import { JLPTLevel } from '../src/types';
-import { Colors } from '../src/constants/colors';
+import { useTheme } from '../src/contexts/ThemeContext';
 import {
   requestNotificationPermissions,
   scheduleDailyNotification,
@@ -28,6 +28,8 @@ import { SecureStorage } from '../src/services/secureStorage';
 export default function SettingsScreen() {
   const { settings, updateSettings, resetAllData, stats, achievements } = useAppStore();
   const { t, i18n } = useTranslation();
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [tempTime, setTempTime] = useState(new Date());
@@ -276,7 +278,7 @@ export default function SettingsScreen() {
             style={styles.counterButton}
             onPress={() => handleWordsPerDayChange(-5)}
           >
-            <Ionicons name='remove' size={24} color={Colors.primary} />
+            <Ionicons name='remove' size={24} color={colors.primary} />
           </TouchableOpacity>
 
           <View style={styles.counterValue}>
@@ -288,7 +290,7 @@ export default function SettingsScreen() {
             style={styles.counterButton}
             onPress={() => handleWordsPerDayChange(5)}
           >
-            <Ionicons name='add' size={24} color={Colors.primary} />
+            <Ionicons name='add' size={24} color={colors.primary} />
           </TouchableOpacity>
         </View>
       </View>
@@ -315,7 +317,7 @@ export default function SettingsScreen() {
               style={styles.removeKeyButton}
               onPress={handleRemoveApiKey}
             >
-              <Ionicons name='trash-outline' size={20} color='#EF4444' />
+              <Ionicons name='trash-outline' size={20} color={colors.error} />
               <Text style={styles.removeKeyButtonText}>移除</Text>
             </TouchableOpacity>
           </View>
@@ -325,7 +327,7 @@ export default function SettingsScreen() {
               <TextInput
                 style={styles.apiKeyInput}
                 placeholder='輸入您的 Gemini API Key'
-                placeholderTextColor='#9CA3AF'
+                placeholderTextColor={colors.textTertiary}
                 value={apiKey}
                 onChangeText={setApiKey}
                 autoCapitalize='none'
@@ -339,7 +341,7 @@ export default function SettingsScreen() {
                 <Ionicons
                   name={showApiKey ? 'eye-off-outline' : 'eye-outline'}
                   size={20}
-                  color='#6B7280'
+                  color={colors.textSecondary}
                 />
               </TouchableOpacity>
             </View>
@@ -364,7 +366,7 @@ export default function SettingsScreen() {
         )}
 
         <View style={styles.infoBox}>
-          <Ionicons name='information-circle-outline' size={20} color={Colors.primary} />
+          <Ionicons name='information-circle-outline' size={20} color={colors.primary} />
           <Text style={styles.infoBoxText}>
             💡 設定您自己的 API Key 後，日記批改將使用您的配額，不會消耗應用程式的共用配額。
             Google 提供每日免費額度。
@@ -380,11 +382,11 @@ export default function SettingsScreen() {
           style={styles.datePickerButton}
           onPress={() => setShowDatePicker(true)}
         >
-          <Ionicons name='calendar-outline' size={24} color={Colors.primary} />
+          <Ionicons name='calendar-outline' size={24} color={colors.primary} />
           <Text style={styles.datePickerText}>
             {settings.examDate || t('clickToSetDate')}
           </Text>
-          <Ionicons name='chevron-forward' size={20} color='#9CA3AF' />
+          <Ionicons name='chevron-forward' size={20} color={colors.textTertiary} />
         </TouchableOpacity>
 
         {showDatePicker && (
@@ -414,9 +416,9 @@ export default function SettingsScreen() {
           <Switch
             value={settings.notificationsEnabled}
             onValueChange={handleNotificationToggle}
-            trackColor={{ false: '#D1D5DB', true: '#C7D2FE' }}
+            trackColor={{ false: colors.border, true: colors.primaryLight }}
             thumbColor={
-              settings.notificationsEnabled ? Colors.primary : '#F3F4F6'
+              settings.notificationsEnabled ? colors.primary : colors.border
             }
           />
         </View>
@@ -426,11 +428,11 @@ export default function SettingsScreen() {
             style={styles.timePickerButton}
             onPress={() => setShowTimePicker(true)}
           >
-            <Ionicons name='time-outline' size={24} color={Colors.primary} />
+            <Ionicons name='time-outline' size={24} color={colors.primary} />
             <Text style={styles.timePickerText}>
               {settings.reminderTime || '21:30'}
             </Text>
-            <Ionicons name='chevron-forward' size={20} color='#9CA3AF' />
+            <Ionicons name='chevron-forward' size={20} color={colors.textTertiary} />
           </TouchableOpacity>
         )}
 
@@ -480,6 +482,62 @@ export default function SettingsScreen() {
               ]}
             >
               🇬🇧 English
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>{t('theme')}</Text>
+        <Text style={styles.sectionDescription}>{t('themeDesc')}</Text>
+
+        <View style={styles.languageContainer}>
+          <TouchableOpacity
+            style={[
+              styles.languageButton,
+              settings.themeMode === 'light' && styles.languageButtonActive,
+            ]}
+            onPress={() => updateSettings({ themeMode: 'light' })}
+          >
+            <Text
+              style={[
+                styles.languageButtonText,
+                settings.themeMode === 'light' && styles.languageButtonTextActive,
+              ]}
+            >
+              ☀️ {t('themeLight')}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.languageButton,
+              settings.themeMode === 'dark' && styles.languageButtonActive,
+            ]}
+            onPress={() => updateSettings({ themeMode: 'dark' })}
+          >
+            <Text
+              style={[
+                styles.languageButtonText,
+                settings.themeMode === 'dark' && styles.languageButtonTextActive,
+              ]}
+            >
+              🌙 {t('themeDark')}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.languageButton,
+              settings.themeMode === 'system' && styles.languageButtonActive,
+            ]}
+            onPress={() => updateSettings({ themeMode: 'system' })}
+          >
+            <Text
+              style={[
+                styles.languageButtonText,
+                settings.themeMode === 'system' && styles.languageButtonTextActive,
+              ]}
+            >
+              📱 {t('themeSystem')}
             </Text>
           </TouchableOpacity>
         </View>
@@ -546,29 +604,29 @@ export default function SettingsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ReturnType<typeof import('../src/constants/colors').getTheme>) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
   },
   section: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     marginTop: 16,
     paddingHorizontal: 20,
     paddingVertical: 20,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: colors.border,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 4,
   },
   sectionDescription: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
     marginBottom: 16,
   },
   levelContainer: {
@@ -579,22 +637,22 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 16,
     alignItems: 'center',
-    backgroundColor: '#F3F4F6',
+    backgroundColor: colors.border,
     borderRadius: 12,
     borderWidth: 2,
     borderColor: 'transparent',
   },
   levelButtonActive: {
-    backgroundColor: '#EEF2FF',
-    borderColor: Colors.primary,
+    backgroundColor: colors.primaryLight,
+    borderColor: colors.primary,
   },
   levelButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   levelButtonTextActive: {
-    color: Colors.primary,
+    color: colors.primary,
   },
   counterContainer: {
     flexDirection: 'row',
@@ -606,7 +664,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#EEF2FF',
+    backgroundColor: colors.primaryLight,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -617,11 +675,11 @@ const styles = StyleSheet.create({
   counterNumber: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: Colors.primary,
+    color: colors.primary,
   },
   counterLabel: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   settingRow: {
     flexDirection: 'row',
@@ -634,29 +692,29 @@ const styles = StyleSheet.create({
   settingTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 2,
   },
   settingDescription: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   timePickerButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
     padding: 16,
     borderRadius: 12,
     marginTop: 12,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: colors.border,
   },
   timePickerText: {
     flex: 1,
     fontSize: 18,
     fontWeight: '600',
-    color: Colors.primary,
+    color: colors.primary,
     marginLeft: 12,
   },
   infoCard: {
@@ -670,18 +728,18 @@ const styles = StyleSheet.create({
   },
   infoLabel: {
     fontSize: 16,
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   infoValue: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#111827',
+    color: colors.textPrimary,
   },
   resetButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FEE2E2',
+    backgroundColor: colors.errorLight,
     marginHorizontal: 20,
     marginTop: 24,
     padding: 16,
@@ -690,23 +748,23 @@ const styles = StyleSheet.create({
   resetButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#EF4444',
+    color: colors.error,
     marginLeft: 8,
   },
   datePickerButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
     padding: 16,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: colors.border,
   },
   datePickerText: {
     flex: 1,
     fontSize: 16,
-    color: '#111827',
+    color: colors.textPrimary,
     marginLeft: 12,
   },
   achievementsGrid: {
@@ -716,17 +774,17 @@ const styles = StyleSheet.create({
   },
   achievementItem: {
     width: '47%',
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#E5E7EB',
+    borderColor: colors.border,
     opacity: 0.5,
   },
   achievementUnlocked: {
-    backgroundColor: '#FEF3C7',
-    borderColor: '#FCD34D',
+    backgroundColor: colors.warningLight,
+    borderColor: colors.warning,
     opacity: 1,
   },
   achievementIcon: {
@@ -736,17 +794,17 @@ const styles = StyleSheet.create({
   achievementTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 4,
   },
   achievementDesc: {
     fontSize: 12,
-    color: '#6B7280',
+    color: colors.textSecondary,
     textAlign: 'center',
   },
   achievementUnlockedText: {
     fontSize: 11,
-    color: '#D97706',
+    color: colors.warning,
     fontWeight: '600',
     marginTop: 4,
   },
@@ -758,22 +816,22 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 16,
     alignItems: 'center',
-    backgroundColor: '#F3F4F6',
+    backgroundColor: colors.border,
     borderRadius: 12,
     borderWidth: 2,
     borderColor: 'transparent',
   },
   languageButtonActive: {
-    backgroundColor: '#EEF2FF',
-    borderColor: Colors.primary,
+    backgroundColor: colors.primaryLight,
+    borderColor: colors.primary,
   },
   languageButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   languageButtonTextActive: {
-    color: Colors.primary,
+    color: colors.primary,
   },
   footer: {
     alignItems: 'center',
@@ -781,7 +839,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: '#9CA3AF',
+    color: colors.textTertiary,
   },
   apiKeyContainer: {
     gap: 12,
@@ -789,11 +847,11 @@ const styles = StyleSheet.create({
   apiKeyStatus: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F0FDF4',
+    backgroundColor: colors.successLight,
     padding: 16,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#BBF7D0',
+    borderColor: colors.success,
     gap: 12,
   },
   apiKeyStatusText: {
@@ -802,18 +860,18 @@ const styles = StyleSheet.create({
   apiKeyStatusTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#15803D',
+    color: colors.success,
     marginBottom: 2,
   },
   apiKeyStatusDesc: {
     fontSize: 14,
-    color: '#16A34A',
+    color: colors.success,
   },
   removeKeyButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FEE2E2',
+    backgroundColor: colors.errorLight,
     padding: 12,
     borderRadius: 8,
     gap: 6,
@@ -821,7 +879,7 @@ const styles = StyleSheet.create({
   removeKeyButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#EF4444',
+    color: colors.error,
   },
   apiKeyInputContainer: {
     gap: 12,
@@ -829,16 +887,16 @@ const styles = StyleSheet.create({
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#E5E7EB',
+    borderColor: colors.border,
   },
   apiKeyInput: {
     flex: 1,
     padding: 16,
     fontSize: 14,
-    color: '#111827',
+    color: colors.textPrimary,
   },
   eyeButton: {
     padding: 16,
@@ -847,7 +905,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primary,
+    backgroundColor: colors.primary,
     padding: 16,
     borderRadius: 12,
     gap: 8,
@@ -858,11 +916,11 @@ const styles = StyleSheet.create({
   verifyButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#fff',
+    color: colors.white,
   },
   infoBox: {
     flexDirection: 'row',
-    backgroundColor: '#EEF2FF',
+    backgroundColor: colors.primaryLight,
     padding: 12,
     borderRadius: 8,
     gap: 8,
@@ -871,7 +929,7 @@ const styles = StyleSheet.create({
   infoBoxText: {
     flex: 1,
     fontSize: 13,
-    color: '#4338CA',
+    color: colors.primary,
     lineHeight: 18,
   },
 });

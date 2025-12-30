@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useColorScheme } from 'react-native';
 import {
   Word,
   DiaryEntry,
@@ -9,6 +10,7 @@ import {
   LearningStats,
   FamiliarityLevel,
 } from '../types';
+import { updateTheme } from '../constants/colors';
 import wordsN3Data from '../../assets/data/words-n3.json';
 
 interface AppState {
@@ -52,6 +54,8 @@ interface AppState {
 
   // 設定相關
   updateSettings: (settings: Partial<UserSettings>) => void;
+  isDarkMode: () => boolean; // 判斷當前是否為深色模式
+  applyTheme: () => void; // 套用主題
 
   // 統計相關
   updateDailyStats: () => void; // 更新每日統計
@@ -74,6 +78,7 @@ const defaultSettings: UserSettings = {
   reminderTime: '21:30',
   notificationsEnabled: false,
   language: 'zh',
+  themeMode: 'system',
 };
 
 const defaultStats: LearningStats = {
@@ -687,6 +692,22 @@ export const useAppStore = create<AppState>((set, get) => ({
     });
 
     return distribution;
+  },
+
+  // 判斷當前是否為深色模式
+  isDarkMode: () => {
+    const { settings } = get();
+    if (settings.themeMode === 'system') {
+      // 使用系統設定 - 這會在組件中處理
+      return false; // 預設值
+    }
+    return settings.themeMode === 'dark';
+  },
+
+  // 套用主題
+  applyTheme: () => {
+    const isDark = get().isDarkMode();
+    updateTheme(isDark);
   },
 }));
 

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { DiaryEntry } from '../../types';
-import { Colors } from '../../constants/colors';
+import { useTheme } from '../../contexts/ThemeContext';
 
 interface DiaryHistoryProps {
   diaryEntries: DiaryEntry[];
@@ -16,6 +16,8 @@ export default function DiaryHistory({
   onSelectDiary,
 }: DiaryHistoryProps) {
   const { t } = useTranslation();
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
 
   return (
     <View style={styles.container}>
@@ -25,7 +27,7 @@ export default function DiaryHistory({
             onPress={onBack}
             style={styles.backButton}
           >
-            <Ionicons name='arrow-back' size={24} color='#111827' />
+            <Ionicons name='arrow-back' size={24} color={colors.textPrimary} />
           </TouchableOpacity>
           <Text style={styles.title}>{t('diaryHistory')}</Text>
         </View>
@@ -36,7 +38,7 @@ export default function DiaryHistory({
             <Ionicons
               name='document-text-outline'
               size={64}
-              color='#9CA3AF'
+              color={colors.textTertiary}
             />
             <Text style={styles.emptyText}>{t('noDiaryYet')}</Text>
           </View>
@@ -61,7 +63,7 @@ export default function DiaryHistory({
                   <Ionicons
                     name='chevron-forward'
                     size={20}
-                    color='#9CA3AF'
+                    color={colors.textTertiary}
                   />
                 </View>
                 <Text style={styles.historyPreview} numberOfLines={2}>
@@ -75,14 +77,14 @@ export default function DiaryHistory({
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ReturnType<typeof import('../../constants/colors').getTheme>) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
   },
   header: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
   },
   headerRow: {
     flexDirection: 'row',
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.textPrimary,
   },
   emptyState: {
     alignItems: 'center',
@@ -105,16 +107,16 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#9CA3AF',
+    color: colors.textTertiary,
     marginTop: 16,
   },
   historyItem: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     padding: 16,
     marginHorizontal: 16,
     marginBottom: 8,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
@@ -129,11 +131,11 @@ const styles = StyleSheet.create({
   historyDate: {
     fontSize: 14,
     fontWeight: '600',
-    color: Colors.primary,
+    color: colors.primary,
   },
   historyPreview: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
     lineHeight: 20,
   },
 });

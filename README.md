@@ -153,15 +153,19 @@ japanese-learning-app/
 │   ├── types/
 │   │   └── index.ts         # TypeScript 型別定義
 │   ├── constants/
-│   │   └── colors.ts        # 顏色常數定義
+│   │   └── colors.ts        # 顏色常數與主題定義
+│   ├── contexts/
+│   │   └── ThemeContext.tsx # 主題管理 Context
 │   ├── services/
 │   │   ├── diaryApi.ts      # AI 日記批改服務
 │   │   ├── notificationService.ts  # 推播通知服務
-│   │   └── secureStorage.ts # 安全儲存服務 (敏感資料)
+│   │   ├── secureStorage.ts # 安全儲存服務 (敏感資料)
+│   │   └── ttsService.ts    # 日文 TTS 發音服務
 │   ├── i18n/
 │   │   ├── translations.ts  # 翻譯資源
 │   │   └── i18n.config.ts   # i18next 配置
-│   ├── components/          # 共用元件 (待擴充)
+│   ├── components/          # 共用元件
+│   │   └── diary/           # 日記相關元件
 │   ├── hooks/               # 自訂 Hooks (待擴充)
 │   └── utils/               # 工具函式 (待擴充)
 ├── assets/
@@ -176,6 +180,7 @@ japanese-learning-app/
 - **語言**: TypeScript
 - **Navigation**: Expo Router (File-based routing)
 - **狀態管理**: Zustand + AsyncStorage 持久化
+- **主題系統**: React Context + 動態顏色
 - **本機儲存**: @react-native-async-storage/async-storage
 - **安全儲存**: expo-secure-store (用於敏感資料如 API Key)
 - **國際化**: i18next + react-i18next
@@ -183,6 +188,7 @@ japanese-learning-app/
 - **圖表**: react-native-gifted-charts
 - **通知**: expo-notifications
 - **日期選擇**: @react-native-community/datetimepicker
+- **語音合成**: expo-speech (日文 TTS)
 - **UI Icons**: @expo/vector-icons (Ionicons)
 
 ## 📋 資料模型
@@ -341,17 +347,19 @@ export type LearningStats = {
 
 ### Phase 5: 內容擴充
 
-- [ ] 深色模式
+- [x] **深色模式** ✅
   - 淺色/深色/跟隨系統
-  - 所有頁面適配
-  - 護眼設計
+  - 完整主題系統
+  - 動態顏色切換
+  - Settings 頁面設定
 
-- [ ] **單字發音功能**
+- [x] **單字發音功能** ✅
   - 日文 TTS 發音
-  - 支援線上/離線播放
+  - 支援線上播放
   - 單字卡片上一鍵播放
+  - 單字列表中快速發音
 
-### Phase 5: 內容擴充
+### Phase 6: 內容擴充
 - [ ] 更多 JLPT 單字資料 (目前僅 15 個 N3 單字)
 - [ ] N2/N1 進階單字庫
 - [ ] 文法練習功能
@@ -439,6 +447,33 @@ EXPO_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
   - 用戶可在「設定」頁面輸入自己的 API Key
 
 ## ⭐ 主要更新記錄
+
+### v4.3 - 深色模式 (2025-12-30) 🌙
+- 🎨 完整主題系統
+  - 支援淺色/深色/跟隨系統三種模式
+  - 使用 ThemeProvider 統一管理
+  - 動態顏色切換，即時生效
+  - 主題設定自動持久化
+- 🌈 精心設計的深色主題配色
+  - 護眼的深色背景
+  - 優化的文字對比度
+  - 適配所有 UI 元件
+- ⚙️ Settings 頁面新增主題選項
+  - 三種主題模式可選
+  - Emoji 圖示區分
+  - 即時預覽效果
+
+### v4.2 - 單字發音功能 (2025-12-30) ✨
+- 🔊 日文 TTS 發音系統
+  - 使用 expo-speech 實現日文語音合成
+  - 支援單字列表快速發音
+  - 練習卡片中一鍵播放
+  - 優化的語速與音調設定
+  - 智能語音選擇（iOS 優先使用 Kyoko）
+- 🎯 發音服務模組 (ttsService)
+  - 統一管理 TTS 功能
+  - 可自訂語速、音調、音量
+  - 支援檢查播放狀態
 
 ### v4.1 - 安全性強化 (2025-12-26)
 - 🔒 API Key 改用 expo-secure-store 安全儲存

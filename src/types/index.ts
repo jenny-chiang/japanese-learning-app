@@ -63,6 +63,7 @@ export type UserSettings = {
   notificationsEnabled: boolean;
   examDate?: string;
   language: Language;
+  themeMode: 'light' | 'dark' | 'system';
   // 注意：geminiApiKey 已移至安全儲存（expo-secure-store），不再存在 AsyncStorage 中
 };
 

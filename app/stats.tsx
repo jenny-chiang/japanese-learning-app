@@ -10,12 +10,13 @@ import {
 import { useTranslation } from 'react-i18next';
 import { LineChart, BarChart, PieChart } from 'react-native-gifted-charts';
 import { useAppStore } from '../src/store/useAppStore';
-import { Colors } from '../src/constants/colors';
+import { useTheme } from '../src/contexts/ThemeContext';
 
 const { width } = Dimensions.get('window');
 
 export default function StatsScreen() {
   const { t } = useTranslation();
+  const { colors } = useTheme();
   const [trendPeriod, setTrendPeriod] = useState<'week' | 'month'>('week');
 
   const {
@@ -24,6 +25,8 @@ export default function StatsScreen() {
     getMonthlyStudyTrend,
     getWordsFamiliarityDistribution,
   } = useAppStore();
+
+  const styles = createStyles(colors);
 
   // 獲取學習趨勢數據
   const trendData =
@@ -153,27 +156,27 @@ export default function StatsScreen() {
             data={durationChartData}
             width={width - 140}
             height={220}
-            color={Colors.primary}
+            color={colors.primary}
             thickness={3}
-            dataPointsColor={Colors.primary}
-            startFillColor={Colors.primary}
-            endFillColor={Colors.primary}
+            dataPointsColor={colors.primary}
+            startFillColor={colors.primary}
+            endFillColor={colors.primary}
             startOpacity={0.4}
             endOpacity={0.1}
             spacing={trendPeriod === 'week' ? 40 : 20}
             initialSpacing={10}
             noOfSections={4}
-            yAxisColor="#E5E7EB"
-            xAxisColor="#E5E7EB"
-            yAxisTextStyle={{ color: '#6B7280', fontSize: 10 }}
-            xAxisLabelTextStyle={{ color: '#6B7280', fontSize: 10, width: 40 }}
+            yAxisColor={colors.border}
+            xAxisColor={colors.border}
+            yAxisTextStyle={{ color: colors.textSecondary, fontSize: 10 }}
+            xAxisLabelTextStyle={{ color: colors.textSecondary, fontSize: 10, width: 40 }}
             areaChart
             hideDataPoints={false}
             dataPointsRadius={4}
             textShiftY={-8}
             textShiftX={-5}
             textFontSize={10}
-            textColor="#6366F1"
+            textColor={colors.primary}
           />
         </View>
       </View>
@@ -226,13 +229,13 @@ export default function StatsScreen() {
             spacing={trendPeriod === 'week' ? 20 : 8}
             initialSpacing={10}
             noOfSections={4}
-            yAxisColor="#E5E7EB"
-            xAxisColor="#E5E7EB"
-            yAxisTextStyle={{ color: '#6B7280', fontSize: 10 }}
-            xAxisLabelTextStyle={{ color: '#6B7280', fontSize: 10, width: 40 }}
-            frontColor="#10B981"
+            yAxisColor={colors.border}
+            xAxisColor={colors.border}
+            yAxisTextStyle={{ color: colors.textSecondary, fontSize: 10 }}
+            xAxisLabelTextStyle={{ color: colors.textSecondary, fontSize: 10, width: 40 }}
+            frontColor={colors.success}
             showValuesAsTopLabel
-            topLabelTextStyle={{ color: '#059669', fontSize: 10 }}
+            topLabelTextStyle={{ color: colors.success, fontSize: 10 }}
           />
         </View>
       </View>
@@ -248,7 +251,7 @@ export default function StatsScreen() {
                 donut
                 radius={90}
                 innerRadius={50}
-                innerCircleColor="#fff"
+                innerCircleColor={colors.cardBackground}
                 centerLabelComponent={() => (
                   <View style={styles.pieCenter}>
                     <Text style={styles.pieCenterValue}>{totalWords}</Text>
@@ -287,17 +290,17 @@ export default function StatsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: ReturnType<typeof import('../src/constants/colors').getTheme>) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
   },
   summaryCard: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     margin: 16,
     padding: 20,
     borderRadius: 16,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -306,7 +309,7 @@ const styles = StyleSheet.create({
   summaryTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 16,
   },
   summaryGrid: {
@@ -322,20 +325,20 @@ const styles = StyleSheet.create({
   summaryValue: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: Colors.primary,
+    color: colors.primary,
   },
   summaryLabel: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
     marginTop: 4,
   },
   chartCard: {
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     marginHorizontal: 16,
     marginBottom: 16,
     padding: 20,
     borderRadius: 16,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
@@ -350,7 +353,7 @@ const styles = StyleSheet.create({
   chartTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 16,
   },
   chartWrapper: {
@@ -368,11 +371,11 @@ const styles = StyleSheet.create({
   pieCenterValue: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.textPrimary,
   },
   pieCenterLabel: {
     fontSize: 12,
-    color: '#6B7280',
+    color: colors.textSecondary,
     marginTop: 4,
   },
   chart: {
@@ -381,7 +384,7 @@ const styles = StyleSheet.create({
   },
   periodToggle: {
     flexDirection: 'row',
-    backgroundColor: '#F3F4F6',
+    backgroundColor: colors.border,
     borderRadius: 8,
     padding: 2,
   },
@@ -391,15 +394,15 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   toggleButtonActive: {
-    backgroundColor: Colors.primary,
+    backgroundColor: colors.primary,
   },
   toggleText: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
     fontWeight: '500',
   },
   toggleTextActive: {
-    color: '#fff',
+    color: colors.white,
   },
   distributionStats: {
     marginTop: 16,
@@ -417,12 +420,12 @@ const styles = StyleSheet.create({
   },
   distributionLabel: {
     fontSize: 14,
-    color: '#374151',
+    color: colors.textPrimary,
     marginRight: 4,
   },
   distributionValue: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   emptyState: {
     paddingVertical: 40,
@@ -430,6 +433,6 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#9CA3AF',
+    color: colors.textTertiary,
   },
 });

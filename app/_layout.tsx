@@ -3,29 +3,25 @@ import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
-import { Colors } from '../src/constants/colors';
+import { ThemeProvider, useTheme } from '../src/contexts/ThemeContext';
 
-export default function TabLayout() {
-  const { loadData } = useAppStore();
+function TabsContent() {
   const { t } = useTranslation();
-
-  useEffect(() => {
-    loadData();
-  }, []);
+  const { isDark, colors } = useTheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: '#9CA3AF',
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textTertiary,
         headerStyle: {
-          backgroundColor: Colors.primary,
+          backgroundColor: colors.primary,
         },
         headerTintColor: '#fff',
         tabBarStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: colors.backgroundWhite,
           borderTopWidth: 1,
-          borderTopColor: '#E5E7EB',
+          borderTopColor: colors.border,
         },
       }}
     >
@@ -75,5 +71,19 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+  );
+}
+
+export default function TabLayout() {
+  const { loadData } = useAppStore();
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  return (
+    <ThemeProvider>
+      <TabsContent />
+    </ThemeProvider>
   );
 }

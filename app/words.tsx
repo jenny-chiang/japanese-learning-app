@@ -11,7 +11,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
 import { Word, FamiliarityLevel } from '../src/types';
-import { Colors } from '../src/constants/colors';
+import { useTheme } from '../src/contexts/ThemeContext';
+import { speakJapanese } from '../src/services/ttsService';
 
 enum WordTab {
   Today = 'today',
@@ -22,6 +23,7 @@ enum WordTab {
 
 export default function WordsScreen() {
   const { t } = useTranslation();
+  const { colors } = useTheme();
   const [selectedTab, setSelectedTab] = useState<WordTab>(WordTab.Today);
   const [practiceMode, setPracticeMode] = useState(false);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -36,6 +38,8 @@ export default function WordsScreen() {
     flagWord,
     recordStudyTime,
   } = useAppStore();
+
+  const styles = createStyles(colors);
 
   // 開始練習時記錄時間
   useEffect(() => {
@@ -77,10 +81,10 @@ export default function WordsScreen() {
   const currentWord = displayWords[currentWordIndex];
 
   const familiarityOptions = [
-    { level: FamiliarityLevel.DontKnow, style: styles.lowButton, textKey: 'dontKnow' },
-    { level: FamiliarityLevel.SoSo, style: styles.mediumLowButton, textKey: 'soSo' },
-    { level: FamiliarityLevel.Know, style: styles.mediumButton, textKey: 'know' },
-    { level: FamiliarityLevel.VeryFamiliar, style: styles.highButton, textKey: 'know' },
+    { level: FamiliarityLevel.DontKnow, styleKey: 'lowButton' as const, textKey: 'dontKnow' },
+    { level: FamiliarityLevel.SoSo, styleKey: 'mediumLowButton' as const, textKey: 'soSo' },
+    { level: FamiliarityLevel.Know, styleKey: 'mediumButton' as const, textKey: 'know' },
+    { level: FamiliarityLevel.VeryFamiliar, styleKey: 'highButton' as const, textKey: 'know' },
   ];
 
   const handleFamiliarityUpdate = (familiarity: FamiliarityLevel) => {
@@ -98,6 +102,12 @@ export default function WordsScreen() {
 
   const renderWordItem = ({ item }: { item: Word }) => (
     <View style={styles.wordItem}>
+      <TouchableOpacity
+        style={styles.speakerButtonInline}
+        onPress={() => speakJapanese(item.kanji || item.kana)}
+      >
+        <Ionicons name='volume-medium' size={20} color={colors.primary} />
+      </TouchableOpacity>
       <View style={styles.wordContent}>
         <Text style={styles.wordKanji}>{item.kanji}</Text>
         <Text style={styles.wordKana}>{item.kana}</Text>
@@ -114,7 +124,7 @@ export default function WordsScreen() {
           <Ionicons
             name={item.flagged ? 'star' : 'star-outline'}
             size={24}
-            color={item.flagged ? '#FBBF24' : '#D1D5DB'}
+            color={item.flagged ? colors.warning : colors.textTertiary}
           />
         </TouchableOpacity>
       </View>
@@ -196,7 +206,7 @@ export default function WordsScreen() {
             setShowMeaning(false);
           }}
         >
-          <Ionicons name='play-circle' size={24} color='#fff' />
+          <Ionicons name='play-circle' size={24} color={colors.white} />
           <Text style={styles.practiceButtonText}>{t('startPractice')}</Text>
         </TouchableOpacity>
       )}
@@ -208,7 +218,7 @@ export default function WordsScreen() {
         contentContainerStyle={styles.list}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Ionicons name='book-outline' size={64} color='#D1D5DB' />
+            <Ionicons name='book-outline' size={64} color={colors.textTertiary} />
             <Text style={styles.emptyText}>沒有單字</Text>
           </View>
         }
@@ -224,7 +234,7 @@ export default function WordsScreen() {
                 setShowMeaning(false);
               }}
             >
-              <Ionicons name='close' size={24} color='#6B7280' />
+              <Ionicons name='close' size={24} color={colors.textSecondary} />
             </TouchableOpacity>
 
             <View style={styles.practiceHeader}>
@@ -239,7 +249,7 @@ export default function WordsScreen() {
                   <Ionicons
                     name={currentWord.flagged ? 'star' : 'star-outline'}
                     size={28}
-                    color={currentWord.flagged ? '#FBBF24' : '#D1D5DB'}
+                    color={currentWord.flagged ? colors.warning : colors.textTertiary}
                   />
                 </TouchableOpacity>
               )}
@@ -250,6 +260,12 @@ export default function WordsScreen() {
                 <View style={styles.wordDisplay}>
                   <Text style={styles.practiceKanji}>{currentWord.kanji}</Text>
                   <Text style={styles.practiceKana}>{currentWord.kana}</Text>
+                  <TouchableOpacity
+                    style={styles.speakerButton}
+                    onPress={() => speakJapanese(currentWord.kanji || currentWord.kana)}
+                  >
+                    <Ionicons name='volume-medium' size={32} color={colors.primary} />
+                  </TouchableOpacity>
                 </View>
 
                 {showMeaning ? (
@@ -284,7 +300,7 @@ export default function WordsScreen() {
                     {familiarityOptions.map((option) => (
                       <TouchableOpacity
                         key={option.level}
-                        style={[styles.familiarityButton, option.style]}
+                        style={[styles.familiarityButton, styles[option.styleKey]]}
                         onPress={() => handleFamiliarityUpdate(option.level)}
                       >
                         <Text style={styles.buttonText}>{t(option.textKey)}</Text>
@@ -301,18 +317,19 @@ export default function WordsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+
+const createStyles = (colors: ReturnType<typeof import('../src/constants/colors').getTheme>) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: colors.background,
   },
   tabs: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: colors.backgroundWhite,
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: colors.border,
   },
   tab: {
     flex: 1,
@@ -321,28 +338,28 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   activeTab: {
-    backgroundColor: '#EEF2FF',
+    backgroundColor: colors.primaryLight,
   },
   tabText: {
     fontSize: 16,
-    color: '#6B7280',
+    color: colors.textSecondary,
     fontWeight: '500',
   },
   activeTabText: {
-    color: Colors.primary,
+    color: colors.primary,
     fontWeight: '600',
   },
   practiceButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primary,
+    backgroundColor: colors.primary,
     margin: 16,
     padding: 16,
     borderRadius: 12,
   },
   practiceButtonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 8,
@@ -354,11 +371,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     padding: 16,
     borderRadius: 12,
     marginBottom: 12,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
     shadowRadius: 2,
@@ -378,20 +395,20 @@ const styles = StyleSheet.create({
   wordKanji: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 4,
   },
   wordKana: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
     marginBottom: 4,
   },
   wordMeaning: {
     fontSize: 14,
-    color: '#374151',
+    color: colors.textPrimary,
   },
   familiarityBadge: {
-    backgroundColor: '#EEF2FF',
+    backgroundColor: colors.primaryLight,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 12,
@@ -399,7 +416,7 @@ const styles = StyleSheet.create({
   familiarityText: {
     fontSize: 14,
     fontWeight: '600',
-    color: Colors.primary,
+    color: colors.primary,
   },
   emptyState: {
     alignItems: 'center',
@@ -408,7 +425,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: '#9CA3AF',
+    color: colors.textTertiary,
     marginTop: 12,
   },
   modalContainer: {
@@ -420,10 +437,10 @@ const styles = StyleSheet.create({
   },
   practiceCard: {
     width: '100%',
-    backgroundColor: '#fff',
+    backgroundColor: colors.cardBackground,
     borderRadius: 20,
     padding: 24,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -443,7 +460,7 @@ const styles = StyleSheet.create({
   },
   progressText: {
     fontSize: 16,
-    color: '#6B7280',
+    color: colors.textSecondary,
     textAlign: 'center',
     marginBottom: 24,
   },
@@ -454,12 +471,12 @@ const styles = StyleSheet.create({
   practiceKanji: {
     fontSize: 48,
     fontWeight: 'bold',
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 8,
   },
   practiceKana: {
     fontSize: 20,
-    color: '#6B7280',
+    color: colors.textSecondary,
   },
   meaningDisplay: {
     alignItems: 'center',
@@ -467,30 +484,30 @@ const styles = StyleSheet.create({
   },
   practiceMeaning: {
     fontSize: 24,
-    color: '#111827',
+    color: colors.textPrimary,
     marginBottom: 16,
     textAlign: 'center',
   },
   exampleJa: {
     fontSize: 16,
-    color: '#374151',
+    color: colors.textPrimary,
     marginBottom: 4,
     textAlign: 'center',
   },
   exampleTranslation: {
     fontSize: 14,
-    color: '#6B7280',
+    color: colors.textSecondary,
     textAlign: 'center',
   },
   showButton: {
-    backgroundColor: Colors.primary,
+    backgroundColor: colors.primary,
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
     marginBottom: 24,
   },
   showButtonText: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 18,
     fontWeight: '600',
   },
@@ -503,20 +520,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   lowButton: {
-    backgroundColor: '#FEE2E2',
+    backgroundColor: colors.errorLight,
   },
   mediumLowButton: {
-    backgroundColor: '#FED7AA',
+    backgroundColor: colors.warningLight,
   },
   mediumButton: {
-    backgroundColor: '#FEF3C7',
+    backgroundColor: colors.warningLight,
   },
   highButton: {
-    backgroundColor: '#D1FAE5',
+    backgroundColor: colors.successLight,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#111827',
+    color: colors.textPrimary,
+  },
+  speakerButton: {
+    marginTop: 16,
+    padding: 12,
+    backgroundColor: colors.primaryLight,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  speakerButtonInline: {
+    marginRight: 12,
+    padding: 8,
+    backgroundColor: colors.primaryLight,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
