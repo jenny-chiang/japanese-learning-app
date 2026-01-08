@@ -1,0 +1,502 @@
+[
+  {
+    "id": "n2-001",
+    "level": "N2",
+    "kanji": "著しい",
+    "kana": "いちじるしい",
+    "meaning": "顯著的",
+    "exampleJa": "著しい進歩が見られる。",
+    "exampleTranslation": "可以看到顯著的進步。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-002",
+    "level": "N2",
+    "kanji": "顕著",
+    "kana": "けんちょ",
+    "meaning": "顯著",
+    "exampleJa": "顕著な効果がある。",
+    "exampleTranslation": "有顯著的效果。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-003",
+    "level": "N2",
+    "kanji": "妥当",
+    "kana": "だとう",
+    "meaning": "妥當",
+    "exampleJa": "妥当な判断だった。",
+    "exampleTranslation": "是妥當的判斷。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-004",
+    "level": "N2",
+    "kanji": "適切",
+    "kana": "てきせつ",
+    "meaning": "適切",
+    "exampleJa": "適切な対応をする。",
+    "exampleTranslation": "做出適切的對應。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-005",
+    "level": "N2",
+    "kanji": "適用",
+    "kana": "てきよう",
+    "meaning": "適用",
+    "exampleJa": "新しいルールを適用する。",
+    "exampleTranslation": "適用新規則。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-006",
+    "level": "N2",
+    "kanji": "応用",
+    "kana": "おうよう",
+    "meaning": "應用",
+    "exampleJa": "知識を実際に応用する。",
+    "exampleTranslation": "實際應用知識。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-007",
+    "level": "N2",
+    "kanji": "採用",
+    "kana": "さいよう",
+    "meaning": "採用",
+    "exampleJa": "新しいシステムを採用する。",
+    "exampleTranslation": "採用新系統。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-008",
+    "level": "N2",
+    "kanji": "雇用",
+    "kana": "こよう",
+    "meaning": "雇用",
+    "exampleJa": "新入社員を雇用する。",
+    "exampleTranslation": "雇用新員工。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-009",
+    "level": "N2",
+    "kanji": "従事",
+    "kana": "じゅうじ",
+    "meaning": "從事",
+    "exampleJa": "研究に従事する。",
+    "exampleTranslation": "從事研究。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-010",
+    "level": "N2",
+    "kanji": "携わる",
+    "kana": "たずさわる",
+    "meaning": "參與",
+    "exampleJa": "プロジェクトに携わる。",
+    "exampleTranslation": "參與專案。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-011",
+    "level": "N2",
+    "kanji": "遂行",
+    "kana": "すいこう",
+    "meaning": "執行",
+    "exampleJa": "任務を遂行する。",
+    "exampleTranslation": "執行任務。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-012",
+    "level": "N2",
+    "kanji": "実施",
+    "kana": "じっし",
+    "meaning": "實施",
+    "exampleJa": "計画を実施する。",
+    "exampleTranslation": "實施計畫。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-013",
+    "level": "N2",
+    "kanji": "遂げる",
+    "kana": "とげる",
+    "meaning": "達成",
+    "exampleJa": "目標を遂げる。",
+    "exampleTranslation": "達成目標。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-014",
+    "level": "N2",
+    "kanji": "達成",
+    "kana": "たっせい",
+    "meaning": "達成",
+    "exampleJa": "目標を達成した。",
+    "exampleTranslation": "達成了目標。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-015",
+    "level": "N2",
+    "kanji": "到達",
+    "kana": "とうたつ",
+    "meaning": "到達",
+    "exampleJa": "頂上に到達する。",
+    "exampleTranslation": "到達頂峰。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-016",
+    "level": "N2",
+    "kanji": "克服",
+    "kana": "こくふく",
+    "meaning": "克服",
+    "exampleJa": "困難を克服する。",
+    "exampleTranslation": "克服困難。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-017",
+    "level": "N2",
+    "kanji": "乗り越える",
+    "kana": "のりこえる",
+    "meaning": "克服",
+    "exampleJa": "試練を乗り越える。",
+    "exampleTranslation": "克服試煉。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-018",
+    "level": "N2",
+    "kanji": "突破",
+    "kana": "とっぱ",
+    "meaning": "突破",
+    "exampleJa": "限界を突破する。",
+    "exampleTranslation": "突破極限。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-019",
+    "level": "N2",
+    "kanji": "革新",
+    "kana": "かくしん",
+    "meaning": "革新",
+    "exampleJa": "技術革新が進む。",
+    "exampleTranslation": "技術革新在進步。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-020",
+    "level": "N2",
+    "kanji": "改革",
+    "kana": "かいかく",
+    "meaning": "改革",
+    "exampleJa": "教育改革を行う。",
+    "exampleTranslation": "進行教育改革。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-021",
+    "level": "N2",
+    "kanji": "改善",
+    "kana": "かいぜん",
+    "meaning": "改善",
+    "exampleJa": "問題を改善する。",
+    "exampleTranslation": "改善問題。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-022",
+    "level": "N2",
+    "kanji": "向上",
+    "kana": "こうじょう",
+    "meaning": "提升",
+    "exampleJa": "技術の向上を図る。",
+    "exampleTranslation": "謀求技術的提升。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-023",
+    "level": "N2",
+    "kanji": "促進",
+    "kana": "そくしん",
+    "meaning": "促進",
+    "exampleJa": "健康を促進する。",
+    "exampleTranslation": "促進健康。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-024",
+    "level": "N2",
+    "kanji": "抑制",
+    "kana": "よくせい",
+    "meaning": "抑制",
+    "exampleJa": "コストを抑制する。",
+    "exampleTranslation": "抑制成本。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-025",
+    "level": "N2",
+    "kanji": "制御",
+    "kana": "せいぎょ",
+    "meaning": "控制",
+    "exampleJa": "温度を制御する。",
+    "exampleTranslation": "控制溫度。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-026",
+    "level": "N2",
+    "kanji": "維持",
+    "kana": "いじ",
+    "meaning": "維持",
+    "exampleJa": "品質を維持する。",
+    "exampleTranslation": "維持品質。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-027",
+    "level": "N2",
+    "kanji": "保持",
+    "kana": "ほじ",
+    "meaning": "保持",
+    "exampleJa": "記録を保持する。",
+    "exampleTranslation": "保持記錄。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-028",
+    "level": "N2",
+    "kanji": "保存",
+    "kana": "ほぞん",
+    "meaning": "保存",
+    "exampleJa": "データを保存する。",
+    "exampleTranslation": "保存數據。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-029",
+    "level": "N2",
+    "kanji": "蓄積",
+    "kana": "ちくせき",
+    "meaning": "累積",
+    "exampleJa": "知識を蓄積する。",
+    "exampleTranslation": "累積知識。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-030",
+    "level": "N2",
+    "kanji": "蓄える",
+    "kana": "たくわえる",
+    "meaning": "儲存",
+    "exampleJa": "お金を蓄える。",
+    "exampleTranslation": "存錢。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-031",
+    "level": "N2",
+    "kanji": "消費",
+    "kana": "しょうひ",
+    "meaning": "消費",
+    "exampleJa": "エネルギーを消費する。",
+    "exampleTranslation": "消費能源。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-032",
+    "level": "N2",
+    "kanji": "浪費",
+    "kana": "ろうひ",
+    "meaning": "浪費",
+    "exampleJa": "時間を浪費する。",
+    "exampleTranslation": "浪費時間。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-033",
+    "level": "N2",
+    "kanji": "節約",
+    "kana": "せつやく",
+    "meaning": "節約",
+    "exampleJa": "お金を節約する。",
+    "exampleTranslation": "節約金錢。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-034",
+    "level": "N2",
+    "kanji": "効率",
+    "kana": "こうりつ",
+    "meaning": "效率",
+    "exampleJa": "効率を上げる。",
+    "exampleTranslation": "提升效率。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-035",
+    "level": "N2",
+    "kanji": "効果",
+    "kana": "こうか",
+    "meaning": "效果",
+    "exampleJa": "大きな効果がある。",
+    "exampleTranslation": "有很大的效果。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-036",
+    "level": "N2",
+    "kanji": "影響",
+    "kana": "えいきょう",
+    "meaning": "影響",
+    "exampleJa": "環境に影響を与える。",
+    "exampleTranslation": "對環境造成影響。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-037",
+    "level": "N2",
+    "kanji": "作用",
+    "kana": "さよう",
+    "meaning": "作用",
+    "exampleJa": "薬の作用が現れる。",
+    "exampleTranslation": "藥的作用出現。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-038",
+    "level": "N2",
+    "kanji": "反応",
+    "kana": "はんのう",
+    "meaning": "反應",
+    "exampleJa": "化学反応が起こる。",
+    "exampleTranslation": "發生化學反應。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-039",
+    "level": "N2",
+    "kanji": "対応",
+    "kana": "たいおう",
+    "meaning": "對應",
+    "exampleJa": "状況に対応する。",
+    "exampleTranslation": "對應狀況。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-040",
+    "level": "N2",
+    "kanji": "適応",
+    "kana": "てきおう",
+    "meaning": "適應",
+    "exampleJa": "環境に適応する。",
+    "exampleTranslation": "適應環境。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-041",
+    "level": "N2",
+    "kanji": "順応",
+    "kana": "じゅんのう",
+    "meaning": "順應",
+    "exampleJa": "新しい生活に順応する。",
+    "exampleTranslation": "順應新生活。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-042",
+    "level": "N2",
+    "kanji": "慣れる",
+    "kana": "なれる",
+    "meaning": "習慣",
+    "exampleJa": "仕事に慣れる。",
+    "exampleTranslation": "習慣工作。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-043",
+    "level": "N2",
+    "kanji": "馴染む",
+    "kana": "なじむ",
+    "meaning": "熟悉",
+    "exampleJa": "環境に馴染む。",
+    "exampleTranslation": "熟悉環境。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-044",
+    "level": "N2",
+    "kanji": "精通",
+    "kana": "せいつう",
+    "meaning": "精通",
+    "exampleJa": "専門分野に精通する。",
+    "exampleTranslation": "精通專業領域。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-045",
+    "level": "N2",
+    "kanji": "熟練",
+    "kana": "じゅくれん",
+    "meaning": "熟練",
+    "exampleJa": "熟練した技術を持つ。",
+    "exampleTranslation": "擁有熟練的技術。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-046",
+    "level": "N2",
+    "kanji": "熟達",
+    "kana": "じゅくたつ",
+    "meaning": "熟練",
+    "exampleJa": "技術に熟達する。",
+    "exampleTranslation": "精通技術。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-047",
+    "level": "N2",
+    "kanji": "習得",
+    "kana": "しゅうとく",
+    "meaning": "學會",
+    "exampleJa": "技術を習得する。",
+    "exampleTranslation": "學會技術。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-048",
+    "level": "N2",
+    "kanji": "獲得",
+    "kana": "かくとく",
+    "meaning": "獲得",
+    "exampleJa": "資格を獲得する。",
+    "exampleTranslation": "獲得資格。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-049",
+    "level": "N2",
+    "kanji": "取得",
+    "kana": "しゅとく",
+    "meaning": "取得",
+    "exampleJa": "免許を取得する。",
+    "exampleTranslation": "取得執照。",
+    "familiarity": 0
+  },
+  {
+    "id": "n2-050",
+    "level": "N2",
+    "kanji": "喪失",
+    "kana": "そうしつ",
+    "meaning": "喪失",
+    "exampleJa": "記憶を喪失する。",
+    "exampleTranslation": "喪失記憶。",
+    "familiarity": 0
+  }
+]

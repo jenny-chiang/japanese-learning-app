@@ -148,5 +148,855 @@
     "exampleJa": "それは無理だと思う。",
     "exampleTranslation": "我覺得那不可能。",
     "familiarity": 0
+  },
+  {
+    "id": "n3-016",
+    "level": "N3",
+    "kanji": "必要",
+    "kana": "ひつよう",
+    "meaning": "必要",
+    "exampleJa": "準備が必要です。",
+    "exampleTranslation": "需要準備。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-017",
+    "level": "N3",
+    "kanji": "不便",
+    "kana": "ふべん",
+    "meaning": "不方便",
+    "exampleJa": "交通が不便です。",
+    "exampleTranslation": "交通不方便。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-018",
+    "level": "N3",
+    "kanji": "便利",
+    "kana": "べんり",
+    "meaning": "方便",
+    "exampleJa": "便利な場所に住んでいます。",
+    "exampleTranslation": "住在方便的地方。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-019",
+    "level": "N3",
+    "kanji": "確認",
+    "kana": "かくにん",
+    "meaning": "確認",
+    "exampleJa": "予約を確認します。",
+    "exampleTranslation": "確認預約。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-020",
+    "level": "N3",
+    "kanji": "変更",
+    "kana": "へんこう",
+    "meaning": "變更",
+    "exampleJa": "予定を変更する。",
+    "exampleTranslation": "變更預定。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-021",
+    "level": "N3",
+    "kanji": "取り消し",
+    "kana": "とりけし",
+    "meaning": "取消",
+    "exampleJa": "予約を取り消す。",
+    "exampleTranslation": "取消預約。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-022",
+    "level": "N3",
+    "kanji": "申し込み",
+    "kana": "もうしこみ",
+    "meaning": "申請",
+    "exampleJa": "参加を申し込む。",
+    "exampleTranslation": "申請參加。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-023",
+    "level": "N3",
+    "kanji": "参加",
+    "kana": "さんか",
+    "meaning": "參加",
+    "exampleJa": "イベントに参加する。",
+    "exampleTranslation": "參加活動。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-024",
+    "level": "N3",
+    "kanji": "出席",
+    "kana": "しゅっせき",
+    "meaning": "出席",
+    "exampleJa": "会議に出席する。",
+    "exampleTranslation": "出席會議。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-025",
+    "level": "N3",
+    "kanji": "欠席",
+    "kana": "けっせき",
+    "meaning": "缺席",
+    "exampleJa": "授業を欠席する。",
+    "exampleTranslation": "缺課。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-026",
+    "level": "N3",
+    "kanji": "遅刻",
+    "kana": "ちこく",
+    "meaning": "遲到",
+    "exampleJa": "電車が遅れて遅刻した。",
+    "exampleTranslation": "電車晚點所以遲到了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-027",
+    "level": "N3",
+    "kanji": "早退",
+    "kana": "そうたい",
+    "meaning": "早退",
+    "exampleJa": "体調が悪くて早退した。",
+    "exampleTranslation": "身體不舒服所以早退了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-028",
+    "level": "N3",
+    "kanji": "残業",
+    "kana": "ざんぎょう",
+    "meaning": "加班",
+    "exampleJa": "今日は残業があります。",
+    "exampleTranslation": "今天要加班。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-029",
+    "level": "N3",
+    "kanji": "出張",
+    "kana": "しゅっちょう",
+    "meaning": "出差",
+    "exampleJa": "来週出張に行きます。",
+    "exampleTranslation": "下週要出差。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-030",
+    "level": "N3",
+    "kanji": "交通",
+    "kana": "こうつう",
+    "meaning": "交通",
+    "exampleJa": "交通が便利です。",
+    "exampleTranslation": "交通很方便。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-031",
+    "level": "N3",
+    "kanji": "通勤",
+    "kana": "つうきん",
+    "meaning": "通勤",
+    "exampleJa": "電車で通勤します。",
+    "exampleTranslation": "搭電車通勤。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-032",
+    "level": "N3",
+    "kanji": "通学",
+    "kana": "つうがく",
+    "meaning": "通學",
+    "exampleJa": "バスで通学しています。",
+    "exampleTranslation": "搭公車上學。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-033",
+    "level": "N3",
+    "kanji": "乗り換え",
+    "kana": "のりかえ",
+    "meaning": "轉乘",
+    "exampleJa": "渋谷で乗り換えます。",
+    "exampleTranslation": "在澀谷轉乘。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-034",
+    "level": "N3",
+    "kanji": "渋滞",
+    "kana": "じゅうたい",
+    "meaning": "塞車",
+    "exampleJa": "道が渋滞しています。",
+    "exampleTranslation": "道路塞車。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-035",
+    "level": "N3",
+    "kanji": "事故",
+    "kana": "じこ",
+    "meaning": "事故",
+    "exampleJa": "交通事故がありました。",
+    "exampleTranslation": "發生了交通事故。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-036",
+    "level": "N3",
+    "kanji": "故障",
+    "kana": "こしょう",
+    "meaning": "故障",
+    "exampleJa": "エアコンが故障した。",
+    "exampleTranslation": "冷氣壞了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-037",
+    "level": "N3",
+    "kanji": "修理",
+    "kana": "しゅうり",
+    "meaning": "修理",
+    "exampleJa": "車を修理に出す。",
+    "exampleTranslation": "送車去修理。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-038",
+    "level": "N3",
+    "kanji": "準備",
+    "kana": "じゅんび",
+    "meaning": "準備",
+    "exampleJa": "旅行の準備をする。",
+    "exampleTranslation": "做旅行的準備。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-039",
+    "level": "N3",
+    "kanji": "片付け",
+    "kana": "かたづけ",
+    "meaning": "整理",
+    "exampleJa": "部屋を片付ける。",
+    "exampleTranslation": "整理房間。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-040",
+    "level": "N3",
+    "kanji": "掃除",
+    "kana": "そうじ",
+    "meaning": "打掃",
+    "exampleJa": "週末に掃除をします。",
+    "exampleTranslation": "週末打掃。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-041",
+    "level": "N3",
+    "kanji": "洗濯",
+    "kana": "せんたく",
+    "meaning": "洗衣",
+    "exampleJa": "洗濯物を干す。",
+    "exampleTranslation": "曬衣服。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-042",
+    "level": "N3",
+    "kanji": "引っ越し",
+    "kana": "ひっこし",
+    "meaning": "搬家",
+    "exampleJa": "来月引っ越します。",
+    "exampleTranslation": "下個月搬家。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-043",
+    "level": "N3",
+    "kanji": "留学",
+    "kana": "りゅうがく",
+    "meaning": "留學",
+    "exampleJa": "アメリカに留学する。",
+    "exampleTranslation": "去美國留學。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-044",
+    "level": "N3",
+    "kanji": "卒業",
+    "kana": "そつぎょう",
+    "meaning": "畢業",
+    "exampleJa": "来年大学を卒業します。",
+    "exampleTranslation": "明年大學畢業。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-045",
+    "level": "N3",
+    "kanji": "就職",
+    "kana": "しゅうしょく",
+    "meaning": "就業",
+    "exampleJa": "大手企業に就職した。",
+    "exampleTranslation": "在大企業就職了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-046",
+    "level": "N3",
+    "kanji": "退職",
+    "kana": "たいしょく",
+    "meaning": "退職",
+    "exampleJa": "会社を退職する。",
+    "exampleTranslation": "從公司退職。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-047",
+    "level": "N3",
+    "kanji": "結婚",
+    "kana": "けっこん",
+    "meaning": "結婚",
+    "exampleJa": "来年結婚する予定です。",
+    "exampleTranslation": "預定明年結婚。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-048",
+    "level": "N3",
+    "kanji": "離婚",
+    "kana": "りこん",
+    "meaning": "離婚",
+    "exampleJa": "両親が離婚した。",
+    "exampleTranslation": "父母離婚了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-049",
+    "level": "N3",
+    "kanji": "出産",
+    "kana": "しゅっさん",
+    "meaning": "生產",
+    "exampleJa": "姉が出産しました。",
+    "exampleTranslation": "姊姊生產了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-050",
+    "level": "N3",
+    "kanji": "育児",
+    "kana": "いくじ",
+    "meaning": "育兒",
+    "exampleJa": "育児は大変です。",
+    "exampleTranslation": "育兒很辛苦。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-051",
+    "level": "N3",
+    "kanji": "健康",
+    "kana": "けんこう",
+    "meaning": "健康",
+    "exampleJa": "健康に気をつける。",
+    "exampleTranslation": "注意健康。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-052",
+    "level": "N3",
+    "kanji": "病気",
+    "kana": "びょうき",
+    "meaning": "生病",
+    "exampleJa": "病気で休みました。",
+    "exampleTranslation": "因為生病而請假。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-053",
+    "level": "N3",
+    "kanji": "治療",
+    "kana": "ちりょう",
+    "meaning": "治療",
+    "exampleJa": "病院で治療を受ける。",
+    "exampleTranslation": "在醫院接受治療。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-054",
+    "level": "N3",
+    "kanji": "診察",
+    "kana": "しんさつ",
+    "meaning": "診察",
+    "exampleJa": "医者に診察してもらう。",
+    "exampleTranslation": "給醫生診察。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-055",
+    "level": "N3",
+    "kanji": "注射",
+    "kana": "ちゅうしゃ",
+    "meaning": "打針",
+    "exampleJa": "予防注射を受ける。",
+    "exampleTranslation": "打預防針。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-056",
+    "level": "N3",
+    "kanji": "薬",
+    "kana": "くすり",
+    "meaning": "藥",
+    "exampleJa": "薬を飲みます。",
+    "exampleTranslation": "吃藥。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-057",
+    "level": "N3",
+    "kanji": "症状",
+    "kana": "しょうじょう",
+    "meaning": "症狀",
+    "exampleJa": "症状を説明する。",
+    "exampleTranslation": "說明症狀。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-058",
+    "level": "N3",
+    "kanji": "痛み",
+    "kana": "いたみ",
+    "meaning": "疼痛",
+    "exampleJa": "頭の痛みがあります。",
+    "exampleTranslation": "頭痛。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-059",
+    "level": "N3",
+    "kanji": "熱",
+    "kana": "ねつ",
+    "meaning": "發燒",
+    "exampleJa": "熱が出ました。",
+    "exampleTranslation": "發燒了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-060",
+    "level": "N3",
+    "kanji": "咳",
+    "kana": "せき",
+    "meaning": "咳嗽",
+    "exampleJa": "咳が止まりません。",
+    "exampleTranslation": "咳嗽停不下來。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-061",
+    "level": "N3",
+    "kanji": "風邪",
+    "kana": "かぜ",
+    "meaning": "感冒",
+    "exampleJa": "風邪をひきました。",
+    "exampleTranslation": "感冒了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-062",
+    "level": "N3",
+    "kanji": "怪我",
+    "kana": "けが",
+    "meaning": "受傷",
+    "exampleJa": "足に怪我をした。",
+    "exampleTranslation": "腳受傷了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-063",
+    "level": "N3",
+    "kanji": "疲れ",
+    "kana": "つかれ",
+    "meaning": "疲勞",
+    "exampleJa": "疲れが取れません。",
+    "exampleTranslation": "疲勞消除不了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-064",
+    "level": "N3",
+    "kanji": "休憩",
+    "kana": "きゅうけい",
+    "meaning": "休息",
+    "exampleJa": "休憩時間です。",
+    "exampleTranslation": "休息時間。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-065",
+    "level": "N3",
+    "kanji": "睡眠",
+    "kana": "すいみん",
+    "meaning": "睡眠",
+    "exampleJa": "十分な睡眠が必要です。",
+    "exampleTranslation": "需要充足的睡眠。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-066",
+    "level": "N3",
+    "kanji": "栄養",
+    "kana": "えいよう",
+    "meaning": "營養",
+    "exampleJa": "栄養のバランスが大切です。",
+    "exampleTranslation": "營養均衡很重要。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-067",
+    "level": "N3",
+    "kanji": "運動",
+    "kana": "うんどう",
+    "meaning": "運動",
+    "exampleJa": "毎日運動します。",
+    "exampleTranslation": "每天運動。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-068",
+    "level": "N3",
+    "kanji": "散歩",
+    "kana": "さんぽ",
+    "meaning": "散步",
+    "exampleJa": "公園を散歩する。",
+    "exampleTranslation": "在公園散步。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-069",
+    "level": "N3",
+    "kanji": "趣味",
+    "kana": "しゅみ",
+    "meaning": "興趣",
+    "exampleJa": "趣味は読書です。",
+    "exampleTranslation": "興趣是閱讀。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-070",
+    "level": "N3",
+    "kanji": "娯楽",
+    "kana": "ごらく",
+    "meaning": "娛樂",
+    "exampleJa": "娯楽の時間が欲しい。",
+    "exampleTranslation": "想要娛樂時間。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-071",
+    "level": "N3",
+    "kanji": "旅行",
+    "kana": "りょこう",
+    "meaning": "旅行",
+    "exampleJa": "夏休みに旅行します。",
+    "exampleTranslation": "暑假去旅行。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-072",
+    "level": "N3",
+    "kanji": "観光",
+    "kana": "かんこう",
+    "meaning": "觀光",
+    "exampleJa": "京都を観光する。",
+    "exampleTranslation": "在京都觀光。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-073",
+    "level": "N3",
+    "kanji": "土産",
+    "kana": "みやげ",
+    "meaning": "伴手禮",
+    "exampleJa": "お土産を買います。",
+    "exampleTranslation": "買伴手禮。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-074",
+    "level": "N3",
+    "kanji": "思い出",
+    "kana": "おもいで",
+    "meaning": "回憶",
+    "exampleJa": "楽しい思い出がたくさんあります。",
+    "exampleTranslation": "有很多快樂的回憶。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-075",
+    "level": "N3",
+    "kanji": "記念",
+    "kana": "きねん",
+    "meaning": "紀念",
+    "exampleJa": "記念写真を撮る。",
+    "exampleTranslation": "拍紀念照。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-076",
+    "level": "N3",
+    "kanji": "祝い",
+    "kana": "いわい",
+    "meaning": "慶祝",
+    "exampleJa": "誕生日のお祝いをする。",
+    "exampleTranslation": "慶祝生日。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-077",
+    "level": "N3",
+    "kanji": "招待",
+    "kana": "しょうたい",
+    "meaning": "邀請",
+    "exampleJa": "パーティーに招待された。",
+    "exampleTranslation": "被邀請到派對。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-078",
+    "level": "N3",
+    "kanji": "訪問",
+    "kana": "ほうもん",
+    "meaning": "拜訪",
+    "exampleJa": "友人の家を訪問する。",
+    "exampleTranslation": "拜訪朋友的家。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-079",
+    "level": "N3",
+    "kanji": "紹介",
+    "kana": "しょうかい",
+    "meaning": "介紹",
+    "exampleJa": "友達を紹介する。",
+    "exampleTranslation": "介紹朋友。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-080",
+    "level": "N3",
+    "kanji": "説明",
+    "kana": "せつめい",
+    "meaning": "說明",
+    "exampleJa": "使い方を説明する。",
+    "exampleTranslation": "說明使用方法。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-081",
+    "level": "N3",
+    "kanji": "理解",
+    "kana": "りかい",
+    "meaning": "理解",
+    "exampleJa": "内容を理解する。",
+    "exampleTranslation": "理解內容。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-082",
+    "level": "N3",
+    "kanji": "質問",
+    "kana": "しつもん",
+    "meaning": "問題",
+    "exampleJa": "質問があります。",
+    "exampleTranslation": "有問題。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-083",
+    "level": "N3",
+    "kanji": "回答",
+    "kana": "かいとう",
+    "meaning": "回答",
+    "exampleJa": "質問に回答する。",
+    "exampleTranslation": "回答問題。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-084",
+    "level": "N3",
+    "kanji": "意見",
+    "kana": "いけん",
+    "meaning": "意見",
+    "exampleJa": "意見を述べる。",
+    "exampleTranslation": "陳述意見。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-085",
+    "level": "N3",
+    "kanji": "相談",
+    "kana": "そうだん",
+    "meaning": "商量",
+    "exampleJa": "先生に相談する。",
+    "exampleTranslation": "和老師商量。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-086",
+    "level": "N3",
+    "kanji": "会話",
+    "kana": "かいわ",
+    "meaning": "對話",
+    "exampleJa": "日本語で会話する。",
+    "exampleTranslation": "用日文對話。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-087",
+    "level": "N3",
+    "kanji": "発言",
+    "kana": "はつげん",
+    "meaning": "發言",
+    "exampleJa": "会議で発言する。",
+    "exampleTranslation": "在會議上發言。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-088",
+    "level": "N3",
+    "kanji": "議論",
+    "kana": "ぎろん",
+    "meaning": "議論",
+    "exampleJa": "議論が続く。",
+    "exampleTranslation": "議論持續。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-089",
+    "level": "N3",
+    "kanji": "決定",
+    "kana": "けってい",
+    "meaning": "決定",
+    "exampleJa": "計画を決定する。",
+    "exampleTranslation": "決定計畫。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-090",
+    "level": "N3",
+    "kanji": "選択",
+    "kana": "せんたく",
+    "meaning": "選擇",
+    "exampleJa": "コースを選択する。",
+    "exampleTranslation": "選擇課程。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-091",
+    "level": "N3",
+    "kanji": "判断",
+    "kana": "はんだん",
+    "meaning": "判斷",
+    "exampleJa": "状況を判断する。",
+    "exampleTranslation": "判斷狀況。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-092",
+    "level": "N3",
+    "kanji": "予定",
+    "kana": "よてい",
+    "meaning": "預定",
+    "exampleJa": "明日の予定を確認する。",
+    "exampleTranslation": "確認明天的預定。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-093",
+    "level": "N3",
+    "kanji": "計画",
+    "kana": "けいかく",
+    "meaning": "計畫",
+    "exampleJa": "旅行の計画を立てる。",
+    "exampleTranslation": "制定旅行計畫。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-094",
+    "level": "N3",
+    "kanji": "予約",
+    "kana": "よやく",
+    "meaning": "預約",
+    "exampleJa": "レストランを予約する。",
+    "exampleTranslation": "預約餐廳。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-095",
+    "level": "N3",
+    "kanji": "予想",
+    "kana": "よそう",
+    "meaning": "預想",
+    "exampleJa": "結果を予想する。",
+    "exampleTranslation": "預想結果。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-096",
+    "level": "N3",
+    "kanji": "期待",
+    "kana": "きたい",
+    "meaning": "期待",
+    "exampleJa": "結果を期待する。",
+    "exampleTranslation": "期待結果。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-097",
+    "level": "N3",
+    "kanji": "心配",
+    "kana": "しんぱい",
+    "meaning": "擔心",
+    "exampleJa": "試験が心配です。",
+    "exampleTranslation": "擔心考試。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-098",
+    "level": "N3",
+    "kanji": "不安",
+    "kana": "ふあん",
+    "meaning": "不安",
+    "exampleJa": "将来が不安です。",
+    "exampleTranslation": "對未來感到不安。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-099",
+    "level": "N3",
+    "kanji": "安心",
+    "kana": "あんしん",
+    "meaning": "安心",
+    "exampleJa": "話を聞いて安心しました。",
+    "exampleTranslation": "聽了話後安心了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n3-100",
+    "level": "N3",
+    "kanji": "満足",
+    "kana": "まんぞく",
+    "meaning": "滿足",
+    "exampleJa": "結果に満足しています。",
+    "exampleTranslation": "對結果感到滿足。",
+    "familiarity": 0
   }
 ]

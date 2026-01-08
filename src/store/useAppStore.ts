@@ -11,7 +11,11 @@ import {
   FamiliarityLevel,
 } from '../types';
 import { updateTheme } from '../constants/colors';
+import wordsN5Data from '../../assets/data/words-n5.json';
+import wordsN4Data from '../../assets/data/words-n4.json';
 import wordsN3Data from '../../assets/data/words-n3.json';
+import wordsN2Data from '../../assets/data/words-n2.json';
+import wordsN1Data from '../../assets/data/words-n1.json';
 
 interface AppState {
   // 單字
@@ -146,8 +150,15 @@ export const useAppStore = create<AppState>((set, get) => ({
       if (storedWords) {
         words = JSON.parse(storedWords);
       } else {
-        // 第一次使用,載入假資料
-        words = wordsN3Data.map((w) => ({
+        // 第一次使用,載入所有級別的單字資料
+        const allWordsData = [
+          ...wordsN5Data,
+          ...wordsN4Data,
+          ...wordsN3Data,
+          ...wordsN2Data,
+          ...wordsN1Data,
+        ];
+        words = allWordsData.map((w) => ({
           ...w,
           lastReviewedAt: undefined,
           flagged: false,

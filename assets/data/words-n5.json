@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "n5-001",
+    "level": "N5",
+    "kanji": "学校",
+    "kana": "がっこう",
+    "meaning": "學校",
+    "exampleJa": "学校へ行きます。",
+    "exampleTranslation": "去學校。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-002",
+    "level": "N5",
+    "kanji": "先生",
+    "kana": "せんせい",
+    "meaning": "老師",
+    "exampleJa": "田中先生は優しいです。",
+    "exampleTranslation": "田中老師很溫柔。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-003",
+    "level": "N5",
+    "kanji": "友達",
+    "kana": "ともだち",
+    "meaning": "朋友",
+    "exampleJa": "友達と遊びます。",
+    "exampleTranslation": "和朋友玩。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-004",
+    "level": "N5",
+    "kanji": "勉強",
+    "kana": "べんきょう",
+    "meaning": "學習",
+    "exampleJa": "毎日勉強します。",
+    "exampleTranslation": "每天學習。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-005",
+    "level": "N5",
+    "kanji": "仕事",
+    "kana": "しごと",
+    "meaning": "工作",
+    "exampleJa": "仕事が忙しいです。",
+    "exampleTranslation": "工作很忙。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-006",
+    "level": "N5",
+    "kanji": "家族",
+    "kana": "かぞく",
+    "meaning": "家人",
+    "exampleJa": "家族と旅行します。",
+    "exampleTranslation": "和家人旅行。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-007",
+    "level": "N5",
+    "kanji": "会社",
+    "kana": "かいしゃ",
+    "meaning": "公司",
+    "exampleJa": "会社で働きます。",
+    "exampleTranslation": "在公司工作。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-008",
+    "level": "N5",
+    "kanji": "駅",
+    "kana": "えき",
+    "meaning": "車站",
+    "exampleJa": "駅まで歩きます。",
+    "exampleTranslation": "走到車站。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-009",
+    "level": "N5",
+    "kanji": "病院",
+    "kana": "びょういん",
+    "meaning": "醫院",
+    "exampleJa": "病院へ行きます。",
+    "exampleTranslation": "去醫院。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-010",
+    "level": "N5",
+    "kanji": "銀行",
+    "kana": "ぎんこう",
+    "meaning": "銀行",
+    "exampleJa": "銀行でお金を下ろします。",
+    "exampleTranslation": "在銀行領錢。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-011",
+    "level": "N5",
+    "kanji": "店",
+    "kana": "みせ",
+    "meaning": "店",
+    "exampleJa": "新しい店ができました。",
+    "exampleTranslation": "新店開了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-012",
+    "level": "N5",
+    "kanji": "公園",
+    "kana": "こうえん",
+    "meaning": "公園",
+    "exampleJa": "公園で遊びます。",
+    "exampleTranslation": "在公園玩。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-013",
+    "level": "N5",
+    "kanji": "図書館",
+    "kana": "としょかん",
+    "meaning": "圖書館",
+    "exampleJa": "図書館で本を借ります。",
+    "exampleTranslation": "在圖書館借書。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-014",
+    "level": "N5",
+    "kanji": "部屋",
+    "kana": "へや",
+    "meaning": "房間",
+    "exampleJa": "部屋を掃除します。",
+    "exampleTranslation": "打掃房間。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-015",
+    "level": "N5",
+    "kanji": "食事",
+    "kana": "しょくじ",
+    "meaning": "用餐",
+    "exampleJa": "食事をします。",
+    "exampleTranslation": "吃飯。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-016",
+    "level": "N5",
+    "kanji": "料理",
+    "kana": "りょうり",
+    "meaning": "料理",
+    "exampleJa": "料理を作ります。",
+    "exampleTranslation": "做菜。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-017",
+    "level": "N5",
+    "kanji": "買い物",
+    "kana": "かいもの",
+    "meaning": "購物",
+    "exampleJa": "買い物に行きます。",
+    "exampleTranslation": "去購物。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-018",
+    "level": "N5",
+    "kanji": "電話",
+    "kana": "でんわ",
+    "meaning": "電話",
+    "exampleJa": "電話をかけます。",
+    "exampleTranslation": "打電話。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-019",
+    "level": "N5",
+    "kanji": "写真",
+    "kana": "しゃしん",
+    "meaning": "照片",
+    "exampleJa": "写真を撮ります。",
+    "exampleTranslation": "拍照。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-020",
+    "level": "N5",
+    "kanji": "手紙",
+    "kana": "てがみ",
+    "meaning": "信件",
+    "exampleJa": "手紙を書きます。",
+    "exampleTranslation": "寫信。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-021",
+    "level": "N5",
+    "kanji": "新聞",
+    "kana": "しんぶん",
+    "meaning": "報紙",
+    "exampleJa": "新聞を読みます。",
+    "exampleTranslation": "看報紙。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-022",
+    "level": "N5",
+    "kanji": "映画",
+    "kana": "えいが",
+    "meaning": "電影",
+    "exampleJa": "映画を見ます。",
+    "exampleTranslation": "看電影。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-023",
+    "level": "N5",
+    "kanji": "音楽",
+    "kana": "おんがく",
+    "meaning": "音樂",
+    "exampleJa": "音楽を聞きます。",
+    "exampleTranslation": "聽音樂。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-024",
+    "level": "N5",
+    "kanji": "天気",
+    "kana": "てんき",
+    "meaning": "天氣",
+    "exampleJa": "今日は天気がいいです。",
+    "exampleTranslation": "今天天氣很好。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-025",
+    "level": "N5",
+    "kanji": "時間",
+    "kana": "じかん",
+    "meaning": "時間",
+    "exampleJa": "時間がありません。",
+    "exampleTranslation": "沒有時間。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-026",
+    "level": "N5",
+    "kanji": "毎日",
+    "kana": "まいにち",
+    "meaning": "每天",
+    "exampleJa": "毎日日本語を勉強します。",
+    "exampleTranslation": "每天學日文。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-027",
+    "level": "N5",
+    "kanji": "今日",
+    "kana": "きょう",
+    "meaning": "今天",
+    "exampleJa": "今日は休みです。",
+    "exampleTranslation": "今天休假。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-028",
+    "level": "N5",
+    "kanji": "明日",
+    "kana": "あした",
+    "meaning": "明天",
+    "exampleJa": "明日会いましょう。",
+    "exampleTranslation": "明天見。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-029",
+    "level": "N5",
+    "kanji": "昨日",
+    "kana": "きのう",
+    "meaning": "昨天",
+    "exampleJa": "昨日映画を見ました。",
+    "exampleTranslation": "昨天看了電影。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-030",
+    "level": "N5",
+    "kanji": "去年",
+    "kana": "きょねん",
+    "meaning": "去年",
+    "exampleJa": "去年日本に行きました。",
+    "exampleTranslation": "去年去了日本。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-031",
+    "level": "N5",
+    "kanji": "来年",
+    "kana": "らいねん",
+    "meaning": "明年",
+    "exampleJa": "来年結婚します。",
+    "exampleTranslation": "明年結婚。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-032",
+    "level": "N5",
+    "kanji": "今年",
+    "kana": "ことし",
+    "meaning": "今年",
+    "exampleJa": "今年は忙しいです。",
+    "exampleTranslation": "今年很忙。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-033",
+    "level": "N5",
+    "kanji": "朝",
+    "kana": "あさ",
+    "meaning": "早上",
+    "exampleJa": "朝ごはんを食べます。",
+    "exampleTranslation": "吃早餐。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-034",
+    "level": "N5",
+    "kanji": "昼",
+    "kana": "ひる",
+    "meaning": "中午",
+    "exampleJa": "昼ごはんを食べました。",
+    "exampleTranslation": "吃了午餐。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-035",
+    "level": "N5",
+    "kanji": "夜",
+    "kana": "よる",
+    "meaning": "晚上",
+    "exampleJa": "夜遅くまで勉強しました。",
+    "exampleTranslation": "學習到很晚。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-036",
+    "level": "N5",
+    "kanji": "午前",
+    "kana": "ごぜん",
+    "meaning": "上午",
+    "exampleJa": "午前中に会議があります。",
+    "exampleTranslation": "上午有會議。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-037",
+    "level": "N5",
+    "kanji": "午後",
+    "kana": "ごご",
+    "meaning": "下午",
+    "exampleJa": "午後は自由です。",
+    "exampleTranslation": "下午有空。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-038",
+    "level": "N5",
+    "kanji": "週末",
+    "kana": "しゅうまつ",
+    "meaning": "週末",
+    "exampleJa": "週末は家族と過ごします。",
+    "exampleTranslation": "週末和家人一起過。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-039",
+    "level": "N5",
+    "kanji": "春",
+    "kana": "はる",
+    "meaning": "春天",
+    "exampleJa": "春になりました。",
+    "exampleTranslation": "春天到了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-040",
+    "level": "N5",
+    "kanji": "夏",
+    "kana": "なつ",
+    "meaning": "夏天",
+    "exampleJa": "夏は暑いです。",
+    "exampleTranslation": "夏天很熱。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-041",
+    "level": "N5",
+    "kanji": "秋",
+    "kana": "あき",
+    "meaning": "秋天",
+    "exampleJa": "秋は涼しいです。",
+    "exampleTranslation": "秋天很涼爽。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-042",
+    "level": "N5",
+    "kanji": "冬",
+    "kana": "ふゆ",
+    "meaning": "冬天",
+    "exampleJa": "冬は寒いです。",
+    "exampleTranslation": "冬天很冷。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-043",
+    "level": "N5",
+    "kanji": "雨",
+    "kana": "あめ",
+    "meaning": "雨",
+    "exampleJa": "雨が降ります。",
+    "exampleTranslation": "下雨。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-044",
+    "level": "N5",
+    "kanji": "雪",
+    "kana": "ゆき",
+    "meaning": "雪",
+    "exampleJa": "雪が降っています。",
+    "exampleTranslation": "正在下雪。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-045",
+    "level": "N5",
+    "kanji": "風",
+    "kana": "かぜ",
+    "meaning": "風",
+    "exampleJa": "風が強いです。",
+    "exampleTranslation": "風很強。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-046",
+    "level": "N5",
+    "kanji": "花",
+    "kana": "はな",
+    "meaning": "花",
+    "exampleJa": "花を買いました。",
+    "exampleTranslation": "買了花。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-047",
+    "level": "N5",
+    "kanji": "木",
+    "kana": "き",
+    "meaning": "樹",
+    "exampleJa": "大きい木があります。",
+    "exampleTranslation": "有一棵大樹。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-048",
+    "level": "N5",
+    "kanji": "山",
+    "kana": "やま",
+    "meaning": "山",
+    "exampleJa": "山に登ります。",
+    "exampleTranslation": "爬山。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-049",
+    "level": "N5",
+    "kanji": "川",
+    "kana": "かわ",
+    "meaning": "河",
+    "exampleJa": "川で泳ぎます。",
+    "exampleTranslation": "在河裡游泳。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-050",
+    "level": "N5",
+    "kanji": "海",
+    "kana": "うみ",
+    "meaning": "海",
+    "exampleJa": "海へ行きます。",
+    "exampleTranslation": "去海邊。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-051",
+    "level": "N5",
+    "kanji": "国",
+    "kana": "くに",
+    "meaning": "國家",
+    "exampleJa": "どこの国から来ましたか。",
+    "exampleTranslation": "從哪個國家來的？",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-052",
+    "level": "N5",
+    "kanji": "町",
+    "kana": "まち",
+    "meaning": "城市",
+    "exampleJa": "町を歩きます。",
+    "exampleTranslation": "在城市裡走。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-053",
+    "level": "N5",
+    "kanji": "道",
+    "kana": "みち",
+    "meaning": "道路",
+    "exampleJa": "道が分かりません。",
+    "exampleTranslation": "不知道路。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-054",
+    "level": "N5",
+    "kanji": "電車",
+    "kana": "でんしゃ",
+    "meaning": "電車",
+    "exampleJa": "電車に乗ります。",
+    "exampleTranslation": "搭電車。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-055",
+    "level": "N5",
+    "kanji": "車",
+    "kana": "くるま",
+    "meaning": "汽車",
+    "exampleJa": "車を運転します。",
+    "exampleTranslation": "開車。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-056",
+    "level": "N5",
+    "kanji": "飛行機",
+    "kana": "ひこうき",
+    "meaning": "飛機",
+    "exampleJa": "飛行機で旅行します。",
+    "exampleTranslation": "搭飛機旅行。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-057",
+    "level": "N5",
+    "kanji": "自転車",
+    "kana": "じてんしゃ",
+    "meaning": "腳踏車",
+    "exampleJa": "自転車に乗ります。",
+    "exampleTranslation": "騎腳踏車。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-058",
+    "level": "N5",
+    "kanji": "本",
+    "kana": "ほん",
+    "meaning": "書",
+    "exampleJa": "本を読みます。",
+    "exampleTranslation": "看書。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-059",
+    "level": "N5",
+    "kanji": "雑誌",
+    "kana": "ざっし",
+    "meaning": "雜誌",
+    "exampleJa": "雑誌を買います。",
+    "exampleTranslation": "買雜誌。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-060",
+    "level": "N5",
+    "kanji": "辞書",
+    "kana": "じしょ",
+    "meaning": "字典",
+    "exampleJa": "辞書を使います。",
+    "exampleTranslation": "使用字典。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-061",
+    "level": "N5",
+    "kanji": "鉛筆",
+    "kana": "えんぴつ",
+    "meaning": "鉛筆",
+    "exampleJa": "鉛筆で書きます。",
+    "exampleTranslation": "用鉛筆寫。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-062",
+    "level": "N5",
+    "kanji": "机",
+    "kana": "つくえ",
+    "meaning": "桌子",
+    "exampleJa": "机の上に本があります。",
+    "exampleTranslation": "桌上有書。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-063",
+    "level": "N5",
+    "kanji": "椅子",
+    "kana": "いす",
+    "meaning": "椅子",
+    "exampleJa": "椅子に座ります。",
+    "exampleTranslation": "坐在椅子上。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-064",
+    "level": "N5",
+    "kanji": "窓",
+    "kana": "まど",
+    "meaning": "窗戶",
+    "exampleJa": "窓を開けます。",
+    "exampleTranslation": "開窗戶。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-065",
+    "level": "N5",
+    "kanji": "扉",
+    "kana": "とびら",
+    "meaning": "門",
+    "exampleJa": "扉を閉めます。",
+    "exampleTranslation": "關門。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-066",
+    "level": "N5",
+    "kanji": "建物",
+    "kana": "たてもの",
+    "meaning": "建築物",
+    "exampleJa": "新しい建物ができました。",
+    "exampleTranslation": "新建築物蓋好了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-067",
+    "level": "N5",
+    "kanji": "服",
+    "kana": "ふく",
+    "meaning": "衣服",
+    "exampleJa": "新しい服を買います。",
+    "exampleTranslation": "買新衣服。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-068",
+    "level": "N5",
+    "kanji": "帽子",
+    "kana": "ぼうし",
+    "meaning": "帽子",
+    "exampleJa": "帽子をかぶります。",
+    "exampleTranslation": "戴帽子。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-069",
+    "level": "N5",
+    "kanji": "靴",
+    "kana": "くつ",
+    "meaning": "鞋子",
+    "exampleJa": "靴を脱ぎます。",
+    "exampleTranslation": "脫鞋。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-070",
+    "level": "N5",
+    "kanji": "時計",
+    "kana": "とけい",
+    "meaning": "時鐘、手錶",
+    "exampleJa": "時計を見ます。",
+    "exampleTranslation": "看時鐘。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-071",
+    "level": "N5",
+    "kanji": "眼鏡",
+    "kana": "めがね",
+    "meaning": "眼鏡",
+    "exampleJa": "眼鏡をかけます。",
+    "exampleTranslation": "戴眼鏡。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-072",
+    "level": "N5",
+    "kanji": "鞄",
+    "kana": "かばん",
+    "meaning": "包包",
+    "exampleJa": "鞄を持ちます。",
+    "exampleTranslation": "拿包包。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-073",
+    "level": "N5",
+    "kanji": "傘",
+    "kana": "かさ",
+    "meaning": "雨傘",
+    "exampleJa": "傘を持って行きます。",
+    "exampleTranslation": "帶雨傘去。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-074",
+    "level": "N5",
+    "kanji": "財布",
+    "kana": "さいふ",
+    "meaning": "錢包",
+    "exampleJa": "財布を忘れました。",
+    "exampleTranslation": "忘記帶錢包。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-075",
+    "level": "N5",
+    "kanji": "水",
+    "kana": "みず",
+    "meaning": "水",
+    "exampleJa": "水を飲みます。",
+    "exampleTranslation": "喝水。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-076",
+    "level": "N5",
+    "kanji": "お茶",
+    "kana": "おちゃ",
+    "meaning": "茶",
+    "exampleJa": "お茶を入れます。",
+    "exampleTranslation": "泡茶。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-077",
+    "level": "N5",
+    "kanji": "牛乳",
+    "kana": "ぎゅうにゅう",
+    "meaning": "牛奶",
+    "exampleJa": "牛乳を飲みます。",
+    "exampleTranslation": "喝牛奶。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-078",
+    "level": "N5",
+    "kanji": "肉",
+    "kana": "にく",
+    "meaning": "肉",
+    "exampleJa": "肉を食べます。",
+    "exampleTranslation": "吃肉。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-079",
+    "level": "N5",
+    "kanji": "魚",
+    "kana": "さかな",
+    "meaning": "魚",
+    "exampleJa": "魚が好きです。",
+    "exampleTranslation": "喜歡魚。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-080",
+    "level": "N5",
+    "kanji": "野菜",
+    "kana": "やさい",
+    "meaning": "蔬菜",
+    "exampleJa": "野菜を食べます。",
+    "exampleTranslation": "吃蔬菜。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-081",
+    "level": "N5",
+    "kanji": "果物",
+    "kana": "くだもの",
+    "meaning": "水果",
+    "exampleJa": "果物が好きです。",
+    "exampleTranslation": "喜歡水果。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-082",
+    "level": "N5",
+    "kanji": "卵",
+    "kana": "たまご",
+    "meaning": "蛋",
+    "exampleJa": "卵を焼きます。",
+    "exampleTranslation": "煎蛋。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-083",
+    "level": "N5",
+    "kanji": "パン",
+    "kana": "ぱん",
+    "meaning": "麵包",
+    "exampleJa": "パンを食べます。",
+    "exampleTranslation": "吃麵包。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-084",
+    "level": "N5",
+    "kanji": "塩",
+    "kana": "しお",
+    "meaning": "鹽",
+    "exampleJa": "塩を入れます。",
+    "exampleTranslation": "加鹽。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-085",
+    "level": "N5",
+    "kanji": "砂糖",
+    "kana": "さとう",
+    "meaning": "糖",
+    "exampleJa": "砂糖を入れます。",
+    "exampleTranslation": "加糖。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-086",
+    "level": "N5",
+    "kanji": "箸",
+    "kana": "はし",
+    "meaning": "筷子",
+    "exampleJa": "箸を使います。",
+    "exampleTranslation": "使用筷子。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-087",
+    "level": "N5",
+    "kanji": "茶碗",
+    "kana": "ちゃわん",
+    "meaning": "碗",
+    "exampleJa": "茶碗を洗います。",
+    "exampleTranslation": "洗碗。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-088",
+    "level": "N5",
+    "kanji": "皿",
+    "kana": "さら",
+    "meaning": "盤子",
+    "exampleJa": "皿に入れます。",
+    "exampleTranslation": "放進盤子。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-089",
+    "level": "N5",
+    "kanji": "犬",
+    "kana": "いぬ",
+    "meaning": "狗",
+    "exampleJa": "犬を飼います。",
+    "exampleTranslation": "養狗。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-090",
+    "level": "N5",
+    "kanji": "猫",
+    "kana": "ねこ",
+    "meaning": "貓",
+    "exampleJa": "猫が好きです。",
+    "exampleTranslation": "喜歡貓。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-091",
+    "level": "N5",
+    "kanji": "鳥",
+    "kana": "とり",
+    "meaning": "鳥",
+    "exampleJa": "鳥が飛びます。",
+    "exampleTranslation": "鳥在飛。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-092",
+    "level": "N5",
+    "kanji": "父",
+    "kana": "ちち",
+    "meaning": "父親",
+    "exampleJa": "父は会社員です。",
+    "exampleTranslation": "父親是上班族。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-093",
+    "level": "N5",
+    "kanji": "母",
+    "kana": "はは",
+    "meaning": "母親",
+    "exampleJa": "母は料理が上手です。",
+    "exampleTranslation": "母親很會做菜。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-094",
+    "level": "N5",
+    "kanji": "兄",
+    "kana": "あに",
+    "meaning": "哥哥",
+    "exampleJa": "兄は大学生です。",
+    "exampleTranslation": "哥哥是大學生。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-095",
+    "level": "N5",
+    "kanji": "姉",
+    "kana": "あね",
+    "meaning": "姊姊",
+    "exampleJa": "姉は看護師です。",
+    "exampleTranslation": "姊姊是護士。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-096",
+    "level": "N5",
+    "kanji": "弟",
+    "kana": "おとうと",
+    "meaning": "弟弟",
+    "exampleJa": "弟は高校生です。",
+    "exampleTranslation": "弟弟是高中生。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-097",
+    "level": "N5",
+    "kanji": "妹",
+    "kana": "いもうと",
+    "meaning": "妹妹",
+    "exampleJa": "妹は中学生です。",
+    "exampleTranslation": "妹妹是國中生。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-098",
+    "level": "N5",
+    "kanji": "子供",
+    "kana": "こども",
+    "meaning": "小孩",
+    "exampleJa": "子供が遊んでいます。",
+    "exampleTranslation": "小孩在玩。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-099",
+    "level": "N5",
+    "kanji": "人",
+    "kana": "ひと",
+    "meaning": "人",
+    "exampleJa": "人が多いです。",
+    "exampleTranslation": "人很多。",
+    "familiarity": 0
+  },
+  {
+    "id": "n5-100",
+    "level": "N5",
+    "kanji": "名前",
+    "kana": "なまえ",
+    "meaning": "名字",
+    "exampleJa": "名前を教えてください。",
+    "exampleTranslation": "請告訴我名字。",
+    "familiarity": 0
+  }
+]

@@ -1,0 +1,502 @@
+[
+  {
+    "id": "n1-001",
+    "level": "N1",
+    "kanji": "顕在",
+    "kana": "けんざい",
+    "meaning": "顯在",
+    "exampleJa": "顕在化した問題に対処する。",
+    "exampleTranslation": "對應顯在化的問題。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-002",
+    "level": "N1",
+    "kanji": "潜在",
+    "kana": "せんざい",
+    "meaning": "潛在",
+    "exampleJa": "潜在的な能力を引き出す。",
+    "exampleTranslation": "引出潛在能力。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-003",
+    "level": "N1",
+    "kanji": "顕著",
+    "kana": "けんちょ",
+    "meaning": "顯著",
+    "exampleJa": "顕著な成果を上げる。",
+    "exampleTranslation": "取得顯著成果。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-004",
+    "level": "N1",
+    "kanji": "顕微鏡",
+    "kana": "けんびきょう",
+    "meaning": "顯微鏡",
+    "exampleJa": "顕微鏡で観察する。",
+    "exampleTranslation": "用顯微鏡觀察。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-005",
+    "level": "N1",
+    "kanji": "洞察",
+    "kana": "どうさつ",
+    "meaning": "洞察",
+    "exampleJa": "状況を洞察する。",
+    "exampleTranslation": "洞察狀況。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-006",
+    "level": "N1",
+    "kanji": "考察",
+    "kana": "こうさつ",
+    "meaning": "考察",
+    "exampleJa": "データを考察する。",
+    "exampleTranslation": "考察數據。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-007",
+    "level": "N1",
+    "kanji": "推察",
+    "kana": "すいさつ",
+    "meaning": "推測",
+    "exampleJa": "原因を推察する。",
+    "exampleTranslation": "推測原因。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-008",
+    "level": "N1",
+    "kanji": "推測",
+    "kana": "すいそく",
+    "meaning": "推測",
+    "exampleJa": "結果を推測する。",
+    "exampleTranslation": "推測結果。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-009",
+    "level": "N1",
+    "kanji": "推定",
+    "kana": "すいてい",
+    "meaning": "推定",
+    "exampleJa": "年齢を推定する。",
+    "exampleTranslation": "推定年齡。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-010",
+    "level": "N1",
+    "kanji": "推進",
+    "kana": "すいしん",
+    "meaning": "推進",
+    "exampleJa": "プロジェクトを推進する。",
+    "exampleTranslation": "推進專案。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-011",
+    "level": "N1",
+    "kanji": "促す",
+    "kana": "うながす",
+    "meaning": "促進",
+    "exampleJa": "改革を促す。",
+    "exampleTranslation": "促進改革。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-012",
+    "level": "N1",
+    "kanji": "促進",
+    "kana": "そくしん",
+    "meaning": "促進",
+    "exampleJa": "発展を促進する。",
+    "exampleTranslation": "促進發展。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-013",
+    "level": "N1",
+    "kanji": "抑止",
+    "kana": "よくし",
+    "meaning": "抑制",
+    "exampleJa": "犯罪を抑止する。",
+    "exampleTranslation": "抑制犯罪。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-014",
+    "level": "N1",
+    "kanji": "抑圧",
+    "kana": "よくあつ",
+    "meaning": "壓抑",
+    "exampleJa": "感情を抑圧する。",
+    "exampleTranslation": "壓抑情感。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-015",
+    "level": "N1",
+    "kanji": "圧迫",
+    "kana": "あっぱく",
+    "meaning": "壓迫",
+    "exampleJa": "精神的に圧迫される。",
+    "exampleTranslation": "精神上受到壓迫。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-016",
+    "level": "N1",
+    "kanji": "圧倒",
+    "kana": "あっとう",
+    "meaning": "壓倒",
+    "exampleJa": "圧倒的な力で勝つ。",
+    "exampleTranslation": "以壓倒性的力量獲勝。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-017",
+    "level": "N1",
+    "kanji": "制圧",
+    "kana": "せいあつ",
+    "meaning": "制壓",
+    "exampleJa": "敵を制圧する。",
+    "exampleTranslation": "制壓敵人。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-018",
+    "level": "N1",
+    "kanji": "抑揚",
+    "kana": "よくよう",
+    "meaning": "抑揚",
+    "exampleJa": "抑揚をつけて話す。",
+    "exampleTranslation": "說話有抑揚頓挫。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-019",
+    "level": "N1",
+    "kanji": "高揚",
+    "kana": "こうよう",
+    "meaning": "高漲",
+    "exampleJa": "士気が高揚する。",
+    "exampleTranslation": "士氣高漲。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-020",
+    "level": "N1",
+    "kanji": "昂揚",
+    "kana": "こうよう",
+    "meaning": "高昂",
+    "exampleJa": "気分が昂揚する。",
+    "exampleTranslation": "心情高昂。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-021",
+    "level": "N1",
+    "kanji": "揚げる",
+    "kana": "あげる",
+    "meaning": "炸",
+    "exampleJa": "天ぷらを揚げる。",
+    "exampleTranslation": "炸天婦羅。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-022",
+    "level": "N1",
+    "kanji": "掲げる",
+    "kana": "かかげる",
+    "meaning": "揭示",
+    "exampleJa": "スローガンを掲げる。",
+    "exampleTranslation": "揭示口號。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-023",
+    "level": "N1",
+    "kanji": "掲示",
+    "kana": "けいじ",
+    "meaning": "揭示",
+    "exampleJa": "掲示板に掲示する。",
+    "exampleTranslation": "在告示板上揭示。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-024",
+    "level": "N1",
+    "kanji": "提示",
+    "kana": "ていじ",
+    "meaning": "提示",
+    "exampleJa": "証拠を提示する。",
+    "exampleTranslation": "提示證據。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-025",
+    "level": "N1",
+    "kanji": "提唱",
+    "kana": "ていしょう",
+    "meaning": "提倡",
+    "exampleJa": "新しい理論を提唱する。",
+    "exampleTranslation": "提倡新理論。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-026",
+    "level": "N1",
+    "kanji": "唱える",
+    "kana": "となえる",
+    "meaning": "倡導",
+    "exampleJa": "平和を唱える。",
+    "exampleTranslation": "倡導和平。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-027",
+    "level": "N1",
+    "kanji": "主張",
+    "kana": "しゅちょう",
+    "meaning": "主張",
+    "exampleJa": "自分の意見を主張する。",
+    "exampleTranslation": "主張自己的意見。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-028",
+    "level": "N1",
+    "kanji": "強調",
+    "kana": "きょうちょう",
+    "meaning": "強調",
+    "exampleJa": "重要性を強調する。",
+    "exampleTranslation": "強調重要性。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-029",
+    "level": "N1",
+    "kanji": "協調",
+    "kana": "きょうちょう",
+    "meaning": "協調",
+    "exampleJa": "互いに協調する。",
+    "exampleTranslation": "互相協調。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-030",
+    "level": "N1",
+    "kanji": "調整",
+    "kana": "ちょうせい",
+    "meaning": "調整",
+    "exampleJa": "予定を調整する。",
+    "exampleTranslation": "調整預定。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-031",
+    "level": "N1",
+    "kanji": "整備",
+    "kana": "せいび",
+    "meaning": "整備",
+    "exampleJa": "設備を整備する。",
+    "exampleTranslation": "整備設備。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-032",
+    "level": "N1",
+    "kanji": "整理",
+    "kana": "せいり",
+    "meaning": "整理",
+    "exampleJa": "書類を整理する。",
+    "exampleTranslation": "整理文件。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-033",
+    "level": "N1",
+    "kanji": "整然",
+    "kana": "せいぜん",
+    "meaning": "整齊",
+    "exampleJa": "整然と並ぶ。",
+    "exampleTranslation": "整齊地排列。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-034",
+    "level": "N1",
+    "kanji": "斉一",
+    "kana": "せいいつ",
+    "meaning": "一致",
+    "exampleJa": "斉一な基準を設ける。",
+    "exampleTranslation": "設立一致的基準。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-035",
+    "level": "N1",
+    "kanji": "統一",
+    "kana": "とういつ",
+    "meaning": "統一",
+    "exampleJa": "意見を統一する。",
+    "exampleTranslation": "統一意見。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-036",
+    "level": "N1",
+    "kanji": "統合",
+    "kana": "とうごう",
+    "meaning": "統合",
+    "exampleJa": "システムを統合する。",
+    "exampleTranslation": "統合系統。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-037",
+    "level": "N1",
+    "kanji": "融合",
+    "kana": "ゆうごう",
+    "meaning": "融合",
+    "exampleJa": "文化が融合する。",
+    "exampleTranslation": "文化融合。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-038",
+    "level": "N1",
+    "kanji": "混合",
+    "kana": "こんごう",
+    "meaning": "混合",
+    "exampleJa": "材料を混合する。",
+    "exampleTranslation": "混合材料。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-039",
+    "level": "N1",
+    "kanji": "混在",
+    "kana": "こんざい",
+    "meaning": "混在",
+    "exampleJa": "真実と嘘が混在する。",
+    "exampleTranslation": "真實與謊言混在。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-040",
+    "level": "N1",
+    "kanji": "併存",
+    "kana": "へいぞん",
+    "meaning": "並存",
+    "exampleJa": "新旧が併存する。",
+    "exampleTranslation": "新舊並存。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-041",
+    "level": "N1",
+    "kanji": "並存",
+    "kana": "へいぞん",
+    "meaning": "並存",
+    "exampleJa": "異なる価値観が並存する。",
+    "exampleTranslation": "不同價值觀並存。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-042",
+    "level": "N1",
+    "kanji": "共存",
+    "kana": "きょうぞん",
+    "meaning": "共存",
+    "exampleJa": "自然と人間が共存する。",
+    "exampleTranslation": "自然與人類共存。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-043",
+    "level": "N1",
+    "kanji": "依存",
+    "kana": "いぞん",
+    "meaning": "依存",
+    "exampleJa": "石油に依存する。",
+    "exampleTranslation": "依賴石油。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-044",
+    "level": "N1",
+    "kanji": "依頼",
+    "kana": "いらい",
+    "meaning": "委託",
+    "exampleJa": "専門家に依頼する。",
+    "exampleTranslation": "委託專家。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-045",
+    "level": "N1",
+    "kanji": "委託",
+    "kana": "いたく",
+    "meaning": "委託",
+    "exampleJa": "業務を委託する。",
+    "exampleTranslation": "委託業務。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-046",
+    "level": "N1",
+    "kanji": "委任",
+    "kana": "いにん",
+    "meaning": "委任",
+    "exampleJa": "権限を委任する。",
+    "exampleTranslation": "委任權限。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-047",
+    "level": "N1",
+    "kanji": "任命",
+    "kana": "にんめい",
+    "meaning": "任命",
+    "exampleJa": "新しいリーダーを任命する。",
+    "exampleTranslation": "任命新領導。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-048",
+    "level": "N1",
+    "kanji": "使命",
+    "kana": "しめい",
+    "meaning": "使命",
+    "exampleJa": "使命を果たす。",
+    "exampleTranslation": "完成使命。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-049",
+    "level": "N1",
+    "kanji": "天命",
+    "kana": "てんめい",
+    "meaning": "天命",
+    "exampleJa": "天命を信じる。",
+    "exampleTranslation": "相信天命。",
+    "familiarity": 0
+  },
+  {
+    "id": "n1-050",
+    "level": "N1",
+    "kanji": "宿命",
+    "kana": "しゅくめい",
+    "meaning": "宿命",
+    "exampleJa": "宿命を受け入れる。",
+    "exampleTranslation": "接受宿命。",
+    "familiarity": 0
+  }
+]

@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "n4-001",
+    "level": "N4",
+    "kanji": "気持ち",
+    "kana": "きもち",
+    "meaning": "心情",
+    "exampleJa": "嬉しい気持ちです。",
+    "exampleTranslation": "很高興的心情。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-002",
+    "level": "N4",
+    "kanji": "意味",
+    "kana": "いみ",
+    "meaning": "意思",
+    "exampleJa": "この言葉の意味が分かりません。",
+    "exampleTranslation": "不懂這個詞的意思。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-003",
+    "level": "N4",
+    "kanji": "理由",
+    "kana": "りゆう",
+    "meaning": "理由",
+    "exampleJa": "遅刻の理由を説明します。",
+    "exampleTranslation": "說明遲到的理由。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-004",
+    "level": "N4",
+    "kanji": "方法",
+    "kana": "ほうほう",
+    "meaning": "方法",
+    "exampleJa": "いい方法を教えてください。",
+    "exampleTranslation": "請教我好方法。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-005",
+    "level": "N4",
+    "kanji": "場合",
+    "kana": "ばあい",
+    "meaning": "情況",
+    "exampleJa": "雨の場合は中止です。",
+    "exampleTranslation": "下雨的情況下取消。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-006",
+    "level": "N4",
+    "kanji": "様子",
+    "kana": "ようす",
+    "meaning": "樣子",
+    "exampleJa": "変な様子だった。",
+    "exampleTranslation": "樣子很奇怪。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-007",
+    "level": "N4",
+    "kanji": "態度",
+    "kana": "たいど",
+    "meaning": "態度",
+    "exampleJa": "真面目な態度で聞く。",
+    "exampleTranslation": "以認真的態度聽。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-008",
+    "level": "N4",
+    "kanji": "性格",
+    "kana": "せいかく",
+    "meaning": "性格",
+    "exampleJa": "明るい性格です。",
+    "exampleTranslation": "開朗的性格。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-009",
+    "level": "N4",
+    "kanji": "習慣",
+    "kana": "しゅうかん",
+    "meaning": "習慣",
+    "exampleJa": "毎朝走る習慣があります。",
+    "exampleTranslation": "有每天早上跑步的習慣。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-010",
+    "level": "N4",
+    "kanji": "文化",
+    "kana": "ぶんか",
+    "meaning": "文化",
+    "exampleJa": "日本の文化を学ぶ。",
+    "exampleTranslation": "學習日本文化。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-011",
+    "level": "N4",
+    "kanji": "歴史",
+    "kana": "れきし",
+    "meaning": "歷史",
+    "exampleJa": "歴史に興味があります。",
+    "exampleTranslation": "對歷史有興趣。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-012",
+    "level": "N4",
+    "kanji": "伝統",
+    "kana": "でんとう",
+    "meaning": "傳統",
+    "exampleJa": "伝統的な祭りです。",
+    "exampleTranslation": "是傳統的祭典。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-013",
+    "level": "N4",
+    "kanji": "規則",
+    "kana": "きそく",
+    "meaning": "規則",
+    "exampleJa": "規則を守ります。",
+    "exampleTranslation": "遵守規則。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-014",
+    "level": "N4",
+    "kanji": "法律",
+    "kana": "ほうりつ",
+    "meaning": "法律",
+    "exampleJa": "法律を勉強する。",
+    "exampleTranslation": "學習法律。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-015",
+    "level": "N4",
+    "kanji": "権利",
+    "kana": "けんり",
+    "meaning": "權利",
+    "exampleJa": "平等な権利がある。",
+    "exampleTranslation": "有平等的權利。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-016",
+    "level": "N4",
+    "kanji": "義務",
+    "kana": "ぎむ",
+    "meaning": "義務",
+    "exampleJa": "税金を払う義務がある。",
+    "exampleTranslation": "有繳稅的義務。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-017",
+    "level": "N4",
+    "kanji": "責任",
+    "kana": "せきにん",
+    "meaning": "責任",
+    "exampleJa": "責任を持って仕事をする。",
+    "exampleTranslation": "負責任地工作。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-018",
+    "level": "N4",
+    "kanji": "努力",
+    "kana": "どりょく",
+    "meaning": "努力",
+    "exampleJa": "努力すれば必ず成功する。",
+    "exampleTranslation": "努力的話一定會成功。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-019",
+    "level": "N4",
+    "kanji": "工夫",
+    "kana": "くふう",
+    "meaning": "用心、巧思",
+    "exampleJa": "工夫して問題を解決する。",
+    "exampleTranslation": "下功夫解決問題。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-020",
+    "level": "N4",
+    "kanji": "協力",
+    "kana": "きょうりょく",
+    "meaning": "合作",
+    "exampleJa": "みんなで協力する。",
+    "exampleTranslation": "大家一起合作。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-021",
+    "level": "N4",
+    "kanji": "競争",
+    "kana": "きょうそう",
+    "meaning": "競爭",
+    "exampleJa": "激しい競争がある。",
+    "exampleTranslation": "有激烈的競爭。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-022",
+    "level": "N4",
+    "kanji": "試合",
+    "kana": "しあい",
+    "meaning": "比賽",
+    "exampleJa": "サッカーの試合を見る。",
+    "exampleTranslation": "看足球比賽。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-023",
+    "level": "N4",
+    "kanji": "勝負",
+    "kana": "しょうぶ",
+    "meaning": "勝負",
+    "exampleJa": "勝負に勝つ。",
+    "exampleTranslation": "贏得勝負。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-024",
+    "level": "N4",
+    "kanji": "優勝",
+    "kana": "ゆうしょう",
+    "meaning": "優勝",
+    "exampleJa": "大会で優勝した。",
+    "exampleTranslation": "在大會上優勝了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-025",
+    "level": "N4",
+    "kanji": "訓練",
+    "kana": "くんれん",
+    "meaning": "訓練",
+    "exampleJa": "毎日訓練を続ける。",
+    "exampleTranslation": "每天持續訓練。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-026",
+    "level": "N4",
+    "kanji": "練習",
+    "kana": "れんしゅう",
+    "meaning": "練習",
+    "exampleJa": "ピアノを練習する。",
+    "exampleTranslation": "練習鋼琴。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-027",
+    "level": "N4",
+    "kanji": "復習",
+    "kana": "ふくしゅう",
+    "meaning": "複習",
+    "exampleJa": "授業の復習をする。",
+    "exampleTranslation": "複習課程。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-028",
+    "level": "N4",
+    "kanji": "予習",
+    "kana": "よしゅう",
+    "meaning": "預習",
+    "exampleJa": "次の授業の予習をする。",
+    "exampleTranslation": "預習下一堂課。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-029",
+    "level": "N4",
+    "kanji": "宿題",
+    "kana": "しゅくだい",
+    "meaning": "作業",
+    "exampleJa": "宿題を忘れました。",
+    "exampleTranslation": "忘記寫作業了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-030",
+    "level": "N4",
+    "kanji": "成績",
+    "kana": "せいせき",
+    "meaning": "成績",
+    "exampleJa": "成績が上がった。",
+    "exampleTranslation": "成績提升了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-031",
+    "level": "N4",
+    "kanji": "進歩",
+    "kana": "しんぽ",
+    "meaning": "進步",
+    "exampleJa": "日本語が進歩した。",
+    "exampleTranslation": "日文進步了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-032",
+    "level": "N4",
+    "kanji": "発展",
+    "kana": "はってん",
+    "meaning": "發展",
+    "exampleJa": "技術が発展する。",
+    "exampleTranslation": "技術發展。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-033",
+    "level": "N4",
+    "kanji": "増加",
+    "kana": "ぞうか",
+    "meaning": "增加",
+    "exampleJa": "人口が増加する。",
+    "exampleTranslation": "人口增加。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-034",
+    "level": "N4",
+    "kanji": "減少",
+    "kana": "げんしょう",
+    "meaning": "減少",
+    "exampleJa": "売上が減少した。",
+    "exampleTranslation": "銷售額減少了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-035",
+    "level": "N4",
+    "kanji": "発見",
+    "kana": "はっけん",
+    "meaning": "發現",
+    "exampleJa": "新しい星を発見した。",
+    "exampleTranslation": "發現了新的星星。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-036",
+    "level": "N4",
+    "kanji": "発明",
+    "kana": "はつめい",
+    "meaning": "發明",
+    "exampleJa": "便利な道具を発明する。",
+    "exampleTranslation": "發明方便的道具。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-037",
+    "level": "N4",
+    "kanji": "研究",
+    "kana": "けんきゅう",
+    "meaning": "研究",
+    "exampleJa": "大学で研究をする。",
+    "exampleTranslation": "在大學做研究。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-038",
+    "level": "N4",
+    "kanji": "実験",
+    "kana": "じっけん",
+    "meaning": "實驗",
+    "exampleJa": "科学の実験をする。",
+    "exampleTranslation": "做科學實驗。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-039",
+    "level": "N4",
+    "kanji": "報告",
+    "kana": "ほうこく",
+    "meaning": "報告",
+    "exampleJa": "結果を報告する。",
+    "exampleTranslation": "報告結果。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-040",
+    "level": "N4",
+    "kanji": "記録",
+    "kana": "きろく",
+    "meaning": "記錄",
+    "exampleJa": "毎日記録をつける。",
+    "exampleTranslation": "每天做記錄。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-041",
+    "level": "N4",
+    "kanji": "資料",
+    "kana": "しりょう",
+    "meaning": "資料",
+    "exampleJa": "参考資料を集める。",
+    "exampleTranslation": "收集參考資料。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-042",
+    "level": "N4",
+    "kanji": "情報",
+    "kana": "じょうほう",
+    "meaning": "資訊",
+    "exampleJa": "情報を集める。",
+    "exampleTranslation": "收集資訊。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-043",
+    "level": "N4",
+    "kanji": "知識",
+    "kana": "ちしき",
+    "meaning": "知識",
+    "exampleJa": "広い知識を持つ。",
+    "exampleTranslation": "擁有廣泛的知識。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-044",
+    "level": "N4",
+    "kanji": "技術",
+    "kana": "ぎじゅつ",
+    "meaning": "技術",
+    "exampleJa": "高い技術が必要です。",
+    "exampleTranslation": "需要高超的技術。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-045",
+    "level": "N4",
+    "kanji": "能力",
+    "kana": "のうりょく",
+    "meaning": "能力",
+    "exampleJa": "能力を伸ばす。",
+    "exampleTranslation": "提升能力。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-046",
+    "level": "N4",
+    "kanji": "才能",
+    "kana": "さいのう",
+    "meaning": "才能",
+    "exampleJa": "音楽の才能がある。",
+    "exampleTranslation": "有音樂才能。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-047",
+    "level": "N4",
+    "kanji": "機会",
+    "kana": "きかい",
+    "meaning": "機會",
+    "exampleJa": "いい機会です。",
+    "exampleTranslation": "是個好機會。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-048",
+    "level": "N4",
+    "kanji": "可能性",
+    "kana": "かのうせい",
+    "meaning": "可能性",
+    "exampleJa": "成功の可能性がある。",
+    "exampleTranslation": "有成功的可能性。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-049",
+    "level": "N4",
+    "kanji": "危険",
+    "kana": "きけん",
+    "meaning": "危險",
+    "exampleJa": "危険な場所です。",
+    "exampleTranslation": "是危險的地方。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-050",
+    "level": "N4",
+    "kanji": "安全",
+    "kana": "あんぜん",
+    "meaning": "安全",
+    "exampleJa": "安全に気をつける。",
+    "exampleTranslation": "注意安全。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-051",
+    "level": "N4",
+    "kanji": "困難",
+    "kana": "こんなん",
+    "meaning": "困難",
+    "exampleJa": "困難な問題に直面する。",
+    "exampleTranslation": "面對困難的問題。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-052",
+    "level": "N4",
+    "kanji": "簡単",
+    "kana": "かんたん",
+    "meaning": "簡單",
+    "exampleJa": "簡単な問題です。",
+    "exampleTranslation": "是簡單的問題。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-053",
+    "level": "N4",
+    "kanji": "複雑",
+    "kana": "ふくざつ",
+    "meaning": "複雜",
+    "exampleJa": "複雑な問題です。",
+    "exampleTranslation": "是複雜的問題。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-054",
+    "level": "N4",
+    "kanji": "重要",
+    "kana": "じゅうよう",
+    "meaning": "重要",
+    "exampleJa": "重要な会議があります。",
+    "exampleTranslation": "有重要的會議。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-055",
+    "level": "N4",
+    "kanji": "特別",
+    "kana": "とくべつ",
+    "meaning": "特別",
+    "exampleJa": "特別な日です。",
+    "exampleTranslation": "是特別的日子。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-056",
+    "level": "N4",
+    "kanji": "普通",
+    "kana": "ふつう",
+    "meaning": "普通",
+    "exampleJa": "普通の生活を送る。",
+    "exampleTranslation": "過普通的生活。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-057",
+    "level": "N4",
+    "kanji": "一般",
+    "kana": "いっぱん",
+    "meaning": "一般",
+    "exampleJa": "一般的な意見です。",
+    "exampleTranslation": "是一般的意見。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-058",
+    "level": "N4",
+    "kanji": "個人",
+    "kana": "こじん",
+    "meaning": "個人",
+    "exampleJa": "個人的な意見を言う。",
+    "exampleTranslation": "說個人的意見。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-059",
+    "level": "N4",
+    "kanji": "全体",
+    "kana": "ぜんたい",
+    "meaning": "整體",
+    "exampleJa": "全体の半分です。",
+    "exampleTranslation": "是整體的一半。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-060",
+    "level": "N4",
+    "kanji": "部分",
+    "kana": "ぶぶん",
+    "meaning": "部分",
+    "exampleJa": "一部分だけ分かります。",
+    "exampleTranslation": "只懂一部分。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-061",
+    "level": "N4",
+    "kanji": "詳しい",
+    "kana": "くわしい",
+    "meaning": "詳細的",
+    "exampleJa": "詳しく説明してください。",
+    "exampleTranslation": "請詳細說明。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-062",
+    "level": "N4",
+    "kanji": "正確",
+    "kana": "せいかく",
+    "meaning": "正確",
+    "exampleJa": "正確な情報が必要です。",
+    "exampleTranslation": "需要正確的資訊。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-063",
+    "level": "N4",
+    "kanji": "適当",
+    "kana": "てきとう",
+    "meaning": "適當",
+    "exampleJa": "適当な場所を選ぶ。",
+    "exampleTranslation": "選擇適當的地方。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-064",
+    "level": "N4",
+    "kanji": "十分",
+    "kana": "じゅうぶん",
+    "meaning": "充分",
+    "exampleJa": "時間は十分あります。",
+    "exampleTranslation": "時間很充裕。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-065",
+    "level": "N4",
+    "kanji": "不足",
+    "kana": "ふそく",
+    "meaning": "不足",
+    "exampleJa": "睡眠不足です。",
+    "exampleTranslation": "睡眠不足。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-066",
+    "level": "N4",
+    "kanji": "余裕",
+    "kana": "よゆう",
+    "meaning": "餘裕",
+    "exampleJa": "時間に余裕がある。",
+    "exampleTranslation": "時間有餘裕。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-067",
+    "level": "N4",
+    "kanji": "急ぐ",
+    "kana": "いそぐ",
+    "meaning": "趕快",
+    "exampleJa": "急いで行きます。",
+    "exampleTranslation": "趕快去。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-068",
+    "level": "N4",
+    "kanji": "焦る",
+    "kana": "あせる",
+    "meaning": "焦急",
+    "exampleJa": "焦らないでください。",
+    "exampleTranslation": "請不要焦急。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-069",
+    "level": "N4",
+    "kanji": "落ち着く",
+    "kana": "おちつく",
+    "meaning": "冷靜",
+    "exampleJa": "落ち着いて話す。",
+    "exampleTranslation": "冷靜地說話。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-070",
+    "level": "N4",
+    "kanji": "慌てる",
+    "kana": "あわてる",
+    "meaning": "慌張",
+    "exampleJa": "慌てて出かけた。",
+    "exampleTranslation": "慌張地出門了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-071",
+    "level": "N4",
+    "kanji": "驚く",
+    "kana": "おどろく",
+    "meaning": "驚訝",
+    "exampleJa": "結果に驚きました。",
+    "exampleTranslation": "對結果感到驚訝。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-072",
+    "level": "N4",
+    "kanji": "喜ぶ",
+    "kana": "よろこぶ",
+    "meaning": "高興",
+    "exampleJa": "みんなが喜んだ。",
+    "exampleTranslation": "大家都很高興。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-073",
+    "level": "N4",
+    "kanji": "悲しむ",
+    "kana": "かなしむ",
+    "meaning": "悲傷",
+    "exampleJa": "友達の死を悲しむ。",
+    "exampleTranslation": "為朋友的死感到悲傷。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-074",
+    "level": "N4",
+    "kanji": "怒る",
+    "kana": "おこる",
+    "meaning": "生氣",
+    "exampleJa": "先生が怒った。",
+    "exampleTranslation": "老師生氣了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-075",
+    "level": "N4",
+    "kanji": "笑う",
+    "kana": "わらう",
+    "meaning": "笑",
+    "exampleJa": "冗談を聞いて笑った。",
+    "exampleTranslation": "聽了笑話後笑了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-076",
+    "level": "N4",
+    "kanji": "泣く",
+    "kana": "なく",
+    "meaning": "哭",
+    "exampleJa": "映画を見て泣いた。",
+    "exampleTranslation": "看電影哭了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-077",
+    "level": "N4",
+    "kanji": "願う",
+    "kana": "ねがう",
+    "meaning": "希望",
+    "exampleJa": "幸せを願う。",
+    "exampleTranslation": "希望幸福。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-078",
+    "level": "N4",
+    "kanji": "祈る",
+    "kana": "いのる",
+    "meaning": "祈禱",
+    "exampleJa": "神様に祈る。",
+    "exampleTranslation": "向神祈禱。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-079",
+    "level": "N4",
+    "kanji": "約束",
+    "kana": "やくそく",
+    "meaning": "約定",
+    "exampleJa": "時間を守る約束をした。",
+    "exampleTranslation": "約定要遵守時間。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-080",
+    "level": "N4",
+    "kanji": "信じる",
+    "kana": "しんじる",
+    "meaning": "相信",
+    "exampleJa": "友達を信じる。",
+    "exampleTranslation": "相信朋友。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-081",
+    "level": "N4",
+    "kanji": "疑う",
+    "kana": "うたがう",
+    "meaning": "懷疑",
+    "exampleJa": "話を疑う。",
+    "exampleTranslation": "懷疑那些話。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-082",
+    "level": "N4",
+    "kanji": "認める",
+    "kana": "みとめる",
+    "meaning": "認可",
+    "exampleJa": "能力を認める。",
+    "exampleTranslation": "認可能力。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-083",
+    "level": "N4",
+    "kanji": "否定",
+    "kana": "ひてい",
+    "meaning": "否定",
+    "exampleJa": "意見を否定する。",
+    "exampleTranslation": "否定意見。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-084",
+    "level": "N4",
+    "kanji": "肯定",
+    "kana": "こうてい",
+    "meaning": "肯定",
+    "exampleJa": "提案を肯定する。",
+    "exampleTranslation": "肯定提案。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-085",
+    "level": "N4",
+    "kanji": "許す",
+    "kana": "ゆるす",
+    "meaning": "原諒",
+    "exampleJa": "失敗を許す。",
+    "exampleTranslation": "原諒失敗。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-086",
+    "level": "N4",
+    "kanji": "謝る",
+    "kana": "あやまる",
+    "meaning": "道歉",
+    "exampleJa": "間違いを謝る。",
+    "exampleTranslation": "為錯誤道歉。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-087",
+    "level": "N4",
+    "kanji": "感謝",
+    "kana": "かんしゃ",
+    "meaning": "感謝",
+    "exampleJa": "先生に感謝する。",
+    "exampleTranslation": "感謝老師。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-088",
+    "level": "N4",
+    "kanji": "尊敬",
+    "kana": "そんけい",
+    "meaning": "尊敬",
+    "exampleJa": "両親を尊敬する。",
+    "exampleTranslation": "尊敬父母。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-089",
+    "level": "N4",
+    "kanji": "褒める",
+    "kana": "ほめる",
+    "meaning": "稱讚",
+    "exampleJa": "子供を褒める。",
+    "exampleTranslation": "稱讚孩子。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-090",
+    "level": "N4",
+    "kanji": "叱る",
+    "kana": "しかる",
+    "meaning": "責罵",
+    "exampleJa": "悪いことをして叱られた。",
+    "exampleTranslation": "做壞事被罵了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-091",
+    "level": "N4",
+    "kanji": "励ます",
+    "kana": "はげます",
+    "meaning": "鼓勵",
+    "exampleJa": "友達を励ます。",
+    "exampleTranslation": "鼓勵朋友。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-092",
+    "level": "N4",
+    "kanji": "慰める",
+    "kana": "なぐさめる",
+    "meaning": "安慰",
+    "exampleJa": "悲しんでいる人を慰める。",
+    "exampleTranslation": "安慰悲傷的人。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-093",
+    "level": "N4",
+    "kanji": "助ける",
+    "kana": "たすける",
+    "meaning": "幫助",
+    "exampleJa": "困っている人を助ける。",
+    "exampleTranslation": "幫助困難的人。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-094",
+    "level": "N4",
+    "kanji": "守る",
+    "kana": "まもる",
+    "meaning": "保護",
+    "exampleJa": "約束を守る。",
+    "exampleTranslation": "遵守約定。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-095",
+    "level": "N4",
+    "kanji": "破る",
+    "kana": "やぶる",
+    "meaning": "破壞",
+    "exampleJa": "約束を破る。",
+    "exampleTranslation": "破壞約定。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-096",
+    "level": "N4",
+    "kanji": "建てる",
+    "kana": "たてる",
+    "meaning": "建造",
+    "exampleJa": "家を建てる。",
+    "exampleTranslation": "蓋房子。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-097",
+    "level": "N4",
+    "kanji": "壊す",
+    "kana": "こわす",
+    "meaning": "破壞",
+    "exampleJa": "おもちゃを壊した。",
+    "exampleTranslation": "弄壞玩具了。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-098",
+    "level": "N4",
+    "kanji": "直す",
+    "kana": "なおす",
+    "meaning": "修好",
+    "exampleJa": "壊れた時計を直す。",
+    "exampleTranslation": "修好壞掉的時鐘。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-099",
+    "level": "N4",
+    "kanji": "続ける",
+    "kana": "つづける",
+    "meaning": "繼續",
+    "exampleJa": "勉強を続ける。",
+    "exampleTranslation": "繼續學習。",
+    "familiarity": 0
+  },
+  {
+    "id": "n4-100",
+    "level": "N4",
+    "kanji": "止める",
+    "kana": "やめる",
+    "meaning": "停止",
+    "exampleJa": "喫煙を止める。",
+    "exampleTranslation": "戒菸。",
+    "familiarity": 0
+  }
+]
