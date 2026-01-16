@@ -24,11 +24,12 @@ import {
 } from '../src/services/notificationService';
 import { verifyGeminiApiKey } from '../src/services/diaryApi';
 import { SecureStorage } from '../src/services/secureStorage';
+import { Link } from 'expo-router';
 
 export default function SettingsScreen() {
   const { settings, updateSettings, resetAllData, stats, achievements } = useAppStore();
   const { t, i18n } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const styles = createStyles(colors);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -179,7 +180,7 @@ export default function SettingsScreen() {
 
   const handleVerifyApiKey = async () => {
     if (!apiKey.trim()) {
-      Alert.alert(t('error') || '錯誤', '請輸入 API Key');
+      Alert.alert(t('error'), t('apiKeyEnterPrompt'));
       return;
     }
 
@@ -194,20 +195,20 @@ export default function SettingsScreen() {
         setHasApiKey(true);
         setApiKey(''); // 清空輸入框
         Alert.alert(
-          t('success') || '成功',
-          '✅ API Key 驗證成功！\n\n已安全儲存到設備的加密儲存區。您現在可以使用自己的 API 配額來批改日記了。',
-          [{ text: t('ok') || '確定' }]
+          t('success'),
+          t('apiKeyVerifySuccess'),
+          [{ text: t('ok') }]
         );
       } else {
         Alert.alert(
-          t('error') || '錯誤',
-          '❌ API Key 無效\n\n請確認您輸入的 API Key 是否正確。\n\n您可以在 Google AI Studio 取得免費的 API Key：\nhttps://aistudio.google.com/apikey'
+          t('error'),
+          t('apiKeyInvalid')
         );
       }
     } catch (error) {
       Alert.alert(
-        t('error') || '錯誤',
-        '驗證失敗，請檢查網路連線後重試'
+        t('error'),
+        t('apiKeyVerifyFailed')
       );
     } finally {
       setVerifyingKey(false);
@@ -216,21 +217,21 @@ export default function SettingsScreen() {
 
   const handleRemoveApiKey = () => {
     Alert.alert(
-      '移除 API Key',
-      '確定要移除您的 API Key 嗎？\n\n此操作將從設備的安全儲存區中刪除 API Key。',
+      t('apiKeyRemoveTitle'),
+      t('apiKeyRemoveConfirm'),
       [
-        { text: t('cancel') || '取消', style: 'cancel' },
+        { text: t('cancel'), style: 'cancel' },
         {
-          text: t('confirm') || '確定',
+          text: t('confirm'),
           style: 'destructive',
           onPress: async () => {
             try {
               await SecureStorage.deleteGeminiApiKey();
               setApiKey('');
               setHasApiKey(false);
-              Alert.alert(t('success') || '成功', 'API Key 已安全移除');
+              Alert.alert(t('success'), t('apiKeyRemoveSuccess'));
             } catch (error) {
-              Alert.alert(t('error') || '錯誤', '移除 API Key 失敗');
+              Alert.alert(t('error'), t('apiKeyRemoveFailed'));
             }
           },
         },
@@ -296,20 +297,20 @@ export default function SettingsScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>🔑 Gemini API Key</Text>
-        <Text style={styles.sectionDescription}>
-          使用您自己的 Google Gemini API Key，避免共用配額限制。
-          {'\n'}免費取得：https://aistudio.google.com/apikey
-        </Text>
+        <Text style={styles.sectionTitle}>{t('apiKeyTitle')}</Text>
+          <Text style={[styles.sectionDescription, { marginBottom: 0 }]}>
+            {t('apiKeyDesc')}
+          </Text>
+          <Link style={styles.apiLink} href='https://aistudio.google.com/apikey' target='_blank'>https://aistudio.google.com/apikey</Link>
 
         {hasApiKey ? (
           <View style={styles.apiKeyContainer}>
             <View style={styles.apiKeyStatus}>
               <Ionicons name='checkmark-circle' size={24} color='#10B981' />
               <View style={styles.apiKeyStatusText}>
-                <Text style={styles.apiKeyStatusTitle}>✅ 已設定 API Key</Text>
+                <Text style={styles.apiKeyStatusTitle}>{t('apiKeyConfigured')}</Text>
                 <Text style={styles.apiKeyStatusDesc}>
-                  已安全儲存到設備加密區
+                  {t('apiKeyStoredSecurely')}
                 </Text>
               </View>
             </View>
@@ -318,7 +319,7 @@ export default function SettingsScreen() {
               onPress={handleRemoveApiKey}
             >
               <Ionicons name='trash-outline' size={20} color={colors.error} />
-              <Text style={styles.removeKeyButtonText}>移除</Text>
+              <Text style={styles.removeKeyButtonText}>{t('apiKeyRemove')}</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -326,13 +327,14 @@ export default function SettingsScreen() {
             <View style={styles.inputWrapper}>
               <TextInput
                 style={styles.apiKeyInput}
-                placeholder='輸入您的 Gemini API Key'
+                placeholder={t('apiKeyPlaceholder')}
                 placeholderTextColor={colors.textTertiary}
                 value={apiKey}
                 onChangeText={setApiKey}
                 autoCapitalize='none'
                 autoCorrect={false}
                 secureTextEntry={!showApiKey}
+                keyboardAppearance={isDark ? 'dark' : 'light'}
               />
               <TouchableOpacity
                 style={styles.eyeButton}
@@ -358,7 +360,7 @@ export default function SettingsScreen() {
               ) : (
                 <>
                   <Ionicons name='checkmark-circle-outline' size={20} color='#fff' />
-                  <Text style={styles.verifyButtonText}>驗證並儲存</Text>
+                  <Text style={styles.verifyButtonText}>{t('apiKeyVerifyAndSave')}</Text>
                 </>
               )}
             </TouchableOpacity>
@@ -368,8 +370,7 @@ export default function SettingsScreen() {
         <View style={styles.infoBox}>
           <Ionicons name='information-circle-outline' size={20} color={colors.primary} />
           <Text style={styles.infoBoxText}>
-            💡 設定您自己的 API Key 後，日記批改將使用您的配額，不會消耗應用程式的共用配額。
-            Google 提供每日免費額度。
+            {t('apiKeyInfoTip')}
           </Text>
         </View>
       </View>
@@ -596,10 +597,6 @@ export default function SettingsScreen() {
         <Ionicons name='trash' size={20} color='#EF4444' />
         <Text style={styles.resetButtonText}>{t('resetData')}</Text>
       </TouchableOpacity>
-
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>{t('footerText')}</Text>
-      </View>
     </ScrollView>
   );
 }
@@ -837,12 +834,12 @@ const createStyles = (colors: ReturnType<typeof import('../src/constants/colors'
     alignItems: 'center',
     padding: 32,
   },
-  footerText: {
-    fontSize: 14,
-    color: colors.textTertiary,
-  },
   apiKeyContainer: {
     gap: 12,
+  },
+  apiLink: {
+    color: colors.primary,
+    marginBottom: 16,
   },
   apiKeyStatus: {
     flexDirection: 'row',

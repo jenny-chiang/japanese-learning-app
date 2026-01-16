@@ -83,7 +83,6 @@ export const translations = {
     about: '關於',
     version: '版本',
     resetData: '清除所有學習記錄',
-    footerText: '慢慢來,考試也等你 🐌',
 
     // Achievements
     beginner: '初心者',
@@ -121,6 +120,27 @@ export const translations = {
     extractFailedMessage: '無法提取單字,請稍後再試',
     great: '太棒了!',
     ok: '知道了',
+    error: '錯誤',
+    success: '成功',
+
+    // API Key Settings
+    apiKeyTitle: '🔑 Gemini API Key',
+    apiKeyDesc: '使用您自己的 Google Gemini API Key，避免共用配額限制。',
+    apiKeyGetFree: '免費取得',
+    apiKeyConfigured: '✅ 已設定 API Key',
+    apiKeyStoredSecurely: '已安全儲存到設備加密區',
+    apiKeyRemove: '移除',
+    apiKeyPlaceholder: '輸入您的 Gemini API Key',
+    apiKeyVerifyAndSave: '驗證並儲存',
+    apiKeyEnterPrompt: '請輸入 API Key',
+    apiKeyVerifySuccess: '✅ API Key 驗證成功！\n\n已安全儲存到設備的加密儲存區。您現在可以使用自己的 API 配額來批改日記了。',
+    apiKeyInvalid: '❌ API Key 無效\n\n請確認您輸入的 API Key 是否正確。\n\n您可以在 Google AI Studio 取得免費的 API Key：\nhttps://aistudio.google.com/apikey',
+    apiKeyVerifyFailed: '驗證失敗，請檢查網路連線後重試',
+    apiKeyRemoveTitle: '移除 API Key',
+    apiKeyRemoveConfirm: '確定要移除您的 API Key 嗎？\n\n此操作將從設備的安全儲存區中刪除 API Key。',
+    apiKeyRemoveSuccess: 'API Key 已安全移除',
+    apiKeyRemoveFailed: '移除 API Key 失敗',
+    apiKeyInfoTip: '💡 設定您自己的 API Key 後，日記批改將使用您的配額，不會消耗應用程式的共用配額。Google 提供每日免費額度。',
 
     // Stats Screen
     overallStats: '整體統計',
@@ -220,7 +240,6 @@ export const translations = {
     about: 'About',
     version: 'Version',
     resetData: 'Clear All Learning Data',
-    footerText: 'Take it easy, the exam will wait 🐌',
 
     // Achievements
     beginner: 'Beginner',
@@ -258,6 +277,27 @@ export const translations = {
     extractFailedMessage: 'Unable to extract words, please try again later',
     great: 'Great!',
     ok: 'OK',
+    error: 'Error',
+    success: 'Success',
+
+    // API Key Settings
+    apiKeyTitle: '🔑 Gemini API Key',
+    apiKeyDesc: 'Use your own Google Gemini API Key to avoid shared quota limits.',
+    apiKeyGetFree: 'Get Free',
+    apiKeyConfigured: '✅ API Key Configured',
+    apiKeyStoredSecurely: 'Securely stored in device encryption',
+    apiKeyRemove: 'Remove',
+    apiKeyPlaceholder: 'Enter your Gemini API Key',
+    apiKeyVerifyAndSave: 'Verify & Save',
+    apiKeyEnterPrompt: 'Please enter API Key',
+    apiKeyVerifySuccess: '✅ API Key Verified!\n\nSecurely stored in device encryption. You can now use your own API quota for diary correction.',
+    apiKeyInvalid: '❌ Invalid API Key\n\nPlease confirm your API Key is correct.\n\nYou can get a free API Key from Google AI Studio:\nhttps://aistudio.google.com/apikey',
+    apiKeyVerifyFailed: 'Verification failed, please check your network connection and try again',
+    apiKeyRemoveTitle: 'Remove API Key',
+    apiKeyRemoveConfirm: 'Are you sure you want to remove your API Key?\n\nThis will delete the API Key from device secure storage.',
+    apiKeyRemoveSuccess: 'API Key securely removed',
+    apiKeyRemoveFailed: 'Failed to remove API Key',
+    apiKeyInfoTip: '💡 After setting your own API Key, diary correction will use your quota instead of the shared app quota. Google provides daily free quota.',
 
     // Stats Screen
     overallStats: 'Overall Statistics',

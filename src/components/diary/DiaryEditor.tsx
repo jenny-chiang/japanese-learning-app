@@ -19,7 +19,7 @@ export default function DiaryEditor({
   loading,
 }: DiaryEditorProps) {
   const { t } = useTranslation();
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const styles = createStyles(colors);
 
   return (
@@ -48,6 +48,7 @@ export default function DiaryEditor({
           value={diaryText}
           onChangeText={onTextChange}
           textAlignVertical='top'
+          keyboardAppearance={isDark ? 'dark' : 'light'}
         />
       </View>
 

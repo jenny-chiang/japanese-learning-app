@@ -143,10 +143,10 @@ export default function DiaryResult({
         </View>
       )}
 
-      {/* JLPT+1 升級版 */}
+      {/* 升級版 */}
       {diary.upgradedVersion && (
         <View style={styles.section}>
-          <Text style={styles.sectionLabel}>🎯 JLPT+1 升級版</Text>
+          <Text style={styles.sectionLabel}>🎯 升級版</Text>
           <View style={[styles.textBox, styles.upgradedBox]}>
             <Text style={styles.upgradedText}>{diary.upgradedVersion}</Text>
           </View>
