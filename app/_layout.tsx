@@ -15,13 +15,23 @@ function TabsContent() {
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textTertiary,
         headerStyle: {
-          backgroundColor: colors.primary,
+          backgroundColor: colors.backgroundWhite,
+          shadowColor: 'transparent',
+          elevation: 0,
         },
-        headerTintColor: '#fff',
+        headerTintColor: colors.textPrimary,
+        headerTitleStyle: {
+          fontWeight: '600',
+        },
         tabBarStyle: {
           backgroundColor: colors.backgroundWhite,
           borderTopWidth: 1,
           borderTopColor: colors.border,
+          height: 60,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '500',
         },
       }}
     >

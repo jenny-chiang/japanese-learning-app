@@ -339,6 +339,8 @@ const createStyles = (colors: ReturnType<typeof import('../src/constants/colors'
   },
   activeTab: {
     backgroundColor: colors.primaryLight,
+    borderBottomWidth: 2,
+    borderBottomColor: colors.primary,
   },
   tabText: {
     fontSize: 16,
@@ -373,13 +375,10 @@ const createStyles = (colors: ReturnType<typeof import('../src/constants/colors'
     justifyContent: 'space-between',
     backgroundColor: colors.cardBackground,
     padding: 16,
-    borderRadius: 12,
+    borderRadius: 8,
     marginBottom: 12,
-    shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   wordContent: {
     flex: 1,
@@ -438,16 +437,13 @@ const createStyles = (colors: ReturnType<typeof import('../src/constants/colors'
   practiceCard: {
     width: '100%',
     backgroundColor: colors.cardBackground,
-    borderRadius: 20,
-    padding: 24,
-    shadowColor: colors.shadow,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 5,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   closeButton: {
     alignSelf: 'flex-end',
+    marginBottom: 8,
   },
   practiceHeader: {
     flexDirection: 'row',
@@ -461,8 +457,7 @@ const createStyles = (colors: ReturnType<typeof import('../src/constants/colors'
   progressText: {
     fontSize: 16,
     color: colors.textSecondary,
-    textAlign: 'center',
-    marginBottom: 24,
+    fontWeight: '500',
   },
   wordDisplay: {
     alignItems: 'center',
