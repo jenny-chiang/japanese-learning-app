@@ -81,6 +81,7 @@ const createStyles = (colors: ReturnType<typeof import('../../constants/colors')
   container: {
     flex: 1,
     backgroundColor: colors.background,
+    gap: 16,
   },
   header: {
     padding: 20,
