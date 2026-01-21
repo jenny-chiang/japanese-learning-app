@@ -135,6 +135,21 @@ npm start
 npx expo start
 ```
 
+### 執行測試
+```bash
+# 執行所有測試
+npm test
+
+# 監聽模式
+npm run test:watch
+
+# 生成覆蓋率報告
+npm run test:coverage
+```
+
+詳細測試說明請參考：
+- [測試文檔](./TESTING.md) - 完整的測試指南
+
 ## 📁 專案結構
 
 ```
@@ -166,6 +181,9 @@ japanese-learning-app/
 │   │   └── i18n.config.ts   # i18next 配置
 │   ├── components/          # 共用元件
 │   │   └── diary/           # 日記相關元件
+│   │       ├── DiaryEditor.tsx
+│   │       ├── DiaryHistory.tsx
+│   │       └── DiaryResult.tsx
 │   ├── hooks/               # 自訂 Hooks (待擴充)
 │   └── utils/               # 工具函式 (待擴充)
 ├── assets/
@@ -175,6 +193,18 @@ japanese-learning-app/
 │       ├── words-n3.json    # N3 單字資料 (100個)
 │       ├── words-n2.json    # N2 單字資料 (50個)
 │       └── words-n1.json    # N1 單字資料 (50個)
+├── __tests__/               # 測試檔案
+│   ├── basic.test.ts        # 基礎環境測試 (7 tests)
+│   └── services/            # 服務層測試
+│       ├── secureStorage.test.ts      # (4 tests)
+│       ├── ttsService.test.ts         # (4 tests)
+│       ├── notificationService.test.ts # (2 tests)
+│       └── diaryApi.test.ts           # (2 tests)
+├── __mocks__/               # Mock 資料
+│   └── mockData.ts
+├── jest.config.js           # Jest 配置
+├── jest.setup.js            # Jest 設定檔
+├── TESTING.md               # 測試文檔
 └── package.json
 ```
 
