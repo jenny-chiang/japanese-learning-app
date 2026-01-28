@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { useColorScheme } from 'react-native';
 import { useAppStore } from '../store/useAppStore';
-import { updateTheme, getTheme } from '../constants/colors';
+import { getTheme } from '../constants/colors';
 
 type ThemeContextType = {
   isDark: boolean;
@@ -24,15 +24,15 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     ? systemColorScheme === 'dark'
     : settings.themeMode === 'dark';
 
-  // 套用主題
-  useEffect(() => {
-    updateTheme(isDark);
-  }, [isDark]);
+  const colors = useMemo(() => getTheme(isDark), [isDark]);
 
-  const colors = getTheme(isDark);
+  const value = useMemo(
+    () => ({ isDark, colors }),
+    [isDark, colors]
+  );
 
   return (
-    <ThemeContext.Provider value={{ isDark, colors }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );
