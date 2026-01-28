@@ -44,3 +44,6 @@ coverage/
 /android
 .env
 .env.local
+
+# code review reports
+review-reports/
