@@ -138,15 +138,66 @@ gemini analyze <file-path> --format json --checks security,performance,best-prac
 - Code quality issues and improvement recommendations
 - Best practice violations
 
-# Code quality assessment
-gemini review <file-path> --output json
+### Step 4: Run Lint Checks
+**MUST EXECUTE**: Automatically run all lint checks without asking for confirmation.
+
+**CRITICAL - YOU MUST RUN THIS COMMAND NOW**:
+
+Execute the following command using `run_in_terminal` tool immediately:
+
+```bash
+.github/skills/code-review/run-lint-checks.sh <file-path>
 ```
 
-Integrate Gemini's findings into the review report, specifically:
-- Security vulnerabilities identified by Gemini
-- Performance bottlenecks detected
-- Code quality suggestions from Gemini's analysis
-- Best practice violations flagged by Geminiper dependency arrays)
+Replace `<file-path>` with the actual file path being reviewed.
+
+**Example**:
+```bash
+.github/skills/code-review/run-lint-checks.sh app/diary.tsx
+```
+
+**What the script does**:
+1. ✅ **TypeScript type checking** - `npx tsc --noEmit`
+2. ✅ **ESLint checks** - `npx eslint <file-path>` (if configured)
+3. ✅ **Prettier formatting** - `npx prettier --check <file-path>` (if configured)
+4. 📊 **Summary report** - Shows pass/fail status for each check
+5. 📄 **Output files** - Saves detailed results to `/tmp/` for report generation:
+   - `/tmp/tsc-output.txt`
+   - `/tmp/eslint-output.json`
+   - `/tmp/prettier-output.txt`
+
+**EXECUTION RULES**:
+- ⚠️ **DO NOT SKIP THIS STEP** - Always run the script
+- ⚠️ **DO NOT ASK FOR CONFIRMATION** - Execute immediately
+- ⚠️ **USE run_in_terminal TOOL** - Execute the command directly
+- ✅ **Continue to Step 5** even if checks fail
+
+**Alternative (only if script fails)**:
+If the script cannot be executed, run each command individually:
+
+```bash
+# TypeScript check
+npx tsc --noEmit 2>&1 | tee /tmp/tsc-output.txt
+
+# ESLint check (if .eslintrc exists)
+npx eslint <file-path> --format json > /tmp/eslint-output.json
+
+# Prettier check (if .prettierrc exists)
+npx prettier --check <file-path> 2>&1 | tee /tmp/prettier-output.txt
+```
+
+### Step 5: Manual Code Analysis
+Review code against these criteria:
+
+#### TypeScript Quality
+- ✅ All types are explicitly defined (no implicit `any`)
+- ✅ Proper use of generics where applicable
+- ✅ No type assertions (`as`) unless absolutely necessary
+- ✅ Interfaces/types are properly documented
+- ✅ Enums used appropriately
+- ✅ Strict null checks respected
+- ✅ No `@ts-ignore` or `@ts-expect-error` without justification
+- ✅ Hooks have proper dependencies (no missing items in useEffect/useCallback/useMemo dependency arrays)
 - ✅ Components have proper TypeScript prop types
 - ✅ State management is appropriate (local vs global)
 - ✅ Proper use of `useMemo`, `useCallback` for performance
@@ -195,6 +246,26 @@ Integrate Gemini's findings into the review report, specifically:
 - ✅ Zustand store patterns followed (if applicable)
 
 ### Step 6: Generate Review Report
+
+**BEFORE GENERATING REPORT**: Read the output files from Step 4 to include detailed lint results.
+
+**Required Actions**:
+1. **Read TypeScript output**:
+   ```bash
+   cat /tmp/tsc-output.txt
+   ```
+
+2. **Read ESLint output** (if exists):
+   ```bash
+   cat /tmp/eslint-output.json
+   ```
+
+3. **Read Prettier output** (if exists):
+   ```bash
+   cat /tmp/prettier-output.txt
+   ```
+
+4. **Parse and integrate** the lint results into the report's "📋 Lint 檢查結果" section
 
 Create a detailed report in Traditional Chinese with the following sections:
 
@@ -285,8 +356,19 @@ Create a detailed report in Traditional Chinese with the following sections:
 \`\`\`typescript
 // 修改前
 [original code]
+### TypeScript 型別檢查
+\`\`\`
+[Content from /tmp/tsc-output.txt]
+\`\`\`
 
-// 修改後
+### ESLint 檢查
+\`\`\`json
+[Content from /tmp/eslint-output.json if exists, otherwise "未配置或無錯誤"]
+\`\`\`
+
+### Prettier 格式檢查
+\`\`\`
+[Content from /tmp/prettier-output.txt if exists, otherwise "未配置或格式正確"
 [suggested fix]
 \`\`\`
 
@@ -334,38 +416,55 @@ Create a detailed report in Traditional Chinese with the following sections:
 
 ### Step 7: Auto-Fix Issues
 
-**MUST EXECUTE**: After generating the report, you MUST automatically apply fixes using the available tools:
+**MUST EXECUTE**: After generating the report, you MUST automatically apply fixes using the available tools.
 
-1. **Formatting Issues** - EXECUTE IMMEDIATELY:
-   ```bash
-   npx prettier --write <file-path>
-   ```
-   Use `run_in_terminal` tool to execute this command.
+**CRITICAL - RUN AUTO-FIX SCRIPT NOW**:
 
-2. **Auto-fixable Lint Errors** - EXECUTE IMMEDIATELY:
-   ```bash
-   npx eslint <file-path> --fix
-   ```
-   Use `run_in_terminal` tool to execute this command.
+Execute the following command using `run_in_terminal` tool immediately:
 
-3. **Code Issues** - APPLY USING EDIT TOOLS:
-   You MUST use `replace_string_in_file` or `multi_replace_string_in_file` to fix:
+```bash
+.github/skills/code-review/run-lint-fixes.sh <file-path>
+```
 
-   - **Missing Type Annotations**: Add explicit types to function parameters and return types
-   - **Replace `any` types**: Replace with proper TypeScript types
-   - **Missing Dependencies**: Add missing items to useEffect/useCallback/useMemo dependency arrays
-   - **Unused Imports**: Remove import statements that are never used
-   - **Magic Numbers**: Extract hardcoded numbers to named constants
-   - **Inline Functions**: Convert inline arrow functions in JSX to memoized callbacks
-   - **Missing Keys**: Add unique `key` props to list items
-   - **Platform.select**: Use Platform.select for platform-specific values instead of Platform.OS checks
+Replace `<file-path>` with the actual file path being reviewed.
 
-4. **What NOT to Auto-fix** (provide suggestions only):
-   - Complex logic changes
-   - Business logic modifications
-   - API signature changes
-   - State structure changes
-   - Navigation flow changes
+**Example**:
+```bash
+.github/skills/code-review/run-lint-fixes.sh app/diary.tsx
+```
+
+**What the script does**:
+1. 💅 **Prettier formatting** - `npx prettier --write <file-path>`
+2. 🔧 **ESLint auto-fix** - `npx eslint <file-path> --fix`
+3. 📄 **Output files** - Saves detailed results to `/tmp/`:
+   - `/tmp/prettier-fix-output.txt`
+   - `/tmp/eslint-fix-output.txt`
+
+**EXECUTION RULES**:
+- ⚠️ **DO NOT SKIP THIS STEP** - Always run the script
+- ⚠️ **DO NOT ASK FOR CONFIRMATION** - Execute immediately
+- ⚠️ **USE run_in_terminal TOOL** - Execute the command directly
+- ✅ **Continue to code fixes** after script completes
+
+**After running the script, apply code fixes using edit tools**:
+
+You MUST use `replace_string_in_file` or `multi_replace_string_in_file` to fix:
+
+- **Missing Type Annotations**: Add explicit types to function parameters and return types
+- **Replace `any` types**: Replace with proper TypeScript types
+- **Missing Dependencies**: Add missing items to useEffect/useCallback/useMemo dependency arrays
+- **Unused Imports**: Remove import statements that are never used
+- **Magic Numbers**: Extract hardcoded numbers to named constants
+- **Inline Functions**: Convert inline arrow functions in JSX to memoized callbacks
+- **Missing Keys**: Add unique `key` props to list items
+- **Platform.select**: Use Platform.select for platform-specific values instead of Platform.OS checks
+
+**What NOT to Auto-fix** (provide suggestions only):
+- Complex logic changes
+- Business logic modifications
+- API signature changes
+- State structure changes
+- Navigation flow changes
 
 **EXECUTION RULE**: Always attempt to auto-fix unless the change requires business logic understanding. Do NOT just suggest fixes - actually apply them using the appropriate tools.
 
@@ -429,7 +528,7 @@ After ACTUALLY executing auto-fixes (not just suggesting), append to the report:
 5. **Manual analysis** - Review code against quality criteria
 6. **Generate report** - Create detailed review in Traditional Chinese
 7. **EXECUTE FIXES** - Apply formatting, lint fixes, and safe code improvements
-8. **Save report** - Document findings at `.github/review-reports/review-[timestamp].md`
+8. **Save report** - Document findings at `review-reports/review-[timestamp].md`
 9. **Summarize** - Report what was reviewed and what was actually fixed
 
 **CRITICAL NOTES**:
