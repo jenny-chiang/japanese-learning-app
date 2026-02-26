@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
   Switch,
@@ -10,12 +9,12 @@ import {
   TextInput,
   ActivityIndicator,
 } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../src/store/useAppStore';
-import { JLPTLevel } from '../src/types';
+import { JLPTLevel, Language, UserSettings } from '../src/types';
 import { useTheme } from '../src/contexts/ThemeContext';
 import {
   requestNotificationPermissions,
@@ -25,12 +24,26 @@ import {
 import { verifyGeminiApiKey } from '../src/services/diaryApi';
 import { SecureStorage } from '../src/services/secureStorage';
 import { Link } from 'expo-router';
+import { createStyles } from './settings.styles';
+import {
+  DEFAULT_REMINDER_TIME,
+  WORDS_PER_DAY_MIN,
+  WORDS_PER_DAY_MAX,
+  WORDS_PER_DAY_STEP,
+  LEVELS,
+  LANGUAGE_OPTIONS,
+  THEME_OPTIONS,
+  parseTimeString,
+  formatTimeString,
+  formatDateString,
+  getAchievementTitleKey,
+} from './settings.constants';
 
 export default function SettingsScreen() {
   const { settings, updateSettings, resetAllData, stats, achievements } = useAppStore();
   const { t, i18n } = useTranslation();
   const { colors, isDark } = useTheme();
-  const styles = createStyles(colors);
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [tempTime, setTempTime] = useState(new Date());
@@ -39,7 +52,10 @@ export default function SettingsScreen() {
   const [hasApiKey, setHasApiKey] = useState(false);
   const [verifyingKey, setVerifyingKey] = useState(false);
   const [showApiKey, setShowApiKey] = useState(false);
-  const [loadingApiKey, setLoadingApiKey] = useState(true);
+  const reminderTime = settings.reminderTime || DEFAULT_REMINDER_TIME;
+  const trimmedApiKey = apiKey.trim();
+  const canVerifyApiKey = !verifyingKey && trimmedApiKey.length > 0;
+  const activeLanguage = i18n.language.startsWith('zh') ? 'zh' : 'en';
 
   // 載入 API Key 狀態
   useEffect(() => {
@@ -49,8 +65,6 @@ export default function SettingsScreen() {
         setHasApiKey(exists);
       } catch (error) {
         console.error('檢查 API Key 失敗:', error);
-      } finally {
-        setLoadingApiKey(false);
       }
     };
 
@@ -60,7 +74,7 @@ export default function SettingsScreen() {
   useEffect(() => {
     // 初始化時間選擇器的預設值
     if (settings.reminderTime) {
-      const [hour, minute] = settings.reminderTime.split(':').map(Number);
+      const { hour, minute } = parseTimeString(settings.reminderTime);
       const date = new Date();
       date.setHours(hour, minute);
       setTempTime(date);
@@ -68,20 +82,34 @@ export default function SettingsScreen() {
 
     // 初始化日期選擇器的預設值
     if (settings.examDate) {
-      setTempDate(new Date(settings.examDate));
+      const parsedDate = new Date(settings.examDate);
+      if (!Number.isNaN(parsedDate.getTime())) {
+        setTempDate(parsedDate);
+      }
     }
   }, [settings.reminderTime, settings.examDate]);
 
-  const handleLevelChange = (level: JLPTLevel) => {
+  const handleLevelChange = useCallback((level: JLPTLevel) => {
     updateSettings({ mainLevel: level });
-  };
+  }, [updateSettings]);
 
-  const handleWordsPerDayChange = (change: number) => {
-    const newValue = Math.max(5, Math.min(50, settings.wordsPerDay + change));
+  const handleWordsPerDayChange = useCallback((change: number) => {
+    const newValue = Math.max(
+      WORDS_PER_DAY_MIN,
+      Math.min(WORDS_PER_DAY_MAX, settings.wordsPerDay + change)
+    );
     updateSettings({ wordsPerDay: newValue });
-  };
+  }, [settings.wordsPerDay, updateSettings]);
 
-  const handleNotificationToggle = async (value: boolean) => {
+  const decreaseWordsPerDay = useCallback(() => {
+    handleWordsPerDayChange(-WORDS_PER_DAY_STEP);
+  }, [handleWordsPerDayChange]);
+
+  const increaseWordsPerDay = useCallback(() => {
+    handleWordsPerDayChange(WORDS_PER_DAY_STEP);
+  }, [handleWordsPerDayChange]);
+
+  const handleNotificationToggle = useCallback(async (value: boolean) => {
     if (value) {
       // 開啟通知 - 請求權限
       const hasPermission = await requestNotificationPermissions();
@@ -96,16 +124,14 @@ export default function SettingsScreen() {
       }
 
       // 排程通知
-      const [hour, minute] = (settings.reminderTime || '21:30')
-        .split(':')
-        .map(Number);
+      const { hour, minute } = parseTimeString(reminderTime);
       const notificationId = await scheduleDailyNotification(hour, minute);
 
       if (notificationId) {
         updateSettings({ notificationsEnabled: true });
         Alert.alert(
           t('reminderEnabled_alert'),
-          t('reminderEnabledMessage', { time: settings.reminderTime || '21:30' })
+          t('reminderEnabledMessage', { time: reminderTime })
         );
       } else {
         Alert.alert(t('reminderFailed'), t('reminderFailedMessage'));
@@ -115,9 +141,9 @@ export default function SettingsScreen() {
       await cancelAllNotifications();
       updateSettings({ notificationsEnabled: false });
     }
-  };
+  }, [reminderTime, t, updateSettings]);
 
-  const handleTimeChange = async (event: any, selectedDate?: Date) => {
+  const handleTimeChange = useCallback(async (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (Platform.OS === 'android') {
       setShowTimePicker(false);
     }
@@ -127,7 +153,7 @@ export default function SettingsScreen() {
 
       const hour = selectedDate.getHours();
       const minute = selectedDate.getMinutes();
-      const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+      const timeString = formatTimeString(selectedDate);
 
       updateSettings({ reminderTime: timeString });
 
@@ -142,9 +168,9 @@ export default function SettingsScreen() {
     if (Platform.OS === 'ios') {
       setShowTimePicker(false);
     }
-  };
+  }, [settings.notificationsEnabled, t, updateSettings]);
 
-  const handleDateChange = (event: any, selectedDate?: Date) => {
+  const handleDateChange = useCallback((event: DateTimePickerEvent, selectedDate?: Date) => {
     if (Platform.OS === 'android') {
       setShowDatePicker(false);
     }
@@ -153,7 +179,7 @@ export default function SettingsScreen() {
       setTempDate(selectedDate);
 
       // 格式化日期為 YYYY-MM-DD
-      const dateString = selectedDate.toISOString().split('T')[0];
+      const dateString = formatDateString(selectedDate);
       updateSettings({ examDate: dateString });
 
       Alert.alert(t('dateSet'), t('dateSetMessage', { date: dateString }));
@@ -162,9 +188,9 @@ export default function SettingsScreen() {
     if (Platform.OS === 'ios') {
       setShowDatePicker(false);
     }
-  };
+  }, [t, updateSettings]);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     Alert.alert(t('confirmReset'), t('confirmResetMessage'), [
       { text: t('cancel'), style: 'cancel' },
       {
@@ -176,10 +202,10 @@ export default function SettingsScreen() {
         },
       },
     ]);
-  };
+  }, [resetAllData, t]);
 
-  const handleVerifyApiKey = async () => {
-    if (!apiKey.trim()) {
+  const handleVerifyApiKey = useCallback(async () => {
+    if (!trimmedApiKey) {
       Alert.alert(t('error'), t('apiKeyEnterPrompt'));
       return;
     }
@@ -187,11 +213,11 @@ export default function SettingsScreen() {
     setVerifyingKey(true);
 
     try {
-      const isValid = await verifyGeminiApiKey(apiKey.trim());
+      const isValid = await verifyGeminiApiKey(trimmedApiKey);
 
       if (isValid) {
         // 使用安全儲存儲存 API Key
-        await SecureStorage.saveGeminiApiKey(apiKey.trim());
+        await SecureStorage.saveGeminiApiKey(trimmedApiKey);
         setHasApiKey(true);
         setApiKey(''); // 清空輸入框
         Alert.alert(
@@ -213,9 +239,9 @@ export default function SettingsScreen() {
     } finally {
       setVerifyingKey(false);
     }
-  };
+  }, [t, trimmedApiKey]);
 
-  const handleRemoveApiKey = () => {
+  const handleRemoveApiKey = useCallback(() => {
     Alert.alert(
       t('apiKeyRemoveTitle'),
       t('apiKeyRemoveConfirm'),
@@ -237,9 +263,28 @@ export default function SettingsScreen() {
         },
       ]
     );
-  };
+  }, [t]);
 
-  const levels: JLPTLevel[] = ['N5', 'N4', 'N3', 'N2', 'N1'];
+  const handleToggleApiKeyVisibility = useCallback(() => {
+    setShowApiKey((prev) => !prev);
+  }, []);
+
+  const openDatePicker = useCallback(() => {
+    setShowDatePicker(true);
+  }, []);
+
+  const openTimePicker = useCallback(() => {
+    setShowTimePicker(true);
+  }, []);
+
+  const handleLanguageChange = useCallback((language: Language) => {
+    i18n.changeLanguage(language);
+    updateSettings({ language });
+  }, [i18n, updateSettings]);
+
+  const handleThemeModeChange = useCallback((themeMode: UserSettings['themeMode']) => {
+    updateSettings({ themeMode });
+  }, [updateSettings]);
 
   return (
     <ScrollView style={styles.container}>
@@ -248,7 +293,7 @@ export default function SettingsScreen() {
         <Text style={styles.sectionDescription}>{t('jlptLevelDesc')}</Text>
 
         <View style={styles.levelContainer}>
-          {levels.map((level) => (
+          {LEVELS.map((level) => (
             <TouchableOpacity
               key={level}
               style={[
@@ -277,7 +322,7 @@ export default function SettingsScreen() {
         <View style={styles.counterContainer}>
           <TouchableOpacity
             style={styles.counterButton}
-            onPress={() => handleWordsPerDayChange(-5)}
+            onPress={decreaseWordsPerDay}
           >
             <Ionicons name='remove' size={24} color={colors.primary} />
           </TouchableOpacity>
@@ -289,7 +334,7 @@ export default function SettingsScreen() {
 
           <TouchableOpacity
             style={styles.counterButton}
-            onPress={() => handleWordsPerDayChange(5)}
+            onPress={increaseWordsPerDay}
           >
             <Ionicons name='add' size={24} color={colors.primary} />
           </TouchableOpacity>
@@ -338,7 +383,7 @@ export default function SettingsScreen() {
               />
               <TouchableOpacity
                 style={styles.eyeButton}
-                onPress={() => setShowApiKey(!showApiKey)}
+                onPress={handleToggleApiKeyVisibility}
               >
                 <Ionicons
                   name={showApiKey ? 'eye-off-outline' : 'eye-outline'}
@@ -353,7 +398,7 @@ export default function SettingsScreen() {
                 verifyingKey && styles.verifyButtonDisabled,
               ]}
               onPress={handleVerifyApiKey}
-              disabled={verifyingKey || !apiKey.trim()}
+              disabled={!canVerifyApiKey}
             >
               {verifyingKey ? (
                 <ActivityIndicator color='#fff' size='small' />
@@ -381,7 +426,7 @@ export default function SettingsScreen() {
 
         <TouchableOpacity
           style={styles.datePickerButton}
-          onPress={() => setShowDatePicker(true)}
+          onPress={openDatePicker}
         >
           <Ionicons name='calendar-outline' size={24} color={colors.primary} />
           <Text style={styles.datePickerText}>
@@ -410,7 +455,7 @@ export default function SettingsScreen() {
             <Text style={styles.settingTitle}>{t('enableReminder')}</Text>
             <Text style={styles.settingDescription}>
               {settings.notificationsEnabled
-                ? t('reminderEnabled', { time: settings.reminderTime || '21:30' })
+                ? t('reminderEnabled', { time: reminderTime })
                 : t('reminderDisabled')}
             </Text>
           </View>
@@ -427,11 +472,11 @@ export default function SettingsScreen() {
         {settings.notificationsEnabled && (
           <TouchableOpacity
             style={styles.timePickerButton}
-            onPress={() => setShowTimePicker(true)}
+            onPress={openTimePicker}
           >
             <Ionicons name='time-outline' size={24} color={colors.primary} />
             <Text style={styles.timePickerText}>
-              {settings.reminderTime || '21:30'}
+              {reminderTime}
             </Text>
             <Ionicons name='chevron-forward' size={20} color={colors.textTertiary} />
           </TouchableOpacity>
@@ -453,38 +498,25 @@ export default function SettingsScreen() {
         <Text style={styles.sectionDescription}>{t('languageDesc')}</Text>
 
         <View style={styles.languageContainer}>
-          <TouchableOpacity
-            style={[
-              styles.languageButton,
-              i18n.language === 'zh' && styles.languageButtonActive,
-            ]}
-            onPress={() => i18n.changeLanguage('zh')}
-          >
-            <Text
+          {LANGUAGE_OPTIONS.map((option) => (
+            <TouchableOpacity
+              key={option.code}
               style={[
-                styles.languageButtonText,
-                i18n.language === 'zh' && styles.languageButtonTextActive,
+                styles.languageButton,
+                activeLanguage === option.code && styles.languageButtonActive,
               ]}
+              onPress={() => handleLanguageChange(option.code)}
             >
-              🇹🇼 繁體中文
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.languageButton,
-              i18n.language === 'en' && styles.languageButtonActive,
-            ]}
-            onPress={() => i18n.changeLanguage('en')}
-          >
-            <Text
-              style={[
-                styles.languageButtonText,
-                i18n.language === 'en' && styles.languageButtonTextActive,
-              ]}
-            >
-              🇬🇧 English
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={[
+                  styles.languageButtonText,
+                  activeLanguage === option.code && styles.languageButtonTextActive,
+                ]}
+              >
+                {option.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
 
@@ -493,54 +525,25 @@ export default function SettingsScreen() {
         <Text style={styles.sectionDescription}>{t('themeDesc')}</Text>
 
         <View style={styles.languageContainer}>
-          <TouchableOpacity
-            style={[
-              styles.languageButton,
-              settings.themeMode === 'light' && styles.languageButtonActive,
-            ]}
-            onPress={() => updateSettings({ themeMode: 'light' })}
-          >
-            <Text
+          {THEME_OPTIONS.map((option) => (
+            <TouchableOpacity
+              key={option.mode}
               style={[
-                styles.languageButtonText,
-                settings.themeMode === 'light' && styles.languageButtonTextActive,
+                styles.languageButton,
+                settings.themeMode === option.mode && styles.languageButtonActive,
               ]}
+              onPress={() => handleThemeModeChange(option.mode)}
             >
-              ☀️ {t('themeLight')}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.languageButton,
-              settings.themeMode === 'dark' && styles.languageButtonActive,
-            ]}
-            onPress={() => updateSettings({ themeMode: 'dark' })}
-          >
-            <Text
-              style={[
-                styles.languageButtonText,
-                settings.themeMode === 'dark' && styles.languageButtonTextActive,
-              ]}
-            >
-              🌙 {t('themeDark')}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.languageButton,
-              settings.themeMode === 'system' && styles.languageButtonActive,
-            ]}
-            onPress={() => updateSettings({ themeMode: 'system' })}
-          >
-            <Text
-              style={[
-                styles.languageButtonText,
-                settings.themeMode === 'system' && styles.languageButtonTextActive,
-              ]}
-            >
-              📱 {t('themeSystem')}
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={[
+                  styles.languageButtonText,
+                  settings.themeMode === option.mode && styles.languageButtonTextActive,
+                ]}
+              >
+                {option.icon} {t(option.labelKey)}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
 
@@ -552,10 +555,7 @@ export default function SettingsScreen() {
 
         <View style={styles.achievementsGrid}>
           {achievements.map((achievement) => {
-            const titleKey = achievement.id.replace('streak-', 'streak');
-            const achievementTitleKey = titleKey === 'streak3' ? 'beginner' :
-                                       titleKey === 'streak7' ? 'persistent' :
-                                       titleKey === 'streak14' ? 'determined' : 'master';
+            const { titleKey, achievementTitleKey } = getAchievementTitleKey(achievement.id);
             return (
               <View
                 key={achievement.id}
@@ -600,333 +600,3 @@ export default function SettingsScreen() {
     </ScrollView>
   );
 }
-
-const createStyles = (colors: ReturnType<typeof import('../src/constants/colors').getTheme>) => StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  section: {
-    backgroundColor: colors.cardBackground,
-    marginTop: 16,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: colors.border,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: colors.textPrimary,
-    marginBottom: 4,
-  },
-  sectionDescription: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    marginBottom: 16,
-  },
-  levelContainer: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  levelButton: {
-    flex: 1,
-    paddingVertical: 16,
-    alignItems: 'center',
-    backgroundColor: colors.border,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: 'transparent',
-  },
-  levelButtonActive: {
-    backgroundColor: colors.primaryLight,
-    borderColor: colors.primary,
-  },
-  levelButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.textSecondary,
-  },
-  levelButtonTextActive: {
-    color: colors.primary,
-  },
-  counterContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 24,
-  },
-  counterButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: colors.primaryLight,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  counterValue: {
-    alignItems: 'center',
-    minWidth: 80,
-  },
-  counterNumber: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: colors.primary,
-  },
-  counterLabel: {
-    fontSize: 14,
-    color: colors.textSecondary,
-  },
-  settingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  settingInfo: {
-    flex: 1,
-  },
-  settingTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.textPrimary,
-    marginBottom: 2,
-  },
-  settingDescription: {
-    fontSize: 14,
-    color: colors.textSecondary,
-  },
-  timePickerButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: colors.background,
-    padding: 16,
-    borderRadius: 12,
-    marginTop: 12,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  timePickerText: {
-    flex: 1,
-    fontSize: 18,
-    fontWeight: '600',
-    color: colors.primary,
-    marginLeft: 12,
-  },
-  infoCard: {
-    gap: 12,
-  },
-  infoRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 8,
-  },
-  infoLabel: {
-    fontSize: 16,
-    color: colors.textSecondary,
-  },
-  infoValue: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: colors.textPrimary,
-  },
-  resetButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.errorLight,
-    marginHorizontal: 20,
-    marginTop: 24,
-    padding: 16,
-    borderRadius: 12,
-  },
-  resetButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.error,
-    marginLeft: 8,
-  },
-  datePickerButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: colors.background,
-    padding: 16,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  datePickerText: {
-    flex: 1,
-    fontSize: 16,
-    color: colors.textPrimary,
-    marginLeft: 12,
-  },
-  achievementsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  achievementItem: {
-    width: '47%',
-    backgroundColor: colors.background,
-    padding: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: colors.border,
-    opacity: 0.5,
-  },
-  achievementUnlocked: {
-    backgroundColor: colors.warningLight,
-    borderColor: colors.warning,
-    opacity: 1,
-  },
-  achievementIcon: {
-    fontSize: 40,
-    marginBottom: 8,
-  },
-  achievementTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.textPrimary,
-    marginBottom: 4,
-  },
-  achievementDesc: {
-    fontSize: 12,
-    color: colors.textSecondary,
-    textAlign: 'center',
-  },
-  achievementUnlockedText: {
-    fontSize: 11,
-    color: colors.warning,
-    fontWeight: '600',
-    marginTop: 4,
-  },
-  languageContainer: {
-    flexDirection: 'row',
-    gap: 12,
-  },
-  languageButton: {
-    flex: 1,
-    paddingVertical: 16,
-    alignItems: 'center',
-    backgroundColor: colors.border,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: 'transparent',
-  },
-  languageButtonActive: {
-    backgroundColor: colors.primaryLight,
-    borderColor: colors.primary,
-  },
-  languageButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.textSecondary,
-  },
-  languageButtonTextActive: {
-    color: colors.primary,
-  },
-  footer: {
-    alignItems: 'center',
-    padding: 32,
-  },
-  apiKeyContainer: {
-    gap: 12,
-  },
-  apiLink: {
-    color: colors.primary,
-    marginBottom: 16,
-  },
-  apiKeyStatus: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.successLight,
-    padding: 16,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.success,
-    gap: 12,
-  },
-  apiKeyStatusText: {
-    flex: 1,
-  },
-  apiKeyStatusTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.success,
-    marginBottom: 2,
-  },
-  apiKeyStatusDesc: {
-    fontSize: 14,
-    color: colors.success,
-  },
-  removeKeyButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.errorLight,
-    padding: 12,
-    borderRadius: 8,
-    gap: 6,
-  },
-  removeKeyButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.error,
-  },
-  apiKeyInputContainer: {
-    gap: 12,
-  },
-  inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.background,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  apiKeyInput: {
-    flex: 1,
-    padding: 16,
-    fontSize: 14,
-    color: colors.textPrimary,
-  },
-  eyeButton: {
-    padding: 16,
-  },
-  verifyButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.primary,
-    padding: 16,
-    borderRadius: 12,
-    gap: 8,
-  },
-  verifyButtonDisabled: {
-    opacity: 0.5,
-  },
-  verifyButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.white,
-  },
-  infoBox: {
-    flexDirection: 'row',
-    backgroundColor: colors.primaryLight,
-    padding: 12,
-    borderRadius: 8,
-    gap: 8,
-    marginTop: 12,
-  },
-  infoBoxText: {
-    flex: 1,
-    fontSize: 13,
-    color: colors.primary,
-    lineHeight: 18,
-  },
-});
