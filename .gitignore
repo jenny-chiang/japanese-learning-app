@@ -47,3 +47,5 @@ coverage/
 
 # code review reports
 review-reports/
+
+pnpm-lock.yaml
